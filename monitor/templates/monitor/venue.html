@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Monitor Venues{% endblock %}
+
+{% block content %}
+<div>
+	<table border="1">
+		<tr><th rowspan="{{ ccfa|length|add:1 }}">CCF A ({{ ccfa|length }})<br>{{ an }} / {{ aN }} ({{ ap|floatformat:2 }} %)</th></tr>
+	{% for v in ccfa %}
+		<tr><td>{{ v.name }}</td><td>{{ v.n }} / {{ v.N }}</td><td>{{ v.p|floatformat:2 }} %</td></tr>
+	{% endfor %}
+		<tr><th rowspan="{{ ccfb|length|add:1 }}">CCF B ({{ ccfb|length }})<br>{{ bn }} / {{ bN }} ({{ bp|floatformat:2 }} %)</th></tr>
+	{% for v in ccfb %}
+		<tr><td>{{ v.name }}</td><td>{{ v.n }} / {{ v.N }}</td><td>{{ v.p|floatformat:2 }} %</td></tr>
+	{% endfor %}
+	</table>
+</div>
+{% endblock %}

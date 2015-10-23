@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+{% include "registration/registration_steps.html" with step=1 only %}
+<div style="margin-top: 30px">
+	<form method="post" action="." style="margin-top: 30px" class="fixed-form">
+		{% csrf_token %}
+		{% comment %}
+		<div class='form-group'>
+			<label for="exampleInputUserName">{{ form.username.label }}</label>
+			{{ form.username }}
+			{% if form.username.errors %}
+			<span class='validation-summary-errors'><small>{{form.username.errors.as_text}}</small></span>
+			{% endif %}
+			<h5 style="margin-top: 5px;"><small>{% trans 'A username to register' %}</small></h5>
+		</div>
+		{% endcomment %}
+		<div class="form-group">
+			<label for="exampleInputEmail1">{{ form.email.label }}</label>
+			{{ form.email }}
+			{% if form.email.errors %}
+			<span class="validation-summary-errors"><small>{{form.email.errors.as_text}}</small></span>
+			{% elif form.username.errors %}
+			<span class='validation-summary-errors'><small>{{form.username.errors.as_text}}</small></span>
+			{% endif %}
+			<h5 style="margin-top: 5px;"><small>{% trans 'A confirmation email will be sent to this email' %}</small></h5>
+		</div>
+		<div class="form-group">
+			<label for="exampleInputPassword1">{{ form.password1.label }}</label>
+			{{ form.password1 }}
+			{% if form.password1.errors %}
+			<span class="validation-summary-errors"><small>{{form.password1.errors.as_text}}</small></span>
+			{% endif %}
+			<h5 style="margin-top: 5px;"><small>{% trans 'A length of 6-30 characters' %}</small></h5>
+		</div>
+		<div class="form-group">
+			<label for="exampleInputPassword1">{{ form.password2.label }}</label>
+			{{ form.password2 }}
+			{% if form.password2.errors %}
+			<span class="validation-summary-errors"><small>{{form.password2.errors.as_text}}</small></span>
+			{% endif %}
+			<h5 style="margin-top: 5px;"><small>{% trans 'Please enter the above password again' %}</small></h5>
+		</div>
+		<div>
+			{{ form.tos }}<span style="font-size: 12px">&nbsp;{{ form.tos.help_text }} <a href="#" target="_blank">Terms of Service</a></span>
+			{% if form.tos.errors %}
+			<span class="validation-summary-errors"><small>{{form.tos.errors.as_text}}</small></span>
+			{% endif %}
+		</div>
+		<br>
+		<input type="submit" value="{% trans 'Register' %}" class="btn btn-success btn-sm"/>
+	</form>
+</div>
+{% endblock %}

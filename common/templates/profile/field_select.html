@@ -1,0 +1,44 @@
+{% extends "profile_base.html" %}
+{%load i18n%}
+
+{% block title %}Select Field{% endblock %}
+
+{% block manage_block %}
+<!-- Add Your HTML code here -->
+<h3 style="width:320px;float: left;">{% trans 'Field Setting' %}</h3>
+<ol class="breadcrumb"></ol>
+<!--<hr style="margin-top: 0px;border-top-color:#c9c9c9"/>-->
+
+{% comment %}{% include "profile/field_select_form.html" %}{% endcomment %}
+<form style="margin-top:10px;width:360px;" action="{% url 'field_select' %}" method="post">
+	{% csrf_token %}
+	<div class='form-group fixed-form'>
+		{{ form.as_p }}
+		{% comment %}
+		<label>Choose your interested field</label>
+		<select name='corpus' class="form-control" style="margin-top:20px;">
+			{% for fid, name in fields.iteritems %}
+			<option value='{{ fid }}'>{{ name }}</option>
+			{% endfor %}
+		</select>
+		{% endcomment %}
+	</div>
+	<br>
+	<label>{% trans 'Need more? You can: ' %}</label>
+	<br>
+	<a href="{% url 'profile' %}">{% trans 'Create your own corpus >' %}</a>
+	<br>
+	<button type="submit" class="btn btn-sm btn-success" style="margin-top: 20px;">{% trans 'Save' %}</button>
+</form>
+
+{% if saved %}
+<script>
+$(document).ready(function(){
+	if (confirm('Successfully saved. Try it now?')) {
+		location.href = "{% url 'eslwriter' %}";
+	}
+});
+</script>
+{% endif %}
+
+{% endblock %}

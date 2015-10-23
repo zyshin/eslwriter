@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}ESLWriter | Sign In{% endblock %}
+
+{% block content %}
+<div class="container">
+	<section id="loginForm" style='margin-bottom: 100px'>
+		<form method="post" action="." class="form-signin fixed-form">
+			{% csrf_token %} 
+			<h2 class='form-signin-heading'>Sign In</h2>
+			<div class='form-group'>
+				<label for="exampleInputUserName">{% trans 'E-mail' %}</label>
+				{{ form.username }}
+				{% if form.username.errors %}
+				<p class='validation-summary-errors'><small>{{form.username.errors.as_text}}</small></p>
+				{% endif %}
+			</div>
+			<div class='form-group'>
+				<label for="exampleInputPassword">{{ form.password.label }}</label>
+				{{ form.password }}
+				{% if form.password.errors %}
+				<p class='validation-summary-errors'><small>{{form.password.errors.as_text}}</small></p>
+				{% endif %}
+				{% if form.non_field_errors %}
+				<p class='validation-summary-errors'><small>{{ form.non_field_errors.as_text }}<!--<a href="{% url 'registration_complete' %}">{% trans "Please check your atcivation email." %}</a>--></small></p>
+				{% endif%}
+			</div>
+			<p>{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>!</p>
+			<input class="btn btn-lg btn-eslred btn-block" type="submit" value="{% trans 'Log in' %}"></input>
+			<br>
+			<p>{% trans "Not member" %}? <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>!</p>
+			<input type="hidden" name="next" value="{{ next }}" />
+		</form>
+	</section>
+</div>
+{% endblock %}

@@ -1,0 +1,177 @@
+{% extends "profile_base.html" %}
+{%load i18n%}
+
+{% block title %}Manage Corpus {{ c.name }}{% endblock %}
+
+{% block resource %}
+{% load static %}
+{% comment %}
+<script src="{% static 'fine_uploader/js/jquery.cookie.js' %}" type="text/javascript"></script>
+<script src="{% static 'fine_uploader/js/csrftoken.js' %}" type="text/javascript"></script>
+{% endcomment %}
+<script type="text/javascript">
+function do_delete_paper(pid) {
+	if(confirm('Are you sure to delete this paper from the corpus?\n(Warning: This cannot be reversed!)')) {
+		$.ajax({
+			url: "{% url 'corpus' c.pk %}" + 'upload/' + pid + '/',
+			type: 'DELETE',
+			success: function(r) {
+			{% if user.is_superuser %}
+				alert('The paper has been deleted.');
+			{% endif %}
+				location.reload(true);
+			},
+			error: function(r) {
+			{% if user.is_superuser %}
+				alert(r);
+			{% endif %}
+				location.reload(true);
+			}
+		});
+	}
+}
+$(document).ready(function(){
+	if($('.pagination').length>0){
+		pageSize={{page_size}};
+		curPage=1;
+		totalCount=$('tr[item-index]').length;
+		pageNums=(totalCount-1)/pageSize+1;
+		hide_overflow(pageSize,totalCount,curPage);
+		update_nav_status(pageNums,curPage);
+		$('li[page-index]').click(function(){
+			if(curPage!=$(this).attr('page-index')&& $(this).attr('page-index')<=pageNums && $(this).attr('page-index')>0){
+				curPage=Number($(this).attr('page-index'));
+				hide_overflow(pageSize,totalCount,curPage);
+				update_nav_status(pageNums,curPage);
+			}
+		});
+		$("li[page-nav='pre']").click(function(){
+			if(curPage>1){
+				curPage-=1;
+				hide_overflow(pageSize,totalCount,curPage);
+				update_nav_status(pageNums,curPage);
+			} 
+		});
+		$("li[page-nav='next']").click(function(){
+			if(curPage<pageNums){
+				curPage+=1;
+				hide_overflow(pageSize,totalCount,curPage);
+				update_nav_status(pageNums,curPage);
+			} 
+		});
+	}
+});
+function hide_overflow(pageSize,totalCount,curPage){
+	if(totalCount>pageSize){
+		showStart=pageSize*(curPage-1)+1
+		showEnd=pageSize*curPage
+		$('tr[item-index]').each(function(){
+			if($(this).attr('item-index')<showStart||$(this).attr('item-index')>showEnd){
+				$(this).hide();
+			}
+			else{
+				$(this).show();
+			}
+		});
+	}
+}
+function update_nav_status(pageNums,curPage){
+	if(pageNums>1){
+		$('li[page-index]').each(function(){
+			if($(this).attr('page-index')==curPage){
+				$(this).attr('class','active'); 
+			}
+			else{
+				$(this).attr('class','');
+			}
+			if(pageNums==curPage){
+				$("li[page-nav='next']").attr('class','disabled');
+			}
+			else
+			{
+				$("li[page-nav='next']").attr('class','');
+			}
+			if(curPage==1){
+				$("li[page-nav='pre']").attr('class','disabled');
+			}
+			else
+			{
+				$("li[page-nav='pre']").attr('class','');
+			}
+		});
+	}
+}
+</script>
+<style type="text/css">
+.pagination li{
+	cursor: pointer;
+}
+.pagination .disabled,.active{
+	cursor: default;
+}
+</style>
+{% endblock %}
+
+{% block manage_block %}
+<h3 style="float: left;">{% trans c.name %}</h3>
+<a class="glyphicon glyphicon-edit" style="margin-top: 25px;margin-left: 10px;" href="{% url 'corpus_update' c.pk %}"></a>
+{% if c.status == 1 %}
+<strong style="float: right;margin-top:20px;">Processing</strong>
+{% else %}
+<a class="btn btn-eslred btn-sm" style="float: right;margin-top:20px;" href="{% url 'upload' c.pk %}">+ {% trans 'Add Papers' %}</a>
+{% if plist|length %}<button class="btn btn-eslred btn-sm" style="float: right;margin-top:20px;margin-right: 20px;" corpus="{{ c.pk }}">+ {% trans 'Activate' %}</button>{% endif %}
+{% endif %}
+<ol class="breadcrumb">
+	<li><a href="{% url 'profile' %}">{% trans 'All Corpora' %}</a></li>
+	<li class="active">{{ c.name }}</li>
+	<a href="{% url 'profile' %}" style="float: right;">{% trans '< Back' %}</a>
+</ol>
+
+{% if plist %}
+<div class="corpuslist">
+<table class="table table-hover table-striped">
+	<thead>
+	   <tr><td colspan="5"></td></tr>
+	</thead>
+	<tbody>
+	{% for p in plist %}
+		<tr item-index="{{forloop.counter}}">
+			<td><p style="width:10px" class="glyphicon glyphicon-file" aria-hidden="true"></p></td>
+			<td><p style="max-width:200px; word-break: break-word;">{{ p.title }}</p></td>
+			<td>{{ p.file.nwords }} words</td>
+			<td>{{ p.timestamp|date:"Y-m-d" }}<br>{{ p.timestamp|date:"H:i:s" }}</td>
+			{% comment %}
+			<td><a href="{% url 'update_paper' p.corpus.pk p.pk %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>&nbsp;&nbsp;<a onclick="do_delete_paper({{ p.pk }})"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></a></td>
+			{% endcomment %}
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+{% if page_nums_list|length > 1 %}
+<div class="page-nav-container">
+	<ul class="pagination">
+		<li page-nav="pre" class="disabled">
+			<a aria-label="Previous">
+				<span aria-hidden="true">«</span>
+			</a>
+		</li>
+		{% for num in page_nums_list %}
+		<li page-index="{{ num }}">
+			<a>
+				<span aria-hidden="true">{{ num }}</span>
+			</a>
+		</li>
+		{% endfor %}
+		<li page-nav="next">
+			<a aria-label="Next">
+				<span aria-hidden="true">»</span>
+			</a>
+		</li>
+	</ul>
+</div>
+{% endif %}
+{% include 'profile/activate_dialog.html' %}
+</div>
+{% endif %}
+
+{% endblock %}

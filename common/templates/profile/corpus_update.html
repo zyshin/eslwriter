@@ -1,0 +1,30 @@
+{% extends "profile_base.html" %}
+{%load i18n%}
+
+{% block title %}{% if form.instance.pk %}Modify Corpus | {{ form.instance.name }}{% else %}Create Corpus{% endif %}{% endblock %}
+
+{% block manage_block %}
+
+<h3 style="float: left;">{% if form.instance.pk %}{% trans 'Rename Corpus' %}{% else %}{% trans 'Create Corpus' %}{% endif %}</h3>
+<ol class="breadcrumb">
+    <li><a href="{% url 'profile' %}">{% trans 'All Corpora' %}</a></li>
+    <li class="active">{% if form.instance.pk %}{% trans 'Rename Corpus' %}{% else %}{% trans 'Create Corpus' %}{% endif %}</li>
+    <a href="{% url 'profile' %}" style="float: right;">{% trans '< Back' %}</a>
+</ol>
+<hr style="margin-top: 0px;border-top-color:#c9c9c9"/>
+{% csrf_token %}
+    <form action="" method="post" style='width:360px;'>
+	    {% csrf_token %}
+        <div class='form-group'>
+            <label for="exampleInputName">{% trans 'Name' %}</label>{{ form.name.errors }}
+            {{ form.name }}
+            <h5 style="margin-top: 5px;"><small>{% trans 'Name of your corpus.' %}</small></h5>
+        </div>
+        <div class='form-group'>
+            <label for="exampleInputDescription">{% trans 'Description' %}</label>
+            {{ form.description }}
+            <h5 style="margin-top: 5px;"><small>{% trans 'Description of your corpus.' %}</small></h5>
+        </div>
+        <input type="submit" class='btn btn-success btn-sm' value="{% if form.instance.pk %}Save{% else %}Create{% endif %}">
+    </form>
+{% endblock %}
