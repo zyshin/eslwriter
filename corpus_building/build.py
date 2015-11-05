@@ -128,6 +128,7 @@ def process_conll_file(uid, text, token_dict=None, pos_dict=None, dep_dict=None)
 def process_conll_line(l, token_dict, pos_dict, dep_dict):
 	tt = l.split('\t')
 	assert len(tt) == 7, 'len(%s) = %d != 7' % (repr(tt), len(tt))
+	tt[2] = tt[2].lower()	# lemmas are in lower case!
 	if token_dict is not None:
 		token_dict[tt[1]] = token_dict.get(tt[1], 0)	# count word
 		token_dict[tt[2]] = token_dict.get(tt[2], 0) + 1	# count lemma

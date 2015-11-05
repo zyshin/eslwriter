@@ -11,7 +11,9 @@ def timeit(func):
         start = clock()
         result = func(*args, **kwags)  #recevie the native function call result
         finish = clock()
-        print 'timeit: ', func.__name__, int((finish - start) * 1000), 'ms'
+        span = int((finish - start) * 1000)
+        if settings.DEBUG or span > 5000:
+            print 'timeit: ', func.__name__, span, 'ms'
         return result        #return to caller
     return __decorator
 
