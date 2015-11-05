@@ -1,0 +1,171 @@
+{% extends "profile_base.html" %}
+{%load i18n%}
+{% block title %}Corpora Manage{% endblock %}
+
+{% block resource %}
+<script type="text/javascript">
+{% comment %}
+function do_delete_corpus(cid) {
+	if(confirm('Are you sure to delete this corpus and all its papers?\n(Warning: This cannot be reversed!)')) {
+		$.ajax({
+			url: '{% url "corpus_update" %}' + cid,
+			type: 'DELETE',
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+			},
+			success: function(r) {
+				alert('The corpus has been deleted.');
+				location.href = '{% url "profile" %}';
+			},
+			error: function(r) {
+			{% if user.is_superuser %}
+			{% endif %}
+				// alert(r.responseText);
+				// location.reload(true);
+				alert('Permission denied.');
+			}
+		});
+	}
+}
+{% endcomment %}
+$(document).ready(function(){
+	if($('.pagination').length>0){
+		pageSize={{page_size}};
+		curPage=1;
+		totalCount=$('tr[item-index]').length/2;
+		pageNums=(totalCount-1)/pageSize+1;
+		hide_overflow(pageSize,totalCount,curPage);
+		update_nav_status(pageNums,curPage);
+		$('li[page-index]').click(function(){
+			if(curPage!=$(this).attr('page-index')&& $(this).attr('page-index')<=pageNums && $(this).attr('page-index')>0){
+				curPage=Number($(this).attr('page-index'));
+				hide_overflow(pageSize,totalCount,curPage);
+				update_nav_status(pageNums,curPage);
+			}
+		});
+		$("li[page-nav='pre']").click(function(){
+			if(curPage>1){
+				curPage-=1;
+				hide_overflow(pageSize,totalCount,curPage);
+				update_nav_status(pageNums,curPage);
+			} 
+		});
+		$("li[page-nav='next']").click(function(){
+			if(curPage<pageNums){
+				curPage+=1;
+				hide_overflow(pageSize,totalCount,curPage);
+				update_nav_status(pageNums,curPage);
+			} 
+		});
+	}
+});
+function hide_overflow(pageSize,totalCount,curPage){
+	if(totalCount>pageSize){
+		showStart=pageSize*(curPage-1)+1
+		showEnd=pageSize*curPage
+		$('tr[item-index]').each(function(){
+			if($(this).attr('item-index')<showStart||$(this).attr('item-index')>showEnd){
+				$(this).hide();
+			}
+			else{
+				$(this).show();
+			}
+		});
+	}
+}
+function update_nav_status(pageNums,curPage){
+	if(pageNums>1){
+		$('li[page-index]').each(function(){
+			if($(this).attr('page-index')==curPage){
+				$(this).attr('class','active'); 
+			}
+			else{
+				$(this).attr('class','');
+			}
+			if(pageNums==curPage){
+				$("li[page-nav='next']").attr('class','disabled');
+			}
+			else
+			{
+				$("li[page-nav='next']").attr('class','');
+			}
+			if(curPage==1){
+				$("li[page-nav='pre']").attr('class','disabled');
+			}
+			else
+			{
+				$("li[page-nav='pre']").attr('class','');
+			}
+		});
+	}
+}
+</script>
+<style type="text/css">
+.pagination li{
+	cursor: pointer;
+}
+.pagination .disabled,.active{
+	cursor: default;
+}
+</style>
+{% endblock %}
+
+{% block manage_block %}
+<h3 style="float: left;">{% trans 'Personal Corpus' %}</h3>
+<a class="btn btn-eslred btn-sm" style="float: right;margin-top:20px;" href="{% url 'corpus_update' %}">+ {% trans 'Create New' %}</a>
+<ol class="breadcrumb">
+	<!--<li class="active">This feature is under construction. You will soon be able to create your own corpus!</li>-->
+	<li><a href="{% url 'profile' %}">{% trans 'All Corpora' %}</a></li>
+</ol>
+
+<div class='corpuslist'>
+{% if clist %}
+<table class="table table-hover">
+	<thead><tr><td colspan=4></td></tr></thead>
+	{% for c in clist %}
+	<tr item-index='{{ forloop.counter }}'>
+		<td>
+			{% if c.selected %}<strong>{% endif %}<a href="{% url 'corpus' c.pk %}"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span><span>&nbsp;&nbsp;{{ c.name }}&nbsp;&nbsp;</span></a>{% if c.selected %}</strong>{% endif %}
+			<strong>{% if not c.paper_count %}Empty{% elif c.status == 2 and c.selected %}Activated{% elif c.status == 1 %}Processing{% endif %}</strong>
+			{% if c.status == 0 and c.paper_count %}<button type="button" class="btn btn-default btn-xs" corpus='{{ c.pk }}'>Activate</button>{% endif %}
+			{% if c.status == 2 and not c.selected %}<button type="button" class="btn btn-default btn-xs" corpus='{{ c.pk }}'>Activate</button>{% endif %}
+		</td>
+		<td>{{ c.paper_count }} papers</td>
+		<td>{{ c.date_created|date:"Y-m-d" }}<br>{{ c.date_created|date:"H:i:s" }}</td>
+		<td>
+			<a class='glyphicon glyphicon-edit' style='cursor: pointer'  href="{% url 'corpus_update' c.pk %}"></a>
+			{% comment %}
+			&nbsp;&nbsp;
+			<a class='glyphicon glyphicon-remove-sign' style='cursor: pointer' onclick='do_delete_corpus({{c.pk}})'></a>
+			{% endcomment %}
+		</td>
+	</tr>
+	<tr item-index='{{ forloop.counter }}'>
+		<td colspan="4" style="border-top: none !important;padding: 0 30px !important;"><div class="corpusdescription"><h5><small>{{ c.description }}</small></h5></div></td>
+	</tr>
+	{% endfor %}
+</table>
+
+{% if page_nums_list|length > 1 %}
+<div class="page-nav-container">
+	<ul class="pagination">
+		<li page-nav='pre' class="disabled">
+			<a aria-label="Previous"><span aria-hidden="true">«</span></a>
+		</li>
+		{% for num in page_nums_list %}
+		<li page-index='{{num}}'>
+			<a><span aria-hidden="true">{{ num }}</span></a>
+		</li>
+		{% endfor %}
+		<li page-nav='next'>
+			<a aria-label="Next"><span aria-hidden="true">»</span></a>
+		</li>
+	</ul>
+</div>
+{% endif %}
+
+{% endif %}
+{% include 'profile/activate_dialog.html' %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    {% include "registration/registration_steps.html" %}
+	<p style="text-align: center;margin-top: 50px;font-size: 24px;">{% trans "We are sorry that registration is currently closed ..." %}</p>
+{% endblock %}

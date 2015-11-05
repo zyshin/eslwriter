@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+{% include "registration/registration_steps.html" with step=2 only %}
+<p style="text-align: center;margin-top: 50px;font-size: 24px;">{% trans "Activation failed" %}</p>
+
+{% endblock %}

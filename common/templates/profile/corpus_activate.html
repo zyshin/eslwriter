@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Activate Corpus {{ c.name }}{% endblock %}
+
+{% block resource %}
+{% endblock %}
+
+{% block content %}
+
+<h1>Activate Corpus {{ c.name }}</h1>
+<p>It will take some time to process a corpus.</p>
+
+<p><a href="{% url 'build' c.pk %}">Yes, proceed now.</a>&nbsp;&nbsp;<a href="{% url 'corpus' c.pk %}">No, back to modify.</a></p>
+
+{% endblock %}
