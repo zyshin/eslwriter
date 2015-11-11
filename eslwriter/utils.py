@@ -7,6 +7,7 @@ from django.conf import settings
 from common.models import *
 from common.utils import mongo_get_object, mongo_get_object_or_404, timeit
 from .wordnet import lemmatize, synonyms
+# from .thesaurus import synonyms
 from .translator import is_cn, translate
 
 
@@ -159,11 +160,12 @@ def expanded_deps(iiii, dd, cids):
 
 
 def expanded_token(t):
-    assert type(t) == type('') or type(t) == type(u''), 't is type of %s' % type('')
+    assert type(t) == type('') or type(t) == type(u''), 't is of type %s, not str' % type(t)
     # translate Chinese keywords & synonym expansion according to '?'
     if is_cn(t):
         return translate(t.strip('?'))
     elif t.endswith('?'):
+        print synonyms(t.strip('?'))
         return synonyms(t.strip('?'))
     else:
         return (t,)
