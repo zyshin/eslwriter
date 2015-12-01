@@ -7,7 +7,7 @@ from django.conf import settings
 from common.models import *
 from common.utils import mongo_get_object, mongo_get_object_or_404, timeit
 from .wordnet import lemmatize, synonyms
-# from .thesaurus import synonyms
+from .thesaurus import synonyms
 from .translator import is_cn, translate
 
 
@@ -165,7 +165,7 @@ def expanded_token(t):
     if is_cn(t):
         return translate(t.strip('?'))
     elif t.endswith('?'):
-        print synonyms(t.strip('?'))
+        # print synonyms(t.strip('?'))
         return synonyms(t.strip('?'))
     else:
         return (t,)

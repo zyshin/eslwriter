@@ -126,8 +126,9 @@ function update_nav_status(pageNums,curPage){
 	<tr item-index='{{ forloop.counter }}'>
 		<td>
 			{% if c.selected %}<strong>{% endif %}<a href="{% url 'corpus' c.pk %}"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span><span>&nbsp;&nbsp;{{ c.name }}&nbsp;&nbsp;</span></a>{% if c.selected %}</strong>{% endif %}
-			<strong>{% if not c.paper_count %}Empty{% elif c.status == 2 and c.selected %}Activated{% elif c.status == 1 %}Processing{% endif %}</strong>
+			<strong>{% if not c.paper_count %}Empty{% elif c.status == 2 and c.selected %}Activated{% elif c.status == 1 %}Processing{% elif c.status < 0 %}Error{% endif %}</strong>
 			{% if c.status == 0 and c.paper_count %}<button type="button" class="btn btn-default btn-xs" corpus='{{ c.pk }}'>Activate</button>{% endif %}
+			{% if c.status < 0 and c.paper_count %}<button type="button" class="btn btn-default btn-xs" corpus='{{ c.pk }}'>Retry</button>{% endif %}
 			{% if c.status == 2 and not c.selected %}<button type="button" class="btn btn-default btn-xs" corpus='{{ c.pk }}'>Activate</button>{% endif %}
 		</td>
 		<td>{{ c.paper_count }} papers</td>

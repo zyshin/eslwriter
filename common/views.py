@@ -139,22 +139,18 @@ def update_paper_view(request, cid, pid):
 	# return render(request, 'profile/update_paper.html', {'form': form, 'c': corpus, 'menu_index':1})
 
 
-from django.db import transaction
 from corpus_building.tasks import build_task
 
 @login_required
 def activate_view(request, cid):
 	if request.method == 'POST':
 		cid = int(cid)
-		with transaction.atomic():
-			corpus = get_object_or_404(UserCorpus, pk=cid, user=request.user)
-			if corpus.status == 0:
-				corpus.status = 1
-				corpus.save()
-				if settings.DEBUG and False:
-					build_task(cid)
-				else:
-					build_task.delay(cid)
+		get_object_or_404(UserCorpus, pk=cid, user=request.user)
+		if UserCorpus.objects.filter(pk=cid, status__lte=0).update(status=1):
+			if settings.CELERY_DEBUG:
+				build_task(cid)
+			else:
+				build_task.delay(cid)
 		profile = mongo_get_object(UserProfile, pk=request.user.pk)
 		profile['pri_corpus'] = cid
 		mongo_save(UserProfile, **profile)

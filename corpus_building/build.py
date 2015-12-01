@@ -29,7 +29,7 @@ def build_corpus(cid, parse=True, append=True):
 			towait.append(pid)
 
 	if toparse:
-		print len(toparse), 'files parsing'
+		print '%d files parsing' % len(toparse)
 		r = parse_files(cid, toparse)
 		dbc.common.logs.insert_one(r)
 		bulk = db.initialize_unordered_bulk_op()
@@ -38,7 +38,7 @@ def build_corpus(cid, parse=True, append=True):
 			bulk.find({'_id': pid}).update_one({'$set': {'status': status}})
 		bulk.execute()
 	if towait:
-		print len(towait), 'files waiting'
+		print '%d files waiting' % len(towait)
 		for i in xrange(60 * len(towait)):
 			towait = [p['_id'] for p in db.find({'_id': {'$in': towait}, 'status': -3})]
 			if not towait:
@@ -103,6 +103,7 @@ def build_corpus(cid, parse=True, append=True):
 	#	 t['tfidf'] = math.log(t['c']/float(t['df']+1)) if t['c'] else 0
 	# db.tokens.remove()
 	# db.tokens.insert(tokens)
+	print 'build done'
 
 	return count
 
