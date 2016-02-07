@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, url
 from django.conf import settings
+import views
 
-urlpatterns = patterns('',
-	url(r'^venue/$', 'monitor.views.venue_view', name='monitor_venue_view'),
-)
+urlpatterns = [
+	url(r'^venue/$', views.venue_view, name='monitor_venue_view'),
+]
