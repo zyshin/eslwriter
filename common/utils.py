@@ -34,6 +34,10 @@ def make_response(status=200, content_type='text/plain', content=None):
     return response
 
 
+def debug(context):
+  return {'DEBUG': settings.DEBUG}
+
+
 def mongo_get_object(type_object, projection=None, **kwargs):
     if 'pk' in kwargs:
         kwargs[type_object.Meta.pk] = kwargs['pk']
