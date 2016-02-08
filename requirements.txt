@@ -10,5 +10,6 @@ PyPDF2
 nltk
 pymongo
 requests
-celery
-# django-celery
+django-celery
+# celery
+# librabbitmq

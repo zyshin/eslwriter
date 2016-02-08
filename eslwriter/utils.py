@@ -10,8 +10,8 @@ from .wordnet import lemmatize, synonyms
 from .thesaurus import synonyms
 from .translator import is_cn, translate
 
-
-global dt2i, i2dt, pt2i, i2pt, t2i, i2t
+print 'initializing data ...'
+# global dt2i, i2dt, pt2i, i2pt, t2i, i2t
 dbc = settings.DBC
 deps = list(dbc.common.deps.find())
 dt2i = dict([(d['dt'], d['_id']) for d in deps])

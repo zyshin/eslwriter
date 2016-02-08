@@ -94,7 +94,9 @@ $RECYCLE.BIN/
 # For ESL project
 /.svn/
 /env/
+/env_test/
 /legacy/
 /media/
 /data/
 db.*
+*.sh

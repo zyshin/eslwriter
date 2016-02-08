@@ -11,3 +11,5 @@ nltk
 pymongo
 requests
 django-celery
+# celery
+# librabbitmq
