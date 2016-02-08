@@ -99,17 +99,18 @@ class CorpusForm(forms.ModelForm):
 
 
 class FieldSelectForm(forms.Form):
-    class Meta:
+    choice = forms.ChoiceField(widget=forms.Select, 
+                               label=_('Choose your interested field'),
+                               error_messages={'required': _("You must choose one field from the list"), 
+                                               'invalid_choice': _("You must choose one field from the list")})
+
+    def __init__(self, *args, **kwargs):
+        super(FieldSelectForm, self).__init__(*args, **kwargs)
         _pipeline = [{'$group': {'_id': '$domain', 'fields': {'$push': {'i': '$_id', 'name': '$name'}}}}]
         choices = [(d['_id'], [(int(f['i']), f['name']) for f in d['fields']]) for d in settings.DBC.esl.fields.aggregate(_pipeline)]
         choices.insert(0, (None, '------------ Choose one field ------------'))
         choices.append(('Other fields to be added', ()))
-    
-    choice = forms.ChoiceField(choices=Meta.choices, 
-                               widget=forms.Select, 
-                               label=_('Choose your interested field'),
-                               error_messages={'required': _("You must choose one field from the list"), 
-                                               'invalid_choice': _("You must choose one field from the list")})
+        self.fields['choice'].choices = choices
 
     def clean_choice(self):
         c = self.cleaned_data['choice']
