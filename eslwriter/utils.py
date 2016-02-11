@@ -19,7 +19,10 @@ i2dt = dict([(d['_id'], d['dt']) for d in deps])
 poss = list(dbc.common.poss.find())
 pt2i = dict([(p['pt'], p['_id']) for p in poss])
 i2pt = dict([(p['_id'], p['pt']) for p in poss])
-del deps, poss 
+del deps, poss
+
+print 'loading wordnet'
+lemmatize('')
 
 if True:
     class MongoDict:
@@ -41,8 +44,6 @@ if True:
     t2i = MongoDict(t2i_get)
     i2t = MongoDict(i2t_get)
 else:
-    print 'loading wordnet'
-    lemmatize('')
     print 'loading tokens'
     tokens = list(dbc.common.tokens.find())
     t2i = dict([(t['t'], t['_id']) for t in tokens])
