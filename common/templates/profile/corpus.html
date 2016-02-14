@@ -136,6 +136,7 @@ function update_nav_status(pageNums,curPage){
 	<tbody>
 	{% for p in plist %}
 		<tr item-index="{{forloop.counter}}">
+			<!-- <td>{{ p.file.status }}</td> -->
 			<td><p style="width:10px" class="glyphicon glyphicon-file" aria-hidden="true"></p></td>
 			<td><p style="max-width:200px; word-break: break-word;">{{ p.title }}</p></td>
 			<td>{{ p.file.nwords }} words</td>

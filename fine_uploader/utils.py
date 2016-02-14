@@ -59,7 +59,8 @@ def extracted(pdfPath):
     try:
         r = subprocess.check_output([settings.PDFTOTEXT, '-enc', 'ASCII7', '-eol', 'unix', '-nopgbrk', '-q', pdfPath, '-']) # TODO: handle unicode
     except Exception as e:
-        return ''
+        print '[Exception when pdftotext]', repr(e)
+        r = ''
     return r
 
 

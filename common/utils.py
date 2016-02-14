@@ -13,7 +13,7 @@ def timeit(func):
         finish = clock()
         span = int((finish - start) * 1000)
         if settings.DEBUG or span > 5000:
-            print 'timeit: ', func.__name__, span, 'ms'
+            print '[DEBUG] timeit: ', func.__name__, span, 'ms'
         return result        #return to caller
     return __decorator
 
