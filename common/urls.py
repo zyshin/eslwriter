@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 # from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm
 from django.views.generic.base import TemplateView
 from django.core.urlresolvers import reverse_lazy

@@ -15,8 +15,8 @@ class RegistrationFormUniqueEmailTermsOfService(RegistrationForm):
     for agreeing to a site's Terms of Service and enforces uniqueness of
     email addresses.
     """
-    username = forms.EmailField(max_length=30, label=_("E-mail"))
-    email = forms.EmailField(max_length=30, label=_("E-mail"))
+    username = forms.EmailField(max_length=50, label=_("E-mail"))
+    email = forms.EmailField(max_length=50, label=_("E-mail"))
     password1 = forms.CharField(widget=forms.PasswordInput,
                                 min_length=6, max_length=30,
                                 label=_("Password"))
