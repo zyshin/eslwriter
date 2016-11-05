@@ -20,6 +20,18 @@
 		$(".fixed-form select").css("width","auto");
 	});
 	</script>
+{% if not DEBUG %}
+<!--Baidu statistics-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?377ba142a5c2dbb048149a096c2a8929";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+{% endif %}
 	{% block resource %}{% endblock %}
 </head>
 
