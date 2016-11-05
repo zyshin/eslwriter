@@ -10,6 +10,8 @@ django-registration-redux>=1.4
 nltk>=3.2.1
 pymongo>=3.3.1
 PyPDF2>=1.26.0
+requests
+# celery is already included in django-celery
 #celery>=3.1.24
 # If you’re using RabbitMQ then you should install the librabbitmq module, which is an AMQP client implemented in C: http://docs.celeryproject.org/en/latest/getting-started/next-steps.html#optimization
 #librabbitmq

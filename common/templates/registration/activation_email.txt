@@ -1,49 +1,31 @@
 {% load i18n %}
-<!doctype html>
-<html lang="en">
+{% blocktrans %}
+Welcome {{ user }},
+{% endblocktrans %}
 
-<head>
-    <title>{{ site.name }} {% trans "registration" %}</title>
-</head>
+{% blocktrans with site_name=site.name %}
+Thanks for signing up with {{ site_name }}!
+{% endblocktrans %}
+{% blocktrans %}
+To activate this account, please click the following link within the next
+{{ expiration_days }} days:
+{% endblocktrans %}
 
-<body>
-<p>
-    {% blocktrans %}
-    Welcome {{ user }},
-    {% endblocktrans %}
-</p>
-<p>
-    {% blocktrans with site_name=site.name %}
-    Thanks for signing up with {{ site_name }}!
-    To activate this account, please click the following link within the next
-    {{ expiration_days }} days:
-    {% endblocktrans %}
-</p>
-<p>
-    <a href="http://{{site.domain}}{% url 'registration_activate' activation_key %}">
-        {{site.domain}}{% url 'registration_activate' activation_key %}
-    </a>
-</p>
-<p>
-    {% blocktrans %}
-    Have fun searching, and don't hesitate to contact us with your feedback.
-    {% endblocktrans %}
-</p>
-<p>
-    {% blocktrans with site_name=site.name %}
-    Sincerely,
-    {{ site_name }} Team
-    {% endblocktrans %}
-</p>
-</body>
+http://{{site.domain}}{% url 'registration_activate' activation_key %}
 
-</html>
+{% blocktrans %}
+Have fun searching, and don't hesitate to contact us with your feedback.
+{% endblocktrans %}
+{% blocktrans with site_name=site.name %}
+Sincerely,
+{{ site_name }} Team
+{% endblocktrans %}
 
 
 {% comment %}
-**registration/activation_email.html**
+**registration/activation_email.txt**
 
-Used to generate the html body of the activation email. Should display a
+Used to generate the text body of the activation email. Should display a
 link the user can click to activate the account. This template has the
 following context:
 
