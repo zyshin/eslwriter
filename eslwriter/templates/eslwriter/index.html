@@ -1,4 +1,5 @@
 {% extends "eslwriter_base.html" %}
+{% load static %}
 
 {% block title %}ESLWriter{% endblock %}
 
@@ -8,6 +9,9 @@
 		<div id="QueryContent">
 			<div id="LogoBack" {%if count%} style="height:0px;overflow:hidden" {%endif%} >
 				<div id="LogoContainer">
+					<a href="{% url 'eslwriter' %}">
+						<img style="margin-top: -100px; margin-left: -20px;" src="{% static 'common/img/logo.png' %}" alt="ESLWriter logo">
+					</a>
 				</div>
 			</div>
 			<div class="ResultList" id="QueryResult">

@@ -146,11 +146,12 @@ white-space: nowrap;
 }
 
 .navbar-brand {
-  background: url(../img/logo_min.png) 0px -3px no-repeat;
+  /*background: url(../img/logo_min.png) 0px -3px no-repeat;*/
   width: 90px;
   height: 30px;
   margin-top: 10px;
   margin-left: 0 !important;
+  overflow: hidden;
 }
 
 /* Always apply the floated nav */
@@ -308,7 +309,8 @@ background-color: #bf3616;
   margin-top: 80px;
   margin-left: auto;
   margin-right: auto;
-  background: url(../img/logo.png) -20px -100px no-repeat;
+  overflow: hidden;
+  /*background: url(../img/logo.png) -20px -100px no-repeat;*/
 }
 #SearchBar{
   margin:20px auto;
