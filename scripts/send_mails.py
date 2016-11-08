@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from registration.models import RegistrationProfile
+import time
 
 def send_mails(emails):
     settings.ACTIVATION_EMAIL_HTML = 'registration/activation_prompt_email.html'
@@ -8,4 +9,5 @@ def send_mails(emails):
     for email in emails:
         profile = RegistrationProfile.objects.get(user__email=email)
         RegistrationProfile.objects.resend_activation_mail(profile.user.email, site)
+        time.sleep(300)
     del settings.ACTIVATION_EMAIL_HTML

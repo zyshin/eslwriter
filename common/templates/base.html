@@ -12,7 +12,7 @@
 	<link rel="shortcut icon" href="{% static 'common/img/eslwriter.ico' %}" />
 	<link rel="bookmark" href="{% static 'common/img/eslwriter.ico' %}" />
 	<link href="{% static 'common/css/bootstrap.min.css' %}" type="text/css" rel="stylesheet" />
-	<link href="{% static 'common/css/style.css' %}" type="text/css" rel="stylesheet" />
+	<link href="{% static 'common/css/style.css' %}{% if not DEBUG %}?v={% now 'Ymd' %}{% endif %}" type="text/css" rel="stylesheet" />
 	<script type="text/javascript">
 	$('.main .container').ready(function(){
 		$(".fixed-form input[type !='submit'][type!='checkbox']").attr('class','form-control fixed-width-control');
