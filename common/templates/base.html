@@ -12,7 +12,7 @@
 	<link rel="shortcut icon" href="{% static 'common/img/eslwriter.ico' %}" />
 	<link rel="bookmark" href="{% static 'common/img/eslwriter.ico' %}" />
 	<link href="{% static 'common/css/bootstrap.min.css' %}" type="text/css" rel="stylesheet" />
-	<link href="{% static 'common/css/style.css' %}{% if not DEBUG %}?v={% now 'Ymd' %}{% endif %}" type="text/css" rel="stylesheet" />
+	<link href="{% static 'common/css/style.css' %}?v={% now 'Ymd' %}" type="text/css" rel="stylesheet" />
 	<script type="text/javascript">
 	$('.main .container').ready(function(){
 		$(".fixed-form input[type !='submit'][type!='checkbox']").attr('class','form-control fixed-width-control');
@@ -44,7 +44,7 @@ var _hmt = _hmt || [];
 			<div class='container' style='position: relative'>
 				<div class="navbar-header">
 					<a class="navbar-brand" href="{% url 'eslwriter' %}">
-						<img style="margin-top: -22px;margin-left: -20px;width: 98px;" src="{% static 'common/img/logo_min.png' %}" alt="ESLWriter mini logo">
+						<img style="margin-top: -22px;margin-left: -20px;width: 98px;" src="{% static 'common/img/logo_min.png' %}?v={% now 'Ymd' %}" alt="ESLWriter mini logo">
 					</a>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse" style="margin-right: -20px;">
