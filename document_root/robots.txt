@@ -1,3 +1,6 @@
 user-agent: *
 Allow: /$
+Allow: /sitemap.xml$
 Disallow: /
+
+Sitemap: http://www.eslwriter.org/sitemap.xml
