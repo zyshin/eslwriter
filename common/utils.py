@@ -119,9 +119,9 @@ def init_dbc(remote=False):
     from getpass import getpass
     global dbc
     if remote:
-        dbc = MongoClient('www.thuesl.org')
+        dbc = MongoClient('www.eslwriter.org')
     else:
-        dbc = MongoClient('166.111.139.170')
+        dbc = MongoClient('166.111.139.42')
     print 'using', dbc
     try:
         dbc.database_names()

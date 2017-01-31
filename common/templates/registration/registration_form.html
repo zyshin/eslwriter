@@ -42,12 +42,12 @@
 			{% endif %}
 			<h5 style="margin-top: 5px;"><small>{% trans 'Please enter the above password again' %}</small></h5>
 		</div>
-		<div>
+		<!-- <div>
 			{{ form.tos }}<span style="font-size: 12px">&nbsp;{{ form.tos.help_text }} <a href="#" target="_blank">Terms of Service</a></span>
 			{% if form.tos.errors %}
 			<span class="validation-summary-errors"><small>{{form.tos.errors.as_text}}</small></span>
 			{% endif %}
-		</div>
+		</div> -->
 		<br>
 		<input type="submit" value="{% trans 'Register' %}" class="btn btn-success btn-default"/>
 	</form>

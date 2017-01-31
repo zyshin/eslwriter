@@ -23,9 +23,9 @@ class RegistrationFormUniqueEmailTermsOfService(RegistrationForm):
     password2 = forms.CharField(widget=forms.PasswordInput,
                                 min_length=6, max_length=30,
                                 label=_("Password (again)"))
-    tos = forms.BooleanField(widget=forms.CheckboxInput,
-                             help_text=_('I have read and agree to the'),
-                             error_messages={'required': _("You must agree to the terms")})
+    # tos = forms.BooleanField(widget=forms.CheckboxInput,
+    #                          help_text=_('I have read and agree to the'),
+    #                          error_messages={'required': _("You must agree to the terms")})
 
     def __init__(self, *args, **kwargs):
         query_dict = kwargs.get('data')
