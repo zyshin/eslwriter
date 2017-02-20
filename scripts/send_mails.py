@@ -17,5 +17,5 @@ def send_activation_prompt_emails(receivers):
 def send_emails(subject, message_txt, message_html, receivers):
     from_email = getattr(settings, 'REGISTRATION_DEFAULT_FROM_EMAIL', settings.DEFAULT_FROM_EMAIL)
     for receiver in receivers:
-        send_mail(subject, message_txt, from_email, [receiver], html_message=message_html)
+        print 'Send to ', receiver, ':', send_mail(subject, message_txt, from_email, [receiver], html_message=message_html)
         time.sleep(120)
