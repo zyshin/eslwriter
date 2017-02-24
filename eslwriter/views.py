@@ -73,7 +73,7 @@ def dep_query_view(request):
 		tt = [t.strip('?') for t in qtt[:2]]
 		tt = [translate(t)[0] if is_cn(t) else t for t in tt]
 		tt = [lemmatize(t) for t in tt]
-		llii = tt2ii(tt)
+		llii = tt2ii(tt, ignore=False)
 		
 		l1 = llii[0]
 		if qlen == 1:
