@@ -718,3 +718,23 @@ input[type="checkbox"].input-validation-error {
   -o-text-overflow:ellipsis; 
   overflow:hidden;
 }
+
+.hr.hr-short{
+  margin-top: 60px;
+}
+
+#how{
+  text-align:center;
+}
+#lineone{
+  margin-left: 0px;left: 0px;width: 36%;
+}
+#circleone{
+  left: 317px;top: 13px;
+}
+#circletwo{
+ left: 553px; top: 13px;
+}
+#linetwo{
+  margin-left: 0px;left: 556px;width: 36%;
+}
