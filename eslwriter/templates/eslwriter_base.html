@@ -9,17 +9,7 @@
 <script type="text/javascript" src="{% static 'eslwriter/js/jquery-ui.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'eslwriter/js/eslwriter-init.js' %}?v={% now 'Ymd' %}"></script>
 <script type="text/javascript">
-$(document).ready(function () {
-    if($('#SearchInput').length>0){
-        setupAutoComplete('{% url "dep" %}', '#SearchInput', '#SuggestionContainer');
-        $('#SearchInput').focus();
-    }
-    else if($('#NavSearchInput').length>0){
-        setupAutoComplete('{% url "dep" %}', '#NavSearchInput', '#SuggestionContainer');
-        $('#NavSearchInput').focus();
-    }
-});
-
+	var DEP_URL = '{% url "dep" %}';
 </script>
 
 {% block eslwriter_resource %}{% endblock %}
