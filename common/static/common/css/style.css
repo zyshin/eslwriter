@@ -163,7 +163,8 @@ white-space: nowrap;
   float: left;
 }
 .navbar-nav > li > a {
-  padding: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
   color: #fff;
   cursor: pointer;
 }
@@ -737,4 +738,11 @@ input[type="checkbox"].input-validation-error {
 }
 #linetwo{
   margin-left: 0px;left: 556px;width: 36%;
+}
+
+.example-btn-link {
+  color: black;
+}
+.example-btn-link:hover {
+  color: #F15A24;
 }

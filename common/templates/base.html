@@ -51,6 +51,7 @@ var _hmt = _hmt || [];
 					{% block function_div %}
 					{% endblock %}
 					<ul class="nav navbar-nav navbar-right">
+						<li><a href="{% url 'eslwriter_guide' %}">{% trans 'Guide' %}</a></li>
 						{% if not user.is_authenticated %}
 						<li><a href="{% url 'auth_login' %}">{% trans 'Sign in' %}</a></li>
 						<li><a href="{% url 'registration_register' %}">{% trans 'Sign up' %}</a></li>
