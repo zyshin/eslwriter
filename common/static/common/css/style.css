@@ -720,29 +720,98 @@ input[type="checkbox"].input-validation-error {
   overflow:hidden;
 }
 
-.hr.hr-short{
-  margin-top: 60px;
+.index-title :nth-child(1) {
+  margin-left: 0px;
+  left: 0px;
+  width: 36%;
 }
 
-#how{
-  text-align:center;
-}
-#lineone{
-  margin-left: 0px;left: 0px;width: 36%;
-}
-#circleone{
-  left: 317px;top: 13px;
-}
-#circletwo{
- left: 553px; top: 13px;
-}
-#linetwo{
-  margin-left: 0px;left: 556px;width: 36%;
+.index-title :nth-child(2) {
+  left: 36.4%;
+  top: 13px;
 }
 
-.example-btn-link {
+.index-title :nth-child(4){
+  left: 63.5%;
+  top: 13px;
+}
+
+.index-title :nth-child(5) {
+  margin-left: 0px;
+  left: 556px;
+  width: 36%;
+}
+
+.eslwriter-btn-link {
   color: black;
 }
-.example-btn-link:hover {
+.eslwriter-btn-link:hover {
   color: #F15A24;
+}
+
+.container-guide {
+  padding-top: 80px;
+}
+
+.guide-title :nth-child(1) {
+  margin-left: 0px;
+  left: 0px;
+  width: 36%;
+  top: 17px;
+}
+
+.guide-title :nth-child(2) {
+  left: 36.4%;
+  top: 17px;
+}
+.guide-title :nth-child(4){
+  left: 63.5%;
+  top: 17px;
+}
+.guide-title :nth-child(5) {
+  margin-left: 0px;
+  left: 556px;
+  width: 36%;
+  top: 17px;
+}
+
+.container-guide h2{
+  margin-bottom: 20px;
+}
+
+.container-guide p {
+  font-size: 18px;
+  margin: 10px 0px
+}
+
+.container-guide img {
+  margin: 10px 0px;
+  width: 100%;
+}
+
+.container-guide h3{
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.container-guide .glyphicon{
+  font-size: 20px;
+  margin: 0px 20px;
+}
+
+.container-guide .guide-instruct{
+  text-align:center;
+  font-size: 14px;
+  color: grey;
+}
+
+.container-guide .hr .hr-short{
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.container-guide .guide-end{
+  text-align: center;
+  margin-top: 50px;
+  font-size: 20px;
 }
