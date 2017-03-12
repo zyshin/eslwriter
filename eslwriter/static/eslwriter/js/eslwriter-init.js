@@ -82,18 +82,20 @@ $(document).ready(function() {
                     q = q.slice(1);
                     setTimeout(addChar, 80);
                 } else {
-                    ANIMATION_ON = false;
                     $('#SearchInput').focus();
+                    var interval = 300;
                     if (showAutocomplete) {
                         $('#SearchInput').autocomplete('search');
                         setTimeout(function() {
                             $('#SearchInput').val(text);
                         }, 1000);
+                        interval += 1000;
                     }
                     setTimeout(function() {
                         $('#SearchBtn').toggleClass('active');
                         $('#SearchBtn').click();
-                    }, 1500);
+                        ANIMATION_ON = false;
+                    }, interval);
                 }
             })();
         });
@@ -102,6 +104,16 @@ $(document).ready(function() {
     $('.example-btn-link').click(function() {
         fillWithExample($(this).text());
     });
+
+    if (navigator.userAgent.indexOf("Safari") >= 0) {
+        // Is Safari
+        $(window).bind("pageshow", function (event) {
+            if (event.originalEvent.persisted) {
+                console.log(location.href + " #SearchInput");
+                $("#SearchInput").load(location.href + " #SearchInput");
+            }
+        });
+    }
 });
 
 

@@ -149,7 +149,7 @@ function update_nav_status(nav_container_tag,pageNums,curPage){
 <form style="position: absolute; left:250px" action="{% url 'eslwriter' %}" method="GET" onsubmit="return true;">
 	<div class="input-group navbar-form navbar-left">
 		<div style="width: 400px">
-			<input id="fake_input" style="position:absolute; top:-100px; display:none;" type="text" value="">
+			<!-- <input id="fake_user_name" name="fake_user[name]" style="position:absolute; top:-100px; display:none;" type="text" value="Safari"> -->
 			<input id="NavSearchInput" type="text" class="form-control" placeholder="Search" name="q" value="{{ q }}" autocomplete="off">
 			<div id="SuggestionContainer" style="clear: left"></div>
 		</div>

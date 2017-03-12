@@ -720,22 +720,22 @@ input[type="checkbox"].input-validation-error {
   overflow:hidden;
 }
 
+.index-title {
+  margin-top: 60px;
+}
 .index-title :nth-child(1) {
   margin-left: 0px;
   left: 0px;
   width: 36%;
 }
-
 .index-title :nth-child(2) {
   left: 36.4%;
   top: 13px;
 }
-
 .index-title :nth-child(4){
   left: 63.5%;
   top: 13px;
 }
-
 .index-title :nth-child(5) {
   margin-left: 0px;
   left: 556px;
@@ -745,8 +745,10 @@ input[type="checkbox"].input-validation-error {
 .eslwriter-btn-link {
   color: black;
 }
-.eslwriter-btn-link:hover {
+.eslwriter-btn-link:hover,
+.eslwriter-btn-link:focus {
   color: #F15A24;
+  text-decoration: none;
 }
 
 .container-guide {
