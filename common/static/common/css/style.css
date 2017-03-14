@@ -409,7 +409,6 @@ background-color: #bf3616;
   text-align: center;
 }
 .ExampleList p{
-  margin-left: 15px;
   text-align:justify;
 }
 .ExampleList strong {
@@ -421,6 +420,9 @@ background-color: #bf3616;
   padding: 6px 12px;
   width: 860px;
   display: block;
+}
+.example-sentences {
+  margin-left: 15px;
 }
 /* footer */
 footer {
