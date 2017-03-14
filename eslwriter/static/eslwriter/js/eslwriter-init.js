@@ -105,12 +105,12 @@ $(document).ready(function() {
         fillWithExample($(this).text());
     });
 
+    // Fix Safari cache on back
     if (navigator.userAgent.indexOf("Safari") >= 0) {
-        // Is Safari
         $(window).bind("pageshow", function (event) {
             if (event.originalEvent.persisted) {
-                console.log(location.href + " #SearchInput");
-                $("#SearchInput").load(location.href + " #SearchInput");
+                $("#SearchInput").attr('autocomplete', 'off');
+                $("#NavSearchInput").attr('NavSearchInput', 'off');
             }
         });
     }

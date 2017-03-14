@@ -409,6 +409,7 @@ background-color: #bf3616;
   text-align: center;
 }
 .ExampleList p{
+  margin-left: 15px;
   text-align:justify;
 }
 .ExampleList strong {
