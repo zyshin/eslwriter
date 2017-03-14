@@ -9,7 +9,32 @@ $(document).ready(function() {
         sender.promise_ = setTimeout(action, interval);
     }
 
+
+    var EXAMPLE_TEXT;
+    var ANIMATION_ON = false;
+    function searchExample() {
+        setTimeout(function() {
+            $('#SearchBtn').toggleClass('active');
+            $('#SearchBtn').click();
+            ANIMATION_ON = false;
+        }, 1000);
+    }
+    window.selectExample = function() {
+        setTimeout( function() {
+            var e = jQuery.Event("keydown");
+            e.keyCode = 40;
+            $('#SearchInput').trigger(e);
+            if ($('#SearchInput').val() == EXAMPLE_TEXT) {
+                searchExample();
+                return;
+            }
+            window.setTimeout("selectExample()", 80);
+        }, 500);
+    }
+
+
     var CACHE = {};
+    var RESPONSE_READY;
     function setupAutoComplete(url, inputId, resultId) {
         $(inputId).autocomplete({
             appendTo: resultId,
@@ -50,6 +75,12 @@ $(document).ready(function() {
                     }
                 });
             },
+            response: function (event, ui) {
+                if (RESPONSE_READY == false) {
+                    RESPONSE_READY = true;
+                    selectExample();
+                }
+            },
             html: true
         });
     }
@@ -62,7 +93,7 @@ $(document).ready(function() {
         $('#NavSearchInput').focus();
     }
 
-    var ANIMATION_ON = false;
+
     function fillWithExample(text) {
         // scroll to top
         // clear and fill in text
@@ -83,19 +114,13 @@ $(document).ready(function() {
                     setTimeout(addChar, 80);
                 } else {
                     $('#SearchInput').focus();
-                    var interval = 300;
                     if (showAutocomplete) {
+                        RESPONSE_READY = false;
+                        EXAMPLE_TEXT = text;
                         $('#SearchInput').autocomplete('search');
-                        setTimeout(function() {
-                            $('#SearchInput').val(text);
-                        }, 1000);
-                        interval += 1000;
+                    } else {
+                        searchExample();
                     }
-                    setTimeout(function() {
-                        $('#SearchBtn').toggleClass('active');
-                        $('#SearchBtn').click();
-                        ANIMATION_ON = false;
-                    }, interval);
                 }
             })();
         });
