@@ -13,10 +13,13 @@
 					<td><a {%ifequal menu_index 1 %}class="actived"{%else%}href="{% url 'field_select' %}"{% endifequal %}>{% trans 'Field Setting' %}</a></td>
 				</tr>
 				<tr>
-					<td><a {%ifequal menu_index 2 %}class="actived"{%else%}href="{% url 'profile' %}"{% endifequal %}>{% trans 'Personal Corpus' %}</a></td>
+					<td><a {%if menu_index != 1 and menu_index != 2 %}class="actived"{%else%}href="{% url 'auth_password_change' %}"{% endif %}>{% trans 'Password Setting' %}</a></td>
 				</tr>
 				<tr>
-					<td><a {%if menu_index != 1 and menu_index != 2 %}class="actived"{%else%}href="{% url 'auth_password_change' %}"{% endif %}>{% trans 'Password Setting' %}</a></td>
+					<td>
+						<a {%ifequal menu_index 2 %}class="actived"{%else%}href="{% url 'profile' %}"{% endifequal %}>{% trans 'Personal Corpus' %}</a> <br>
+						<a {%ifequal menu_index 2 %}class="actived"{%else%}href="{% url 'profile' %}"{% endifequal %}><small>{% trans '(Experimental)' %}</small></a>
+					</td>
 				</tr>
 			</table>
 		</div>
