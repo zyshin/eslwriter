@@ -9,7 +9,34 @@ $(document).ready(function() {
         sender.promise_ = setTimeout(action, interval);
     }
 
+    var EXAMPLE_TEXT;
+    var ANIMATION_ON = false;
+    function searchExample() {
+        setTimeout(function() {
+            $('#SearchInput').autocomplete('close');
+            $('#SearchBtn').toggleClass('active');
+            $('#SearchBtn').click();
+            ANIMATION_ON = false;
+        }, 600);
+    }
+    window.selectExample = function() {
+        if ($('#ui-id-1').css('display') == 'none') {
+            $('#SearchInput').val(EXAMPLE_TEXT);
+            searchExample();
+            return;
+        }
+        var e = jQuery.Event("keydown");
+        e.keyCode = 40;
+        $('#SearchInput').trigger(e);
+        if ($('#SearchInput').val() == EXAMPLE_TEXT) {
+            searchExample();
+            return;
+        }
+        window.setTimeout("selectExample()", 150);
+    }
+
     var CACHE = {};
+    var RESPONSE_READY = true;
     function setupAutoComplete(url, inputId, resultId) {
         $(inputId).autocomplete({
             appendTo: resultId,
@@ -50,6 +77,12 @@ $(document).ready(function() {
                     }
                 });
             },
+            open: function (event, ui) {
+                if (RESPONSE_READY == false) {
+                    RESPONSE_READY = true;
+                    window.setTimeout("selectExample()", 200);
+                }
+            },
             html: true
         });
     }
@@ -62,7 +95,6 @@ $(document).ready(function() {
         $('#NavSearchInput').focus();
     }
 
-    var ANIMATION_ON = false;
     function fillWithExample(text) {
         // scroll to top
         // clear and fill in text
@@ -83,19 +115,13 @@ $(document).ready(function() {
                     setTimeout(addChar, 80);
                 } else {
                     $('#SearchInput').focus();
-                    var interval = 300;
                     if (showAutocomplete) {
+                        RESPONSE_READY = false;
+                        EXAMPLE_TEXT = text;
                         $('#SearchInput').autocomplete('search');
-                        setTimeout(function() {
-                            $('#SearchInput').val(text);
-                        }, 1000);
-                        interval += 1000;
+                    } else {
+                        searchExample();
                     }
-                    setTimeout(function() {
-                        $('#SearchBtn').toggleClass('active');
-                        $('#SearchBtn').click();
-                        ANIMATION_ON = false;
-                    }, interval);
                 }
             })();
         });
