@@ -364,6 +364,11 @@ background-color: #bf3616;
 #SearchBtn.focus {
   background-color: #E07651
 }
+
+.ui-autocomplete-loading {
+  background: white url("../img/ui-anim_basic_16x16.gif") right center no-repeat;
+}
+
 .hr {
   clear: both;
   display: block;

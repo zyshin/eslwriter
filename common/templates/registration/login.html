@@ -27,7 +27,7 @@
 				{% endif%}
 			</div>
 			<p>{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>!</p>
-			<input class="btn btn-lg btn-eslred btn-block" type="submit" value="{% trans 'Log in' %}"></input>
+			<input class="btn btn-lg btn-eslred btn-block" type="submit" value="{% trans 'Sign in' %}"></input>
 			<br>
 			<p>{% trans "Not member" %}? <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>!</p>
 			<input type="hidden" name="next" value="{{ next }}" />
