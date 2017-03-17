@@ -13,7 +13,7 @@
 			{% if form.username.errors %}
 			<span class='validation-summary-errors'><small>{{form.username.errors.as_text}}</small></span>
 			{% endif %}
-			<h5 style="margin-top: 5px;"><small>{% trans 'A username to register' %}</small></h5>
+			<h5 style="margin-top: 5px;"><small>{% trans 'A username to sign up' %}</small></h5>
 		</div>
 		{% endcomment %}
 		<div class="form-group">
@@ -24,7 +24,7 @@
 			{% elif form.username.errors %}
 			<span class='validation-summary-errors'><small>{{form.username.errors.as_text}}</small></span>
 			{% endif %}
-			<h5 style="margin-top: 5px;"><small>{% trans 'A confirmation email will be sent to this email' %}</small></h5>
+			<h5 style="margin-top: 5px;"><small>{% trans 'A confirmation email will be sent to this email.' %}</small></h5>
 		</div>
 		<div class="form-group">
 			<label for="exampleInputPassword1">{{ form.password1.label }}</label>
@@ -32,7 +32,7 @@
 			{% if form.password1.errors %}
 			<span class="validation-summary-errors"><small>{{form.password1.errors.as_text}}</small></span>
 			{% endif %}
-			<h5 style="margin-top: 5px;"><small>{% trans 'A length of 6-30 characters' %}</small></h5>
+			<h5 style="margin-top: 5px;"><small>{% trans 'A length of 6-30 characters.' %}</small></h5>
 		</div>
 		<div class="form-group">
 			<label for="exampleInputPassword1">{{ form.password2.label }}</label>
@@ -40,7 +40,7 @@
 			{% if form.password2.errors %}
 			<span class="validation-summary-errors"><small>{{form.password2.errors.as_text}}</small></span>
 			{% endif %}
-			<h5 style="margin-top: 5px;"><small>{% trans 'Please enter the above password again' %}</small></h5>
+			<h5 style="margin-top: 5px;"><small>{% trans 'Please enter the above password again.' %}</small></h5>
 		</div>
 		<!-- <div>
 			{{ form.tos }}<span style="font-size: 12px">&nbsp;{{ form.tos.help_text }} <a href="#" target="_blank">Terms of Service</a></span>
@@ -49,7 +49,7 @@
 			{% endif %}
 		</div> -->
 		<br>
-		<input type="submit" value="{% trans 'Register' %}" class="btn btn-success btn-default"/>
+		<input type="submit" value="{% trans 'Sign up' %}" class="btn btn-success btn-default"/>
 	</form>
 </div>
 {% endblock %}

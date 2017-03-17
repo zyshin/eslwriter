@@ -1,7 +1,7 @@
 user-agent: *
 Allow: /$
 Allow: /sitemap.xml$
-Allow: /guide$
+Allow: /guide
 Disallow: /
 
 Sitemap: http://www.eslwriter.org/sitemap.xml
