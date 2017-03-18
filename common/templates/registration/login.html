@@ -8,7 +8,7 @@
 	<section id="loginForm" style='margin-bottom: 100px'>
 		<form method="post" action="." class="form-signin fixed-form">
 			{% csrf_token %} 
-			<h2 class='form-signin-heading'>Sign In</h2>
+			<h2 class='form-signin-heading'>{% trans 'Sign In' %}</h2>
 			<div class='form-group'>
 				<label for="exampleInputUserName">{% trans 'E-mail' %}</label>
 				{{ form.username }}
@@ -29,7 +29,7 @@
 			<p>{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>!</p>
 			<input class="btn btn-lg btn-eslred btn-block" type="submit" value="{% trans 'Sign in' %}"></input>
 			<br>
-			<p>{% trans "Not a member" %}? <a href="{% url 'registration_register' %}">{% trans "Sign up now" %}</a>!</p>
+			<p>{% trans 'Not a member' %}? <a href="{% url 'registration_register' %}">{% trans 'Register' %}</a>!</p>
 			<input type="hidden" name="next" value="{{ next }}" />
 		</form>
 	</section>

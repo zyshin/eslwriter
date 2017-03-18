@@ -37,7 +37,7 @@ var _hmt = _hmt || [];
 
 <body><div id="wrapper">
 {% if DEBUG %}
-	<div style="padding-left: 1%; background: cornsilk;">NOTE: You are now visiting an INTERNAL version. <a href="http://www.eslwriter.org/">Switch to the PUBLIC version &gt;</a></div>
+	<div style="padding-left: 1%; background: cornsilk;">{% trans 'NOTE: You are now visiting an INTERNAL version.' %} <a href="http://www.eslwriter.org/">{% trans 'Switch to the PUBLIC version &gt;' %}</a></div>
 {% endif %}
 	<div id="header">{% block header %}
 		<div class='navbar'>
@@ -77,8 +77,8 @@ var _hmt = _hmt || [];
 	<div id="footer">
 		<div style="width:900px;margin:0 auto;">
 			<hr style="height:1px; background:#E1E0DE;margin-bottom: 15px">
-			<a style="float:right;" href="mailto:eslwriter@foxmail.com">Contact&nbsp;Us</a>
-			<a style="float:right;margin-right: 20px" href="http://pi.cs.tsinghua.edu.cn/">About&nbsp;Us</a>
+			<a style="float:right;" href="mailto:eslwriter@foxmail.com">{% trans 'Contact&nbsp;Us' %}</a>
+			<a style="float:right;margin-right: 20px" href="http://pi.cs.tsinghua.edu.cn/">{% trans 'About&nbsp;Us' %}</a>
 			<div style="float:left;">ESLWriter<span style="color:#999999">&nbsp;&copy;&nbsp;2012&nbsp;-&nbsp;{% now 'Y' %}</span></div>
 		</div><br />
 	</div>

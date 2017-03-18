@@ -180,9 +180,9 @@ function update_nav_status(nav_container_tag,pageNums,curPage){
 							{% else %}
 								<ul id="pri-data-container">
 								{% if pri_gr %}
-									<p><i>{{ pri_gr|length }} usages</i></p>
+									<p><i>{{ pri_gr|length }} {% trans 'usages' %}</i></p>
 								{% else %}
-									<p><i>No results</i></p>
+									<p><i>{% trans 'No results' %}</i></p>
 								{%endif%}
 								{% for item in pri_gr %}
 									<li item-index="{{forloop.counter}}">

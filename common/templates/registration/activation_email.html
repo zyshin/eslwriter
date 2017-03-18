@@ -24,11 +24,7 @@
         {{site.domain}}{% url 'registration_activate' activation_key %}
     </a>
 </p>
-<p>
-    {% blocktrans %}
-    Have fun searching, and don't hesitate to contact us with your feedback.
-    {% endblocktrans %}
-</p>
+<p>{% trans "Have fun searching, and don't hesitate to contact us with your feedback." %}</p>
 <p>
     {% blocktrans with site_name=site.name %}
     Sincerely, <br>
