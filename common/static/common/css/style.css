@@ -825,3 +825,23 @@ input[type="checkbox"].input-validation-error {
   margin-top: 50px;
   font-size: 20px;
 }
+
+.container-error {
+  padding-top: 100px;
+}
+
+.error-title {
+  font-size: 162px;
+  color: #F15A24;
+/*  font: Hei;*/
+}
+
+.error-body {
+  font-size: 48px;
+  font-weight: lighter;
+}
+
+.error-maintenance {
+  font-size: 162px;
+/*  font: Arial Narrow;*/
+}

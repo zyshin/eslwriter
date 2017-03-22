@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}ESLWriter{% endblock %}
+
+{% block content %}
+    <div class='main'>
+    	<div class='container container-error'>
+    	<p class="text-center error-title">oops</p>
+    	<p class="text-center error-body">{% trans 'Sorry! We are down for maintenance.' %}</p>
+    	<p class="text-center" style="font-size: 22px;">{% trans 'We will be back shortly. Thank you for your patience.' %}</p>
+        </div>
+	 </div>
+
+{% endblock %}

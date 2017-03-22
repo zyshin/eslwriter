@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}ESLWriter{% endblock %}
+
+{% block content %}
+    <div class='main'>
+    	<div class='container container-error'>
+    	<p class="text-center error-title">500</p>
+    	<p class="text-center error-body">{% trans 'Sorry! Something went wrong.' %}</p>
+    	<p class="text-center" style="font-size: 22px;">{% trans 'We are experiencing an internal server problem. Please try back later.' %}</p>
+        </div>
+	 </div>
+
+{% endblock %}
