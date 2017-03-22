@@ -26,10 +26,10 @@
 				<p class='validation-summary-errors'><small>{{ form.non_field_errors.as_text }}<!--<a href="{% url 'registration_complete' %}">{% trans "Please check your atcivation email." %}</a>--></small></p>
 				{% endif%}
 			</div>
-			<p>{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>!</p>
+			<p><a href="{% url 'auth_password_reset' %}">{% trans 'Forgot your password?' %}</a></p>
 			<input class="btn btn-lg btn-eslred btn-block" type="submit" value="{% trans 'Sign in' %}"></input>
 			<br>
-			<p>{% trans 'Not a member' %}? <a href="{% url 'registration_register' %}">{% trans 'Register' %}</a>!</p>
+			<p><a href="{% url 'registration_register' %}">{% trans 'Sign up for free!' %}</a></p>
 			<input type="hidden" name="next" value="{{ next }}" />
 		</form>
 	</section>

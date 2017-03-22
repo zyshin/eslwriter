@@ -766,22 +766,22 @@ input[type="checkbox"].input-validation-error {
 .guide-title :nth-child(1) {
   margin-left: 0px;
   left: 0px;
-  width: 36%;
+  width: 35%;
   top: 17px;
 }
 
 .guide-title :nth-child(2) {
-  left: 36.4%;
+  left: 35.4%;
   top: 17px;
 }
 .guide-title :nth-child(4){
-  left: 63.5%;
+  left: 64.5%;
   top: 17px;
 }
 .guide-title :nth-child(5) {
   margin-left: 0px;
-  left: 556px;
-  width: 36%;
+  left: 564px;
+  width: 35%;
   top: 17px;
 }
 
