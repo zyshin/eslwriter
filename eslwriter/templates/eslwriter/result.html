@@ -175,14 +175,14 @@ function update_nav_status(nav_container_tag,pageNums,curPage){
 								</div>
 							{% elif not profile.pri_corpus %}
 								<div style="height:40px; text-align: center">
-									<a href="{% url 'profile' %}" style="line-height: 40px;" class="btn-link">{% trans 'Create Personal Corpus' %}</a>
+									<a href="{% url 'profile' %}" style="line-height: 40px;" class="btn-link">{% trans 'Create Corpus' %}</a>
 								</div>
 							{% else %}
 								<ul id="pri-data-container">
 								{% if pri_gr %}
-									<p><i>{{ pri_gr|length }} usages</i></p>
+									<p><i>{{ pri_gr|length }} {% trans 'usages' %}</i></p>
 								{% else %}
-									<p><i>No results</i></p>
+									<p><i>{% trans 'No results' %}</i></p>
 								{%endif%}
 								{% for item in pri_gr %}
 									<li item-index="{{forloop.counter}}">

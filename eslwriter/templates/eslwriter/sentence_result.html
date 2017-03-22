@@ -1,5 +1,7 @@
+{% load i18n %}
+
 <div class="ExampleList">
-	<h2><small id="currentShowResult">1-10</small><small> of </small><small id="totalResult" class="number">{{ gc }}</small></h2>
+	<h2><small id="currentShowResult">1-10</small><small> {% trans 'of' %} </small><small id="totalResult" class="number">{{ gc }}</small></h2>
 	<ul id="SentenceList" class="resultlist">
 	{% for p, sentence in sr %}
 		<li class="listitem" item-index="{{ forloop.counter }}">

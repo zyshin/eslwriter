@@ -18,12 +18,12 @@
         <div class='form-group'>
             <label for="exampleInputName">{% trans 'Name' %}</label>{{ form.name.errors }}
             {{ form.name }}
-            <h5 style="margin-top: 5px;"><small>{% trans 'Name of your corpus.' %}</small></h5>
+            <h5 style="margin-top: 5px;"><small>{% trans 'Name your corpus.' %}</small></h5>
         </div>
         <div class='form-group'>
             <label for="exampleInputDescription">{% trans 'Description' %}</label>
             {{ form.description }}
-            <h5 style="margin-top: 5px;"><small>{% trans 'Description of your corpus.' %}</small></h5>
+            <h5 style="margin-top: 5px;"><small>{% trans 'Brief description of your corpus.' %}</small></h5>
         </div>
         <input type="submit" class='btn btn-success btn-sm' value="{% if form.instance.pk %}Save{% else %}Create{% endif %}">
     </form>

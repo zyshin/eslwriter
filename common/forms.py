@@ -19,10 +19,10 @@ class RegistrationFormUniqueEmailTermsOfService(RegistrationForm):
     email = forms.EmailField(max_length=50, label=_("E-mail"))
     password1 = forms.CharField(widget=forms.PasswordInput,
                                 min_length=6, max_length=30,
-                                label=_("Password"))
+                                label=_("Create password"))
     password2 = forms.CharField(widget=forms.PasswordInput,
                                 min_length=6, max_length=30,
-                                label=_("Password (again)"))
+                                label=_("Confirm password"))
     # tos = forms.BooleanField(widget=forms.CheckboxInput,
     #                          help_text=_('I have read and agree to the'),
     #                          error_messages={'required': _("You must agree to the terms")})
@@ -41,7 +41,7 @@ class RegistrationFormUniqueEmailTermsOfService(RegistrationForm):
         site.
         """
         if UserModel().objects.filter(email__iexact=self.cleaned_data['email']):
-            raise forms.ValidationError(_("This email address is already in use. Please supply a different email address."))
+            raise forms.ValidationError(_("This address is already in use. Please enter a different email address."))
         return self.cleaned_data['email']
 
 
@@ -100,7 +100,7 @@ class CorpusForm(forms.ModelForm):
 
 class FieldSelectForm(forms.Form):
     choice = forms.ChoiceField(widget=forms.Select, 
-                               label=_('Choose your interested field'),
+                               label=_('Choose target corpus:'),
                                error_messages={'required': _("You must choose one field from the list"), 
                                                'invalid_choice': _("You must choose one field from the list")})
 

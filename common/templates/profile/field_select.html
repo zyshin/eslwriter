@@ -5,7 +5,7 @@
 
 {% block manage_block %}
 <!-- Add Your HTML code here -->
-<h3 style="width:320px;float: left;">{% trans 'Field Setting' %}</h3>
+<h3 style="width:320px;float: left;">{% trans 'Target corpus' %}</h3>
 <ol class="breadcrumb"></ol>
 <!--<hr style="margin-top: 0px;border-top-color:#c9c9c9"/>-->
 
@@ -24,7 +24,7 @@
 		{% endcomment %}
 	</div>
 	<br>
-	<label>{% trans 'Need more? You can: ' %}</label>
+	<label>{% trans "Didn't find what you're looking for? You can: " %}</label>
 	<br>
 	<a href="{% url 'profile' %}">{% trans 'Create your own corpus >' %}</a>
 	<br>
@@ -34,7 +34,7 @@
 {% if saved %}
 <script>
 $(document).ready(function(){
-	if (confirm('Successfully saved. Try it now?')) {
+	if (confirm('{% trans "Successfully saved. Try it now?" %}')) {
 		location.href = "{% url 'eslwriter' %}";
 	}
 });

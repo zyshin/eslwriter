@@ -1,5 +1,6 @@
 {% extends "eslwriter_base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}ESLWriter | Guide{% endblock %}
 
@@ -9,53 +10,53 @@
 		<div class="hr hr-short guide-title" >
 			<span class="hr-inner" ></span>
 			<span class="hr-inner-style" ></span>
-			<h2 class="text-center">How To Use</h2>
+			<h2 class="text-center">Getting Started</h2>
 			<span class="hr-inner-style" ></span>
 			<span class="hr-inner" ></span>
 		</div>
 
 
 		<div>
-			<p>ESLWriter has collected nearly all the paper in the field of computer science (and more other domains in the near future) for you to refer to. It features three fascinating functions: <b>Field Setting, Collocation Finding, Semantic Searching.</b></p>
+			<p>{% trans 'ESLWriter searches nearly every paper published in the field of computer science (with more  academic domains coming in the near future). Use ' %} <b>{% trans 'Target Corpus, Wildcards, and Synonym Tools ' %}</b>{% trans 'to make your results more precise.' %}</p>
 		    <div class="hr hr-short hr-center"><span class="hr-inner"><span class="hr-inner-style"></span></span></div>
 		</div>
 
 		<div>
-			<h3><span class="glyphicon glyphicon-education" aria-hidden="true" ></span><b>Field Setting</b></h3>
-			<p >Sign up as a registered user and click your profile on the top to the account setting page. Choose your interested field as the corpus.</p>
+			<h3><span class="glyphicon glyphicon-education" aria-hidden="true" ></span><b>{% trans 'Target Corpus' %}</b></h3>
+			<p >{% trans 'Select &#34;Settings&#34; from the drop-down menu in the upper right corner, then choose your interested field as your corpus.' %}</p>
 			<img src="{% static 'eslwriter/img/fieldsetting.gif' %}?v={% now 'Ymd' %}" alt="Field setting">
 
 		</div>
 
         <div>
 			<div class="hr hr-short hr-center"><span class="hr-inner"><span class="hr-inner-style"></span></span></div>
-			<h3><span class="glyphicon glyphicon-text-size" aria-hidden="true"></span><b>Collocation Finding</b>
+			<h3><span class="glyphicon glyphicon-text-size" aria-hidden="true"></span><b>{% trans 'Wildcards' %}</b>
 			</h3>
 
-			<p>Enter one or two keywords and the search bar will automatically show collocation tips to choose. It supports <b>(修饰)/(动宾)/(介词)/(主谓)</b> of up to two collocated words to search.</p>
+			<p>{% trans 'When you enter one or two terms in the search bar, ESL Writer will automatically show suggested wildcards types' %} <b>{% trans '(adj)/(vo)/(p)/(sv)' %}</b>{% trans '. Wildcard ' %}<b>*</b> {% trans 'can be used as a placeholder for one of the two collocated words.' %}</p>
 			<img src="{% static 'eslwriter/img/collocation1.gif' %}?v={% now 'Ymd' %}" alt="collocation1">
-			<p class="guide-instruct">searching for a verb to collocate with robustness</p>
-			<p style="margin-top: 30px;">The left sidebar shows all the alternative patterns with usage amounts.</p>
+			<p class="guide-instruct">{% trans 'searching for a verb to collocate with robustness' %}</p>
+			<p style="margin-top: 30px;">{% trans 'All wildcard results, along with their usage counts, are displayed on the left side of the results page.' %}</p>
 		    <img src="{% static 'eslwriter/img/collocation2.gif' %}?v={% now 'Ymd' %}" alt="collocation2">
-			<p class="guide-instruct">Searching for a preposition for suggestion</p>
+			<p class="guide-instruct">{% trans 'Searching for a preposition for suggestion' %}</p>
         </div>
 
         <div>
 			<div class="hr hr-short hr-center"><span class="hr-inner"><span class="hr-inner-style"></span></span></div>
-			<h3><span class="glyphicon glyphicon-search" aria-hidden="true"></span><b>Semantic Searching</b></h3>
-			<p>Type a word you would like to find synonyms and add a question mark <b>? </b>in the end. Then you would get the synonyms of this word in the related field.</p>
+			<h3><span class="glyphicon glyphicon-search" aria-hidden="true"></span><b>{% trans 'Include Synonyms' %}</b></h3>
+			<p>{% trans 'Add a question mark' %} <b>? </b>{% trans ' at the end of a word to include its synonyms in the search results.' %}</p>
 			<img src="{% static 'eslwriter/img/semantic.gif' %}?v={% now 'Ymd' %}" alt="semantic">
 		</div>
 
         <div>
 			<div class="hr hr-short hr-center"><span class="hr-inner"><span class="hr-inner-style"></span></span></div>
-			<h3><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span><b>Mixed Search</b></h3>
-			<p>Finally, it has also mixed search function to combine <b>semantic searching </b>and <b>collocation finding </b>functions. After selecting a collocation tip you can add a question mark after one or two keywords to have better results.</p>
+			<h3><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span><b>{% trans 'Mixed Use' %}</b></h3>
+			<p>{% trans 'ESLWriter supports mixed use of both features above.' %}</p>
 			<img src="{% static 'eslwriter/img/mixsearching.gif' %}?v={% now 'Ymd' %}" alt="mixed searching">
 		</div>
 
 		<div>
-			<p class="guide-end"><a href="{% url 'eslwriter' %}" class="eslwriter-btn-link"><b>&gt; Enjoy ESLWriter Now!</b></a></p>
+			<p class="guide-end"><a href="{% url 'eslwriter' %}" class="eslwriter-btn-link"><b>{% trans '&gt; Enjoy ESLWriter Now!' %}</b></a></p>
 		</div>
 
 	</div>
