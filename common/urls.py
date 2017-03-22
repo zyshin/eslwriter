@@ -11,6 +11,7 @@ urlpatterns = []
 urlpatterns += [
 	url(r'^accounts/register/$', RegistrationView.as_view(form_class=RegistrationFormUniqueEmailTermsOfService), name='registration_register'),
 	url(r'^about/$', TemplateView.as_view(template_name='about.html'), name='about'),
+	url(r'^maintenance/$', TemplateView.as_view(template_name='maintenance.html'), name='maintenance'),
 ]
 
 from django.contrib.auth import views as auth_views

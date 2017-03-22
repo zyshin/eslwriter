@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}ESLWriter{% endblock %}
+
+{% block content %}
+    <div class='main'>
+    	<div class='container container-error'>
+    	<p class="text-center error-title">404</p>
+    	<p class="text-center error-body">{% trans 'The requested page cannot be found.' %}</p>
+    	<p class="text-center" style="font-size: 22px;">{% trans 'Head over to ' %}<a href="{% url 'eslwriter' %}">ESLWriter</a> {% trans 'to find excellent usages and examples!' %}</p>
+        </div>
+	 </div>
+
+{% endblock %}
