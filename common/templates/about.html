@@ -1,9 +1,22 @@
 {% extends "base.html" %}
+{% load static %}
 {%load i18n%}
 {% block content %}
 <div class='main'>
-	<div class='container'>
-		<p>{% trans 'Powered by HCI Lab at Tsinghua University.' %}</p>
+	<div class='container contianer-about'>
+		<div class="hr hr-short guide-title" >
+			<span class="hr-inner" ></span>
+			<span class="hr-inner-style" ></span>
+			<h2 class="text-center">About Us</h2>
+			<span class="hr-inner-style" ></span>
+			<span class="hr-inner" ></span>
+		</div>
+		<p>{% trans 'ESLWriter is powered by Pervasive Computing Group at Tsinghua University. Our research focused on ESL writing, collaborate editing and vocabulary learning. We are passionate about using interactive technologies to improve language proficiency of non-native speakers.' %}</p>
+		<h3><b>{% trans 'Acknowledgement' %}</b></h3>
+		<p>{% trans 'Thaks to the support of Yuanchun Shi, Chun Yu and work of Yeshuang Zhu to make ESLWriter better.' %}</p>
+		<h3><b>{% trans 'Contact' %}</b></h3>
+		<p>{% trans 'Please Scan the QR Code below to follow us. More fantastic works will come soon.' %}</p>
+		<img class="center-block" src="{% static 'common/img/pcg_QR.png' %}?v={% now 'Ymd' %}" alt="QRCode">
     </div>
 </div>
 {% endblock %}
