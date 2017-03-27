@@ -180,14 +180,14 @@ function update_nav_status(nav_container_tag,pageNums,curPage){
 							{% else %}
 								<ul id="pri-data-container">
 								{% if pri_gr %}
-									<p><i>{{ pri_gr|length }} {% trans 'usages' %}</i></p>
+									<p><i>{% blocktrans count num_usages=pri_gr|length %}{{ num_usages }} usage{% plural %}{{ num_usages }} usages{% endblocktrans %}</i></p>
 								{% else %}
 									<p><i>{% trans 'No results' %}</i></p>
 								{%endif%}
 								{% for item in pri_gr %}
 									<li item-index="{{forloop.counter}}">
 										<span class="number" style="float: right">({{ item.c }})</span>
-										<p class="textOverflow">{{ item.s }}</p>
+										<p{% comment %} class="textOverflow"{% endcomment %}>{{ item.s }}</p>
 									</li>
 								{% endfor %}
 								</ul>
@@ -207,13 +207,13 @@ function update_nav_status(nav_container_tag,pageNums,curPage){
 						<div class="panel-body">
 							<ul id="pub-data-container">
 							{% if pub_gr %}
-								<p><i>{{ pub_gr|length }} usages</i></p>
+								<p><i>{% blocktrans count num_usages=pub_gr|length %}{{ num_usages }} usage{% plural %}{{ num_usages }} usages{% endblocktrans %}</i></p>
 							{% else %}
-								<p><i>No results</i></p>
+								<p><i>{% trans 'No results' %}</i></p>
 							{%endif%}
 							{% for item in pub_gr %}
 								<li item-index="{{ forloop.counter }}">
-									<span class="number" style="float:right">({{ item.c }})</span>
+									<span class="number" style="float: right">({{ item.c }})</span>
 									<p{% comment %} class="textOverflow"{% endcomment %}>{{ item.s }}</p>
 								</li>
 							{% endfor %}
@@ -233,10 +233,10 @@ function update_nav_status(nav_container_tag,pageNums,curPage){
 	</div>
 	{% else %}
 		<div class="container">
-			<div style="text-align: center; padding-top: 200px; padding-bottom: 200px;">
-				<h4>{% trans 'Sorry, no results found for' %} "{{ q }}".</h4>
+			<div style="text-align: center; padding-top: 80px; padding-bottom: 200px;">
+				<p class="error-body">{% trans 'Sorry, no results found for' %} "{{ q }}".</p>
 				<br>
-				<h4>{% trans 'Please check your keywords' %}.</h4>
+				<h4>{% trans 'Please check your keywords, or ' %}<a href="{% url 'auth_login' %}">{% trans 'sign in ' %}</a>{% trans 'to choose a target corpus that matches your domain.' %}</h4>
 				{% comment %}
 				<span>抱歉，在选定语料库中没有找到与您查询的"{{ q }}"相符的内容。</span>
 				<br><br><br>

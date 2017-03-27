@@ -3,7 +3,11 @@
 
 {% block content %}
 {% include "registration/registration_steps.html" with step=2 only %}
-<div style="text-align: center;margin-top: 50px;font-size: 24px;">
-    <h3><span class="glyphicon glyphicon-ok" style="color:#80c269;"></span>&nbsp;{% trans 'An activation email has been sent.' %}</h3>
+<div style="text-align: center;margin-top: 100px;">
+    <h3><span class="glyphicon glyphicon-envelope" style="font-size: 78px;"></span></h3>
+    </br>
+    <p class="error-body">{% trans 'Mail Sent Successfully!' %}</p>
+    </br>
+    <p style="font-size: 22px;">{% trans 'A link has been successfully generated and sent to yout email address.' %}</p>
 </div>
 {% endblock %}

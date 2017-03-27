@@ -730,24 +730,37 @@ input[type="checkbox"].input-validation-error {
 
 .index-title {
   margin-top: 60px;
+  margin-bottom: 20px;
 }
+
 .index-title :nth-child(1) {
   margin-left: 0px;
   left: 0px;
   width: 36%;
 }
+
 .index-title :nth-child(2) {
   left: 36.4%;
   top: 13px;
 }
+
 .index-title :nth-child(4){
   left: 63.5%;
   top: 13px;
 }
+
 .index-title :nth-child(5) {
   margin-left: 0px;
   left: 556px;
   width: 36%;
+}
+
+.glyphicon-triangle-right {
+  font-size: 14px;
+}
+
+.right-triangle {
+  margin-right: 10px;
 }
 
 .eslwriter-btn-link {
@@ -833,7 +846,6 @@ input[type="checkbox"].input-validation-error {
 .error-title {
   font-size: 162px;
   color: #F15A24;
-/*  font: Hei;*/
 }
 
 .error-body {
@@ -843,5 +855,18 @@ input[type="checkbox"].input-validation-error {
 
 .error-maintenance {
   font-size: 162px;
-/*  font: Arial Narrow;*/
+}
+
+.contianer-about p {
+  font-size: 18px;
+}
+
+.contianer-about img {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.notfind-title {
+  font-size: 132px;
+  color: #F15A24;
 }

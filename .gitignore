@@ -100,4 +100,4 @@ $RECYCLE.BIN/
 db.*
 *.sh
 
-/eslwebsite/settings.py
+/eslwebsite/settings*.py

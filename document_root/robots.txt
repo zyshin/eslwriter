@@ -1,7 +1,0 @@
-user-agent: *
-Allow: /$
-Allow: /sitemap.xml$
-Allow: /guide
-Disallow: /
-
-Sitemap: http://www.eslwriter.org/sitemap.xml
