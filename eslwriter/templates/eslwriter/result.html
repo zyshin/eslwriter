@@ -180,14 +180,14 @@ function update_nav_status(nav_container_tag,pageNums,curPage){
 							{% else %}
 								<ul id="pri-data-container">
 								{% if pri_gr %}
-									<p><i>{{ pri_gr|length }} {% trans 'usages' %}</i></p>
+									<p><i>{% blocktrans count num_usages=pri_gr|length %}{{ num_usages }} usage{% plural %}{{ num_usages }} usages{% endblocktrans %}</i></p>
 								{% else %}
 									<p><i>{% trans 'No results' %}</i></p>
 								{%endif%}
 								{% for item in pri_gr %}
 									<li item-index="{{forloop.counter}}">
 										<span class="number" style="float: right">({{ item.c }})</span>
-										<p class="textOverflow">{{ item.s }}</p>
+										<p{% comment %} class="textOverflow"{% endcomment %}>{{ item.s }}</p>
 									</li>
 								{% endfor %}
 								</ul>
@@ -207,13 +207,13 @@ function update_nav_status(nav_container_tag,pageNums,curPage){
 						<div class="panel-body">
 							<ul id="pub-data-container">
 							{% if pub_gr %}
-								<p><i>{{ pub_gr|length }} usages</i></p>
+								<p><i>{% blocktrans count num_usages=pub_gr|length %}{{ num_usages }} usage{% plural %}{{ num_usages }} usages{% endblocktrans %}</i></p>
 							{% else %}
-								<p><i>No results</i></p>
+								<p><i>{% trans 'No results' %}</i></p>
 							{%endif%}
 							{% for item in pub_gr %}
 								<li item-index="{{ forloop.counter }}">
-									<span class="number" style="float:right">({{ item.c }})</span>
+									<span class="number" style="float: right">({{ item.c }})</span>
 									<p{% comment %} class="textOverflow"{% endcomment %}>{{ item.s }}</p>
 								</li>
 							{% endfor %}
