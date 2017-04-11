@@ -33,7 +33,7 @@
 			<h3><span class="glyphicon glyphicon-text-size" aria-hidden="true"></span><b>{% trans 'Collocation' %}</b>
 			</h3>
 
-			<p>{% trans 'When you enter one or two terms in the search bar, ESL Writer will automatically show suggested collocation types' %} <b>{% trans '(subject-verb)/(verb-object)/(preposition)/(adjective)' %}</b>{% trans '. Wildcard ' %}<b>*</b> {% trans 'can be used as a placeholder for one of the two collocated words.' %}</p>
+			<p>{% trans 'When you enter one or two terms in the search bar, ESL Writer will automatically show suggested collocation types' %} <b>{% trans '(subject-verb)' %}/{% trans '(verb-object)' %}/{% trans '(preposition)' %}/{% trans '(adjective)' %}</b>{% trans '. Wildcard ' %}<b>*</b> {% trans 'can be used as a placeholder for one of the two collocated words.' %}</p>
 			<img src="{% static 'eslwriter/img/collocation1.gif' %}?v={% now 'Ymd' %}" alt="collocation1">
 			<p class="guide-instruct">{% trans 'searching for a verb to collocate with robustness' %}</p>
 			<p style="margin-top: 30px;">{% trans 'All collocation results, along with their usage counts, are displayed on the left side of the results page.' %}</p>

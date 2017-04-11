@@ -6,7 +6,7 @@ PREP_TYPES = ['IN', 'TO']
 ADV_TYPES = ['RB', 'RBR', 'RBS', 'RP']
 ADJ_TYPES = ['JJ', 'JJR', 'JJS']
 NOUN_TYPES = ['NN', 'NNP', 'NNPS', 'NNS']
-COLLOCATIONS = [u'(主谓)', u'(动宾)', u'(修饰)', u'(介词)']
+# COLLOCATIONS = [u'(主谓)', u'(动宾)', u'(修饰)', u'(介词)']
 
 def is_esl_dep(dt, t, td):
     return _is_esl_dep((dt, None, None, (None, t['l'], t['pt']), (None, td['l'], td['pt'])))
@@ -46,7 +46,7 @@ def _convert_dep(d):
     t1 = d[3]
     t2 = d[4]
     if d[0] == 'NSUBJ' and t1[2] in VERB_TYPES:
-        return (1, d[2], d[1])  #'sp'
+        return (1, d[2], d[1])  #'sv'
     if d[0] == 'DOBJ' or d[0] == 'IOBJ' or d[0] == 'NSUBJPASS':
         return (2, d[1], d[2])  #'vo'
     if d[0] == 'AMOD' or d[0] == 'NN' or d[0] == 'ADVMOD':

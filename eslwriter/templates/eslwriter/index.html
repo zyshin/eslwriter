@@ -47,7 +47,7 @@
 					<li>
 						<h3 class="text-center" style="margin-bottom: 30px;"><small>{% trans 'Use the operators below in your search to make your results more precise.' %}</small></h3>
 						<h3>
-							<button type="button" class="btn-link eslwriter-btn-link example-btn-link"><span class="right-triangle"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></span><strong>* (修饰)</strong> {% trans 'impact' %}</button> <span style="font-size: 14px;">{% trans '(collocation)' %}</span>
+							<button type="button" class="btn-link eslwriter-btn-link example-btn-link"><span class="right-triangle"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></span><strong>* {% trans '(adjective)' %}</strong> {% trans 'impact' %}</button> <span style="font-size: 14px;">{% trans '(collocation)' %}</span>
 						</h3>
 						<div class="example-sentences">
 							<p><b>significant ... impact (410):</b> These highly discrepant values had <strong>significant impact</strong> on the mission duration and cost.</p>
@@ -55,7 +55,7 @@
 							<p><b>potential ... impact (149):</b> Following use of the wristband, a number of themes arose with respect to its <strong>potential impact</strong>.</p>
 							<p>...</p>
 						</div>
-						<i>{% trans 'Tips: When you enter one or two terms in the search bar, ESLWriter will automatically show suggested collocation types' %} <strong>{% trans '(subject-verb)/(verb-object)/(preposition)/(adjective)' %} </strong>. {% trans 'Wildcard' %} <strong>*</strong> {% trans 'can be used as a placeholder for one of the two collocated words. ' %}</i>
+						<i>{% trans 'Tips: When you enter one or two terms in the search bar, ESLWriter will automatically show suggested collocation types' %} <strong>{% trans '(subject-verb)' %}/{% trans '(verb-object)' %}/{% trans '(preposition)' %}/{% trans '(adjective)' %}</strong>. {% trans 'Wildcard' %} <strong>*</strong> {% trans 'can be used as a placeholder for one of the two collocated words. ' %}</i>
 						<div class="hr hr-short hr-center"><span class="hr-inner"><span class="hr-inner-style"></span></span></div>
 					</li>
 					<li>
@@ -73,7 +73,7 @@
 					</li>
 					<li>
 						<h3>
-							<button type="button" class="btn-link eslwriter-btn-link example-btn-link"><span class="right-triangle"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></span>{% trans 'open' %}<strong>?</strong> <strong>(动宾)</strong> {% trans 'program' %}</button> <span style="font-size: 14px;">{% trans '(mixed use)' %}</span>
+							<button type="button" class="btn-link eslwriter-btn-link example-btn-link"><span class="right-triangle"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></span>{% trans 'open' %}<strong>?</strong> <strong>{% trans '(verb-object)' %}</strong> {% trans 'program' %}</button> <span style="font-size: 14px;">{% trans '(mixed use)' %}</span>
 						</h3>
 						<div class="example-sentences">
 							<p><b>start ... program (29):</b> The modelled task is "to programm a couple of songs and to<strong> start</strong> this <strong>program</strong>”.</p>
