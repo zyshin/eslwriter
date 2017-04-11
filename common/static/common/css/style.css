@@ -366,7 +366,7 @@ background-color: #bf3616;
 }
 
 .ui-autocomplete-loading {
-  background: white url("../img/ui-anim_basic_16x16.gif") right center no-repeat;
+  background: white url("../img/ui-anim_basic_16x16.gif") 97% center no-repeat;
 }
 
 .hr {
