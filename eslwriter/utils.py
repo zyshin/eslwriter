@@ -210,13 +210,12 @@ def parse_query_str(q):
         t_1 = tokens[i-1] if i > 0 else None
         t = tokens[i]
         t1 = tokens[i+1] if i < lent-1 else None
-        if t in dt2i:
-            if t_1 in dt2i or t1 in dt2i:
-                return qtt, qdd
+        if t in dt2i and t_1 and t_1 not in dt2i and t1 and t1 not in dt2i:
             qdd.append((dt2i[t], len(qtt)-1, len(qtt)))
         else:
-            assert t, 't is empty'
-            qtt.append(t)
+            if t not in dt2i:
+                qtt.append(t)
+            # just ignore invalid dt
     # qtt: unprocessed token string, include */?
     # qdd: relationship between qtt: (dt, i1 in qtt, i2 in qtt)
     return qtt, qdd
