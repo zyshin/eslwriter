@@ -16,6 +16,7 @@ from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.utils.decorators import method_decorator
+from django.utils.translation import ugettext
 
 from .utils import * # synonyms, lemmatize, translate, is_cn, cleaned_sentence, elem_match, find_elem_match, dt2i, i2dt, pt2i, i2pt, t2i, i2t
 from common.models import Field
@@ -74,7 +75,7 @@ def dep_query_view(request):
 		tt = [translate(t)[0] if is_cn(t) else t for t in tt]
 		tt = [lemmatize(t) for t in tt]
 		llii = tt2ii(tt, ignore=False)
-		
+
 		l1 = llii[0]
 		if qlen == 1:
 			qtt.append('*')
@@ -82,7 +83,7 @@ def dep_query_view(request):
 		else:
 			l2 = llii[1]
 		gr = dep_query(l1, l2, cids)
-		gr = [('%s %s %s' % (qtt[i1], i2dt[di], qtt[i2]), cleaned_sentence(ii2tt(wids), highlights)) for i1, i2, di, wids, highlights in gr]
+		gr = [('%s %s %s' % (qtt[i1], ugettext(i2dt[di]), qtt[i2]), cleaned_sentence(ii2tt(wids), highlights)) for i1, i2, di, wids, highlights in gr]
 	return make_response(content=json.dumps({ 'gr': gr }), content_type='application/json')
 
 

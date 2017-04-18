@@ -9,7 +9,9 @@
 </div>
 <script>
 $(document).ready(function(){
-	setTimeout("location.href = \"{% url 'eslwriter' %}\";", 1000);
+    setTimeout(function () {
+        window.location.replace('{% url "eslwriter" %}');
+    }, 1000);
 });
 </script>
 {% endblock %}
