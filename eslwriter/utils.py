@@ -3,6 +3,8 @@ from itertools import product
 from collections import Iterable
 
 from django.conf import settings
+from django.utils import translation
+from django.utils.translation import ugettext
 
 from common.models import *
 from common.utils import mongo_get_object, mongo_get_object_or_404, timeit
@@ -15,6 +17,9 @@ print 'initializing data ...'
 dbc = settings.DBC
 deps = list(dbc.common.deps.find())
 dt2i = dict([(d['dt'], d['_id']) for d in deps])
+with translation.override('zh-hans'):
+    dt2i.update([(ugettext(d['dt']), d['_id']) for d in deps])
+
 i2dt = dict([(d['_id'], d['dt']) for d in deps])
 poss = list(dbc.common.poss.find())
 pt2i = dict([(p['pt'], p['_id']) for p in poss])

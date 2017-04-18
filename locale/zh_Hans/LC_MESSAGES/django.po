@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-11 16:04+0800\n"
+"POT-Creation-Date: 2017-04-18 10:46+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,41 +117,41 @@ msgid ""
 "soon."
 msgstr ""
 
-#: .\common\templates\base.html:40
+#: .\common\templates\base.html:41
 msgid "NOTE: You are now visiting an INTERNAL version."
 msgstr ""
 
-#: .\common\templates\base.html:40
+#: .\common\templates\base.html:41
 msgid "Switch to the PUBLIC version &gt;"
 msgstr ""
 
-#: .\common\templates\base.html:54
+#: .\common\templates\base.html:55
 msgid "Guide"
 msgstr ""
 
-#: .\common\templates\base.html:56
+#: .\common\templates\base.html:57
 #: .\common\templates\registration\login.html:30
 msgid "Sign in"
 msgstr ""
 
-#: .\common\templates\base.html:57
+#: .\common\templates\base.html:58
 #: .\common\templates\registration\registration_form.html:53
 msgid "Sign up"
 msgstr ""
 
-#: .\common\templates\base.html:62 .\common\templates\profile_base.html:9
+#: .\common\templates\base.html:63 .\common\templates\profile_base.html:9
 msgid "Settings"
 msgstr ""
 
-#: .\common\templates\base.html:64
+#: .\common\templates\base.html:65
 msgid "Sign out"
 msgstr ""
 
-#: .\common\templates\base.html:80
+#: .\common\templates\base.html:81
 msgid "Contact&nbsp;Us"
 msgstr ""
 
-#: .\common\templates\base.html:81
+#: .\common\templates\base.html:82
 msgid "About&nbsp;Us"
 msgstr ""
 
@@ -519,24 +519,24 @@ msgstr ""
 
 #: .\eslwriter\templates\eslwriter\guide.html:36
 #: .\eslwriter\templates\eslwriter\index.html:59
-msgid "(subject-verb)"
+msgid "(n+v)"
 msgstr "(主谓)"
 
 #: .\eslwriter\templates\eslwriter\guide.html:36
 #: .\eslwriter\templates\eslwriter\index.html:59
 #: .\eslwriter\templates\eslwriter\index.html:77
-msgid "(verb-object)"
+msgid "(v+n)"
 msgstr "(动宾)"
 
 #: .\eslwriter\templates\eslwriter\guide.html:36
 #: .\eslwriter\templates\eslwriter\index.html:59
-msgid "(preposition)"
+msgid "(prep)"
 msgstr "(介词)"
 
 #: .\eslwriter\templates\eslwriter\guide.html:36
 #: .\eslwriter\templates\eslwriter\index.html:51
 #: .\eslwriter\templates\eslwriter\index.html:59
-msgid "(adjective)"
+msgid "(modifies)"
 msgstr "(修饰)"
 
 #: .\eslwriter\templates\eslwriter\guide.html:36
@@ -603,12 +603,8 @@ msgid ""
 msgstr ""
 
 #: .\eslwriter\templates\eslwriter\index.html:51
-msgid "impact"
-msgstr ""
-
-#: .\eslwriter\templates\eslwriter\index.html:51
-msgid "(collocation)"
-msgstr ""
+msgid "collocation"
+msgstr "搜搭配"
 
 #: .\eslwriter\templates\eslwriter\index.html:59
 msgid ""
@@ -625,12 +621,8 @@ msgid "can be used as a placeholder for one of the two collocated words. "
 msgstr ""
 
 #: .\eslwriter\templates\eslwriter\index.html:64
-msgid "hesitation"
-msgstr ""
-
-#: .\eslwriter\templates\eslwriter\index.html:64
-msgid "(include synonyms)"
-msgstr ""
+msgid "include synonyms"
+msgstr "搜同义"
 
 #: .\eslwriter\templates\eslwriter\index.html:72
 msgid "Tips: "
@@ -645,23 +637,12 @@ msgid "includes synonyms of &lt;word&gt; in the search results."
 msgstr ""
 
 #: .\eslwriter\templates\eslwriter\index.html:77
-msgid "open"
-msgstr ""
-
-#: .\eslwriter\templates\eslwriter\index.html:77
-msgid "program"
-msgstr ""
-
-#: .\eslwriter\templates\eslwriter\index.html:77
-msgid "(mixed use)"
-msgstr ""
+#: .\eslwriter\templates\eslwriter\index.html:85
+msgid "mixed use"
+msgstr "混合搜"
 
 #: .\eslwriter\templates\eslwriter\index.html:85
 msgid "Tips: ESLWriter supports "
-msgstr ""
-
-#: .\eslwriter\templates\eslwriter\index.html:85
-msgid "mixed use"
 msgstr ""
 
 #: .\eslwriter\templates\eslwriter\index.html:85
@@ -669,12 +650,8 @@ msgid "of both features above."
 msgstr ""
 
 #: .\eslwriter\templates\eslwriter\index.html:90
-msgid "to our best knowledge"
-msgstr ""
-
-#: .\eslwriter\templates\eslwriter\index.html:90
-msgid "(basic search)"
-msgstr ""
+msgid "basic search"
+msgstr "搜短语"
 
 #: .\eslwriter\templates\eslwriter\index.html:98
 msgid "Tips: Enter"
@@ -727,6 +704,9 @@ msgid ""
 "HCI Group at Tsinghua University. It helps you find idiomatic usages and "
 "examples in authentic academic papers."
 msgstr ""
+"ESLWriter是一款适合国人英语写作的信息助手,由清华大学人机交互实验室出品,它收录"
+"了计算机领域的近乎所有的论文作为语料库,供您通过各种方式查询地道的英语用法和例"
+"句.从今以后像老外一样写作,再也不用担心自己的语言问题了!"
 
 #: .\fine_uploader\forms.py:32
 msgid "File too large."
