@@ -21,11 +21,15 @@ from django.utils.translation import ugettext
 from .utils import * # synonyms, lemmatize, translate, is_cn, cleaned_sentence, elem_match, find_elem_match, dt2i, i2dt, pt2i, i2pt, t2i, i2t
 from common.models import Field
 from common.utils import make_response, timeit
-
+import logging
 
 @timeit
+
 def home_view(request):
+	
 	q = request.GET.get('q', '').strip()
+	logger = logging.getLogger('query')
+	logger.info(q)
 	error = check_query_str(q)
 	if not q or error != 0:
 		return render(request, 'eslwriter/index.html', {'error': error})
@@ -35,7 +39,7 @@ def home_view(request):
 	ll = [t if is_cn(t) else lemmatize(t) for t in qtt]  #lemmatize with '?'
 	llll = [expanded_token(l) for l in ll]  #translate Chinese keywords & synonym expansion
 	iiii = [tt2ii(tt) for tt in llll]  #lemma id
-	ref_wwii = tt2ii([t.strip('?').lower() for t in qtt])   #for sorting
+	ref_wwii = tt2ii([t.strip('?') for t in qtt])   #for sorting
 
 	# query groups
 	profile = {'field': settings.DEFAULT_FID, 'pub_corpora': settings.DEFAULT_CIDS}
@@ -93,7 +97,7 @@ def sentence_query_view(request):
 	gc = q.get('gc', 0)
 	ii = q.get('ii', [])
 	dd = q.get('dd', [])
-	ref = q.get('ref', [])
+	ref = q.get('ref', [])	
 	cids = q.get('cids', [])
 	# start = int(request.GET.get('s', '0'))  #sentence start index
 	# count = int(request.GET.get('c', '100'))
