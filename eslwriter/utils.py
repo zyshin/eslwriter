@@ -111,6 +111,7 @@ def find_best_match(S, ii, dd, ref):
     return best_m, best_c
 
 
+
 def match_cost(T, m, ref):
     #TODO: dependency award
     if len(m) != len(ref):
@@ -121,21 +122,22 @@ def match_cost(T, m, ref):
     for i in xrange(qlen-1):
         delta = m[i+1] - m[i]
         if delta <= 0:
-            posCost += 4-delta    #non-monotonicity penalty
+            posCost += (4-delta)*3    #non-monotonicity penalty
         else:
-            posCost += delta-1  #distance penalty
+            posCost += (delta-1)*3  #distance penalty
     
     queryCost = 0
     for i in xrange(qlen):
-        if T[m[i]]['w'] != ref[i]: #case insensitive
-            queryCost += 2  #query mismatch penalty
+        if T[m[i]]['w'] != ref[i]: #case insensitive  #ref-user input
+            queryCost += 1  #query mismatch penalty
     
-    formCost = 0
-    for i in m:
-        if T[i]['w'] != T[i]['l']:
-            formCost += 1    # word != lemma penalty, 'writing' -> 'writing' > 'write' > 'writes' > ...
-    
-    return posCost + queryCost + formCost
+    paperCost = 0
+
+    # for i in m:
+    #     if T[i]['w'] != T[i]['l']:
+    #        formCost += 1    # word != lemma penalty, 'writing' -> 'writing' > 'write' > 'writes' > ...
+
+    return posCost + queryCost + paperCost
 
 
 def expanded_deps(iiii, dd, cids):
