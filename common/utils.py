@@ -1,19 +1,19 @@
-import os, hashlib
-from time import clock
+import os, hashlib, time, logging
 
 from django.conf import settings
 from django.http import HttpResponse, Http404
 from bson.objectid import ObjectId
 
+logger = logging.getLogger(__name__)
+
 
 def timeit(func):
     def __decorator(*args, **kwags):
-        start = clock()
+        start = time.time()
         result = func(*args, **kwags)  #recevie the native function call result
-        finish = clock()
-        span = int((finish - start) * 1000)
-        if settings.DEBUG or span > 5000:
-            print '[DEBUG] timeit: ', func.__name__, span, 'ms'
+        span = time.time() - start
+        if settings.DEBUG or span > 5.0:
+            logging.warning('timeit: %s %d ms', func.__name__, span * 1000)
         return result        #return to caller
     return __decorator
 

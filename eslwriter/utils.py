@@ -111,13 +111,12 @@ def find_best_match(S, ii, dd, ref):
     return best_m, best_c
 
 
-
 def match_cost(T, m, ref):
     #TODO: dependency award
     if len(m) != len(ref):
         return sys.maxint
     qlen = len(m)
-    
+
     posCost = 0
     for i in xrange(qlen-1):
         delta = m[i+1] - m[i]
@@ -125,7 +124,7 @@ def match_cost(T, m, ref):
             posCost += (4-delta)*3    #non-monotonicity penalty
         else:
             posCost += (delta-1)*3  #distance penalty
-    
+
     queryCost = 0
     for i in xrange(qlen):
         if T[m[i]]['w'] != ref[i]: #case insensitive  #ref-user input
