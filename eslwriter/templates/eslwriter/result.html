@@ -101,7 +101,7 @@ $(document).ready(function(){
 
 function hide_overflow(jquery_obj_collection,pageSize,totalCount,curPage){
 	if(totalCount>pageSize){
-		$("body").animate({ scrollTop: 0},"fast");
+		$("html,body").animate({ scrollTop: 0},"fast");
 		showStart=pageSize*(curPage-1)+1;
 		showEnd=pageSize*curPage;
 		jquery_obj_collection.each(function(){
