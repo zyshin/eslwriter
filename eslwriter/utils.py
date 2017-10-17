@@ -8,7 +8,13 @@ from django.utils.translation import ugettext
 
 from common.models import *
 from common.utils import mongo_get_object, mongo_get_object_or_404, timeit
-from .wordnet import lemmatize, synonyms
+# from .wordnet import lemmatize
+# print 'testing NLTK wordnet lemmatizer'
+from .lemmatizer import lemmatize
+print 'testing Stanford CoreNLP Server lemmatizer'
+lemmatize('')
+
+from .wordnet import synonyms
 from .thesaurus import synonyms
 from .translator import is_cn, translate
 
@@ -26,8 +32,6 @@ pt2i = dict([(p['pt'], p['_id']) for p in poss])
 i2pt = dict([(p['_id'], p['pt']) for p in poss])
 del deps, poss
 
-print 'loading wordnet'
-lemmatize('')
 
 if True:
     class MongoDict:
@@ -128,15 +132,16 @@ def match_cost(T, m, ref):
     queryCost = 0
     for i in xrange(qlen):
         if T[m[i]]['w'] != ref[i]: #case insensitive  #ref-user input
-            queryCost += 1  #query mismatch penalty
+            queryCost += 2  #query mismatch penalty
     
-    paperCost = 0
+    formCost = 0
+    for i in m:
+        if T[i]['w'] != T[i]['l']:
+           formCost += 1    # word != lemma penalty, 'writing' -> 'writing' > 'write' > 'writes' > ...
 
-    # for i in m:
-    #     if T[i]['w'] != T[i]['l']:
-    #        formCost += 1    # word != lemma penalty, 'writing' -> 'writing' > 'write' > 'writes' > ...
+    # TODO: paperCost
 
-    return posCost + queryCost + paperCost
+    return posCost + queryCost + formCost
 
 
 def expanded_deps(iiii, dd, cids):

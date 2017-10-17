@@ -14,7 +14,7 @@ Using `virtualenv` is recommended. Create an fresh environment named `venv` in t
 Only needed if you want to run NLP process on your own computer to build personal corpora.
 
 * Install the latest Java runtime.
-* Add [pdftotext](http://www.foolabs.com/xpdf/download.html) to system path (i.e. copy it into `/usr/bin/`).
+* Add executable `pdftotext` contained in [Xpdf tools](http://www.xpdfreader.com/download.html) to path.
 
 ## Configure Django settings
 
