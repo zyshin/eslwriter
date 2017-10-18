@@ -214,7 +214,20 @@ def check_query_str(q):
 # TODO: use NLTK to split tokens
 # TODO: Chinese word split
 def parse_query_str(q):
-    tokens = q.split()
+    #to split English and Chinese when user didn't type the Space between them
+    tokens=[]
+    tmp=''
+    preveious = 2 #English and others is 1 , Chinese is 0
+    flag = 1
+    for c in q:
+        flag = 0 if is_cn (c) else 1
+        if flag != preveious and tmp:
+            tokens.append(tmp.strip())
+            tmp = ''
+        preveious = flag
+        tmp += c
+    if tmp:
+        tokens.append(tmp.strip())
     lent = len(tokens)
     qtt, qdd = [], []
     for i in xrange(lent):
