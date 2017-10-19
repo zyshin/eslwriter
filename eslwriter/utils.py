@@ -51,8 +51,7 @@ if True:
         return default
 
     t2i = MongoDict(t2i_get)
-    i2t = MongoDict(i2t_get)
-    
+    i2t = MongoDict(i2t_get)  
 else:
     print 'loading tokens'
     tokens = list(dbc.common.tokens.find())
@@ -94,7 +93,7 @@ def find_all_tokens(T, l):
 
 
 def find_best_match(S, ii, dd, ref):
-    # ll = find_isolated_tokens(ii, dd)    
+    # ll = find_isolated_tokens(ii, dd)
     qlen = len(ii)
     positions = [None] * qlen  #candidate indices in sentences
     for d in dd:
@@ -147,12 +146,6 @@ def match_cost(T, m, ref):
 
 def expanded_deps(iiii, dd, cids):
     r = iiii[:]
-    #if !dd or 
-    mark = []
-    for i in xrange(len(iiii)):
-        if 0 in r[i]:
-            mark.append(i)
-
     for dt, i1, i2 in dd:
         k = None
         if 0 in r[i1]:
@@ -175,10 +168,6 @@ def expanded_deps(iiii, dd, cids):
                 for o in dbc.sentences[str(cid)].aggregate(pipeline):
                     d[o['_id']] = d.get(o['_id'], 0) + o['c']
             r[ri2] = [i for i, c in sorted(d.iteritems(), key=lambda kv: kv[1], reverse=True)[:2*settings.MAX_GROUP_COUNT]]
-
-    # for m in mark :
-    #     if 0 in r[m]:
-    #         r[m] = [5]
     return r
 
 
@@ -221,39 +210,11 @@ def check_query_str(q):
         return 1
     return 0
 
-def refine_tokens(tokens):
-    #to split English and Chinese when user didn't type the Space between them
-
-    refined_tokens = []
-    for t in tokens:
-        tmp=''
-        preveious = 0 #English is 1 , Chinese is 2 , ? is 3
-        flag = 0
-        for c in t:
-            if is_cn (c):
-               flag = 2
-            elif c == '?':
-                flag = 3
-            else :
-                flag = 1
-            if flag == 3:
-                tmp += c
-            if flag != preveious and tmp:
-                
-                refined_tokens.append(tmp.strip())
-                tmp = ''
-            preveious = flag
-            tmp += c
-        if tmp:
-            refined_tokens.append(tmp.strip())
-    #print refined_tokens
-    return refined_tokens
-
 # TODO: use NLTK to split tokens
 # TODO: Chinese word split
 def parse_query_str(q):
     tokens = q.split()
-    tokens = refine_tokens(tokens)
+    #tokens = refine_tokens(tokens)
     lent = len(tokens)
     qtt, qdd = [], []
     for i in xrange(lent):
