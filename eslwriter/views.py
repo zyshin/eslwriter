@@ -32,7 +32,6 @@ def home_view(request):
     llll = [expanded_token(l) for l in ll]  #translate Chinese keywords & synonym expansion
     iiii = [tt2ii(tt) for tt in llll]  #lemma id
     ref_wwii = tt2ii([t.strip('?') for t in qtt])   #for sorting
-
     # query groups
     profile = {'field': settings.DEFAULT_FID, 'pub_corpora': settings.DEFAULT_CIDS}
     profile.update(mongo_get_object(UserProfile, pk=request.user.pk) or {})
@@ -62,7 +61,6 @@ def home_view(request):
 
     request.session.save()
     logger.info('%s %s %s %s %s', request.META.get('REMOTE_ADDR', '0.0.0.0'), request.session.session_key, request.user, request, info)
-
     return render(request, 'eslwriter/result.html', {'profile': profile, 'q': q, 'pub_gr': pub_gr, 'pri_gr': pri_gr})
 
 
@@ -148,7 +146,11 @@ def sentence_query_view(request):
 @timeit
 def group_query(iiii, dd, cids, ref):
     # iiii: [(0,)*, (2, 3), (4, 5), ...]
-    # dd: [((dt, i1, i2), ...]
+    # dd: [((dt, i1, i2), ...]   
+    if [0] in iiii:
+        iiii.remove([0])
+    if 0 in ref:
+        ref.remove(0)
     isolated = find_isolated_tokens(iiii, dd)
     gr = []
     for ii in product(*expanded_deps(iiii, dd, cids)): 
@@ -179,8 +181,12 @@ def group_count_query(q, cids):
     return count
 
 @timeit
-def sentence_query(ii, dd, cids, ref, start=0, count=100):
+def sentence_query(ii, dd, cids, ref, start=0, count=100):   
     # ref: query token ids in original form and order
+    if 0 in ii:
+        ii.remove(0)
+    if 0 in ref:
+        ref.remove(0)
     count = min(count, settings.MAX_SENTENCE_COUNT)
     isolated_ll = [ii[i] for i in find_isolated_tokens(ii, dd)]
     qdd = [(dt, ii[i1], ii[i2]) for dt, i1, i2 in dd]
