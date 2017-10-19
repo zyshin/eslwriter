@@ -186,7 +186,7 @@ function update_nav_status(nav_container_tag,pageNums,curPage){
 								{%endif%}
 								{% for item in pri_gr %}
 									<li item-index="{{forloop.counter}}">
-										<span class="number" style="float: right">({{ item.c }})</span>
+										<span class="number" style="float: right">({{ item.c|default:'No results' }})</span>
 										<p{% comment %} class="textOverflow"{% endcomment %}>{{ item.s }}</p>
 									</li>
 								{% endfor %}
@@ -213,7 +213,7 @@ function update_nav_status(nav_container_tag,pageNums,curPage){
 							{%endif%}
 							{% for item in pub_gr %}
 								<li item-index="{{ forloop.counter }}">
-									<span class="number" style="float: right">({{ item.c }})</span>
+									<span class="number" style="float: right">({{ item.c|default:'No results' }})</span>
 									<p{% comment %} class="textOverflow"{% endcomment %}>{{ item.s }}</p>
 								</li>
 							{% endfor %}

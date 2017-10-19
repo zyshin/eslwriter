@@ -57,7 +57,6 @@ def field_select_view(request):
 				profile['pub_corpora'] = [c['_id'] for c in db.corpora.find({'field': fid, 'status': 2}, {'_id': 1})]
 				mongo_save(UserProfile, **profile)
 			saved = True	# saved successfully
-			# return redirect(reverse('field_select'))
 	else:
 		form = FieldSelectForm(initial={'choice': ofid})
 	return render(request, "profile/field_select.html", {'form': form, 'menu_index': 1, 'saved': saved})
