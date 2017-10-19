@@ -10,31 +10,24 @@ LEMMATIZER_URL = settings.STANFORD_CORENLP_SERVER + '?properties={"outputFormat"
 
 def lemmatize(s):
     '''
-    s: a English string
-    return: a list of lower-cased lemmas
+    s: one English word, may end with ?
+    # return: lower & retain '?'
     '''
-    q=''
+    q, l = '', ''
     if s.endswith('?'):
         s, q = s.strip('?'), '?'
 
     try:
-        conll = requests.post(LEMMATIZER_URL, s, timeout=10).text
-        tokens = [line.split('\t') for line in conll.split('\n') if line]
+        conll = requests.post(LEMMATIZER_URL, s, timeout=10).text  # may end with \r\n
+        lines = [line.strip() for line in conll.split('\n')]
+        tokens = [line.split('\t') for line in lines if line]
+        logger.info('conll: "%s" -> %s', s, tokens)
 
-        #print 'token',tokens
-        if len(tokens)>1:
-            ll = tokens[0][2].lower()
-            ref = tokens[0][1]
-        else:
-            ll=''
-            ref=''
-        #ll = [t[2].lower() if len(t)>2 else '' for t in tokens]
-        #ref = [t[1] if len(t)>2 else '' for t in tokens]
-        #print 'll',ll
-        #print 'ref',ref
+        if tokens:
+            l = tokens[0][2].lower()
+        # ref = tokens[0][1]
     except Exception as e:
         logger.exception('Failed to lemmatize "%s"', s)
-        ll = ref = s.split()
-        ll = ll.lower()
+        l = s.lower()
 
-    return ll+q
+    return l+q
