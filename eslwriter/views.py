@@ -148,11 +148,9 @@ def sentence_query_view(request):
 @timeit
 def group_query(iiii, dd, cids, ref):
     # iiii: [(0,)*, (2, 3), (4, 5), ...]
-    # dd: [((dt, i1, i2), ...]   
-    if [0] in iiii:
-        iiii.remove([0])
-    if 0 in ref:
-        ref.remove(0)
+    # dd: [((dt, i1, i2), ...]
+    iiii = [ii for ii in iiii if ii[0]]     #delete the *
+    ref = [r for r in ref if r]
     isolated = find_isolated_tokens(iiii, dd)
     gr = []
     for ii in product(*expanded_deps(iiii, dd, cids)): 
@@ -185,10 +183,8 @@ def group_count_query(q, cids):
 @timeit
 def sentence_query(ii, dd, cids, ref, start=0, count=100):
     # ref: query token ids in original form and order
-    if 0 in ii:
-        ii.remove(0)
-    if 0 in ref:
-        ref.remove(0)
+    ii = [i for i in ii if i]     #delete the *
+    ref = [r for r in ref if r]
     count = min(count, settings.MAX_SENTENCE_COUNT)
     isolated_ll = [ii[i] for i in find_isolated_tokens(ii, dd)]
     qdd = [(dt, ii[i1], ii[i2]) for dt, i1, i2 in dd]
