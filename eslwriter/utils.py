@@ -51,7 +51,7 @@ if True:
         return default
 
     t2i = MongoDict(t2i_get)
-    i2t = MongoDict(i2t_get)
+    i2t = MongoDict(i2t_get)  
 else:
     print 'loading tokens'
     tokens = list(dbc.common.tokens.find())
@@ -68,7 +68,7 @@ def tt2ii(tt, ignore=True):  # * -> 0
 
 
 def ii2tt(ii):
-    return [i2t.get(i, i) for i in ii]
+    return [i2t.get(i, i) if i2t.get(i, i) else '*' for i in ii]
 
 
 # query processing
@@ -92,7 +92,16 @@ def find_all_tokens(T, l):
     return [i for i, t in enumerate(T) if t['l'] == l]
 
 
-def find_best_match(S, ii, dd, ref):
+def format_ii(ii,model):
+    #gr=[tuple([tuple(ii[0] for ii in real_iiii),g[1],g[2]]) for g in gr]
+    ii = list(ii)
+    for i in xrange(len(model)-1):
+        if model[i] == 0:
+            ii.insert(i,0)
+    return tuple(ii)
+
+
+def find_best_match(S, ii, dd, ref, tt):
     # ll = find_isolated_tokens(ii, dd)
     qlen = len(ii)
     positions = [None] * qlen  #candidate indices in sentences
@@ -108,26 +117,30 @@ def find_best_match(S, ii, dd, ref):
     best_c = -1
     for m in product(*positions):
         # print 'm: ', m
-        cost = match_cost(S['t'], m, ref)
+        cost = match_cost(S['t'], m, ref, tt)
         if best_c < 0 or cost < best_c:
             best_c = cost
             best_m = m
     return best_m, best_c
 
 
-def match_cost(T, m, ref):
+def match_cost(T, m, ref, tt):
     #TODO: dependency award
+    #print m,ref
+    flag = 0
     if len(m) != len(ref):
         return sys.maxint
     qlen = len(m)
-
+    tlen = len(tt)
     posCost = 0
     for i in xrange(qlen-1):
+        if i < tlen:
+            flag = tt[i]
         delta = m[i+1] - m[i]
-        if delta <= 0:
-            posCost += (4-delta)*3    #non-monotonicity penalty
+        if (delta - flag) <= 0:
+            posCost += (4-delta+flag)*3    #non-monotonicity penalty
         else:
-            posCost += (delta-1)*3  #distance penalty
+            posCost += (delta-flag-1)*3  #distance penalty
 
     queryCost = 0
     for i in xrange(qlen):
@@ -167,7 +180,8 @@ def expanded_deps(iiii, dd, cids):
             for cid in cids:
                 for o in dbc.sentences[str(cid)].aggregate(pipeline):
                     d[o['_id']] = d.get(o['_id'], 0) + o['c']
-            r[ri2] = [i for i, c in sorted(d.iteritems(), key=lambda kv: kv[1], reverse=True)[:2*settings.MAX_GROUP_COUNT]]
+            r[ri2] = [i for i, c in sorted(d.iteritems(), key=lambda kv: kv[1], reverse=True)[:2*settings.MAX_GROUP_COUNT]]    
+    r = [rr for rr in r if rr[0]]     #delete the *
     return r
 
 
@@ -210,11 +224,11 @@ def check_query_str(q):
         return 1
     return 0
 
-
 # TODO: use NLTK to split tokens
 # TODO: Chinese word split
 def parse_query_str(q):
     tokens = q.split()
+    #tokens = refine_tokens(tokens)
     lent = len(tokens)
     qtt, qdd = [], []
     for i in xrange(lent):

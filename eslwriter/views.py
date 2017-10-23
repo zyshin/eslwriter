@@ -149,9 +149,13 @@ def sentence_query_view(request):
 def group_query(iiii, dd, cids, ref):
     # iiii: [(0,)*, (2, 3), (4, 5), ...]
     # dd: [((dt, i1, i2), ...]
+    real_iiii=iiii
+    real_ref=ref
+    iiii = [ii for ii in iiii if ii[0]]     #delete the *
+    ref = [r for r in ref if r]
     isolated = find_isolated_tokens(iiii, dd)
     gr = []
-    for ii in product(*expanded_deps(iiii, dd, cids)): 
+    for ii in product(*expanded_deps(real_iiii, dd, cids)): 
         isolated_ll = [ii[i] for i in isolated]
         qdd = [(dt, ii[i1], ii[i2]) for dt, i1, i2 in dd]
         q = format_query(isolated_ll, qdd)
@@ -163,7 +167,7 @@ def group_query(iiii, dd, cids, ref):
             gr = [gr[0]] + sorted(gr[1:], key=itemgetter(2), reverse=True)[:settings.MAX_GROUP_COUNT] # TODO: tf-idf sorting
         else:
             gr = sorted(gr[1:], key=itemgetter(2), reverse=True)[:settings.MAX_GROUP_COUNT] # TODO: tf-idf sorting
-        gr = [{'s': ' ... '.join(ii2tt(ii)), 'c': c, 'qs': json.dumps({'gc': c, 'ii': ii, 'dd': dd, 'cids': cids, 'ref': ref})} for ii, dd, c in gr]
+        gr = [{'s': ' ... '.join(ii2tt(ii)), 'c': c, 'qs': json.dumps({'gc': c, 'ii': format_ii(ii,real_ref), 'dd': dd, 'cids': cids, 'ref': real_ref})} for ii, dd, c in gr]
     # TODO: unified cids and ref for whole gr
     # TODO: switch the order of product and cids
     return gr
@@ -181,6 +185,18 @@ def group_count_query(q, cids):
 @timeit
 def sentence_query(ii, dd, cids, ref, start=0, count=100):
     # ref: query token ids in original form and order
+    tmp=0
+    tt=[]
+    for i in xrange(len(ii)-1): #去掉首尾位元素
+        if ii[i+1] :
+            tt.append(tmp)
+            tmp=0
+        else:
+            tmp+=1
+    if tt and tt[0] == 0:
+        tt=tt[1:]
+    ii = [i for i in ii if i]     #delete the *
+    ref = [r for r in ref if r]
     count = min(count, settings.MAX_SENTENCE_COUNT)
     isolated_ll = [ii[i] for i in find_isolated_tokens(ii, dd)]
     qdd = [(dt, ii[i1], ii[i2]) for dt, i1, i2 in dd]
@@ -193,7 +209,7 @@ def sentence_query(ii, dd, cids, ref, start=0, count=100):
     for cid in cids:
         _sr = list(dbc.sentences[str(cid)].find(q, {'_id': 0, 't.p': 0}, limit=settings.MAX_RESULT_LENGTH))
         for r in _sr:
-            r['m'], r['c'] = find_best_match(r, ii, dd, ref)
+            r['m'], r['c'] = find_best_match(r, ii, dd, ref, tt)
         # _sr = [r for r in _sr if r['c'] < sys.maxint] #filter out critical unmatch results
         _sr.sort(key=itemgetter('c'))
         _sr = _sr[:count]
