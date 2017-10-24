@@ -176,7 +176,6 @@ def match_cost(T, m, ref, tt):
            formCost += 1    # word != lemma penalty, 'writing' -> 'writing' > 'write' > 'writes' > ...
 
     # TODO: paperCost
-
     return posCost + queryCost + formCost
 
 
