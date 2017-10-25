@@ -21,7 +21,7 @@
 		$(".fixed-form select").css("width","auto");
 	});
 	</script>
-{% if not DEBUG %}
+{% if not debug %}
 <!--Baidu statistics-->
 <script>
 var _hmt = _hmt || [];
@@ -37,7 +37,7 @@ var _hmt = _hmt || [];
 </head>
 
 <body><div id="wrapper">
-{% if DEBUG %}
+{% if debug %}
 	<div style="padding-left: 1%; background: cornsilk;">{% trans 'NOTE: You are now visiting an INTERNAL version.' %} <a href="http://www.eslwriter.org/">{% trans 'Switch to the PUBLIC version &gt;' %}</a></div>
 {% endif %}
 	<div id="header">{% block header %}

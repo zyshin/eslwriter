@@ -106,7 +106,7 @@ $(document).ready(function() {
         ANIMATION_ON = true;
         var showAutocomplete = (text.indexOf('*') >= 0 || text.indexOf('(') >= 0);
         var q = text.replace(/\*/g, '').replace(/\(.*?\)/g, '').trim();
-        $('html,body').animate({ scrollTop: 0 }, 'fast', 'swing', function() {
+        $('body').animate({ scrollTop: 0 }, 'fast', 'swing', function() {
             // TODO: bind animation to one element
             $('#SearchInput').val('');
             (function addChar() {

@@ -14,8 +14,10 @@ from .lemmatizer import lemmatize
 print 'testing Stanford CoreNLP Server lemmatizer'
 lemmatize('')
 
-from .wordnet import synonyms
+# from .wordnet import synonyms
+# print 'using NLTK wordnet thesaurus'
 from .thesaurus import synonyms
+print 'using MongoDB thesaurus'
 from .translator import is_cn, translate
 
 print 'initializing data ...'
@@ -325,5 +327,5 @@ def paper_source_str(pid):
             else:
                 authorShort += '.'
             source += authorShort
-        source += title
+        source += ' ' + title
     return {'source': source, 'url': p['url']}
