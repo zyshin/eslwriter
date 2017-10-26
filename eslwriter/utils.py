@@ -94,13 +94,34 @@ def find_all_tokens(T, l):
     return [i for i, t in enumerate(T) if t['l'] == l]
 
 
+def refine_ii_dd(ii,dd):
+    #default len(dd)=1
+    iiii=ii[:]
+    d=dd[:]
+    if ii[0]:
+        if dd:
+            d=[]
+            i1=dd[0][1]
+            i2=dd[0][2]
+            for i in xrange(len(ii)):
+                if ii[i][0]==0 and i not in dd[0]:
+                    iiii.remove(ii[i])
+                    if i < dd[0][1]:
+                        i1-=1
+                        i2-=1
+            d.append(tuple([dd[0][0],i1,i2]))
+        else:
+            iiii = [i for i in ii if i and 0 not in i]
+    return iiii,d
+
 def format_ii(ii,model):
     #gr=[tuple([tuple(ii[0] for ii in real_iiii),g[1],g[2]]) for g in gr]
     ii = list(ii)
-    for i in xrange(len(model)-1):
-        if model[i] == 0:
-            ii.insert(i,0)
-    return tuple(ii)
+    if len(ii) != len(model):    
+        for i in xrange(len(model)-1):
+            if model[i] == 0:
+                ii.insert(i,0)
+    return tuple(ii)  
 
 
 def find_best_match(S, ii, dd, ref, tt):
@@ -182,8 +203,7 @@ def expanded_deps(iiii, dd, cids):
             for cid in cids:
                 for o in dbc.sentences[str(cid)].aggregate(pipeline):
                     d[o['_id']] = d.get(o['_id'], 0) + o['c']
-            r[ri2] = [i for i, c in sorted(d.iteritems(), key=lambda kv: kv[1], reverse=True)[:2*settings.MAX_GROUP_COUNT]]    
-    r = [rr for rr in r if rr[0]]     #delete the *
+            r[ri2] = [i for i, c in sorted(d.iteritems(), key=lambda kv: kv[1], reverse=True)[:2*settings.MAX_GROUP_COUNT]]
     return r
 
 
