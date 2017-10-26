@@ -147,27 +147,26 @@ def sentence_query_view(request):
 
 @timeit
 def group_query(iiii, dd, cids, ref):
-    # iiii: [(0,)*, (2, 3), (4, 5), ...]
-    # dd: [((dt, i1, i2), ...]
-    real_iiii=iiii
-    real_ref=ref
-    iiii = [ii for ii in iiii if ii[0]]     #delete the *
-    ref = [r for r in ref if r]
+    # iiii: [[1],[2], ...]
+    # dd: [((dt, i1, i2), ...] delete *   
+    iiii,dd=refine_ii_dd(iiii,dd)
     isolated = find_isolated_tokens(iiii, dd)
     gr = []
-    for ii in product(*expanded_deps(real_iiii, dd, cids)): 
+    for ii in product(*expanded_deps(iiii, dd, cids)): 
         isolated_ll = [ii[i] for i in isolated]
         qdd = [(dt, ii[i1], ii[i2]) for dt, i1, i2 in dd]
         q = format_query(isolated_ll, qdd)
         c = group_count_query(q, cids)
         if c or ii[0] == iiii[0][0]:  # show results of user query even empty
             gr.append((ii, dd, c))  #[... for ii, dd, c in gr]
-    if gr:
+    if len(gr) == 1 and gr[0][2] == 0:
+        gr=[]
+    elif gr:
         if gr[0][0][0] == iiii[0][0]:
             gr = [gr[0]] + sorted(gr[1:], key=itemgetter(2), reverse=True)[:settings.MAX_GROUP_COUNT] # TODO: tf-idf sorting
         else:
             gr = sorted(gr[1:], key=itemgetter(2), reverse=True)[:settings.MAX_GROUP_COUNT] # TODO: tf-idf sorting
-        gr = [{'s': ' ... '.join(ii2tt(ii)), 'c': c, 'qs': json.dumps({'gc': c, 'ii': format_ii(ii,real_ref), 'dd': dd, 'cids': cids, 'ref': real_ref})} for ii, dd, c in gr]
+        gr = [{'s': ' ... '.join(ii2tt(ii)), 'c': c, 'qs': json.dumps({'gc': c, 'ii': format_ii(ii,ref), 'dd': dd, 'cids': cids, 'ref': ref})} for ii, dd, c in gr]
     # TODO: unified cids and ref for whole gr
     # TODO: switch the order of product and cids
     return gr
@@ -185,6 +184,8 @@ def group_count_query(q, cids):
 @timeit
 def sentence_query(ii, dd, cids, ref, start=0, count=100):
     # ref: query token ids in original form and order
+    real_ii=ii
+    real_ref=ref
     tmp=0
     tt=[]
     for i in xrange(len(ii)-1): #去掉首尾位元素

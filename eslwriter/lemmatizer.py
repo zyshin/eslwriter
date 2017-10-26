@@ -4,7 +4,6 @@ logger = logging.getLogger(__name__)
 
 from django.conf import settings
 
-
 LEMMATIZER_URL = settings.STANFORD_CORENLP_SERVER + '?properties={"outputFormat":"conll"}'
 
 
