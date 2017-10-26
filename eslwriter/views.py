@@ -148,9 +148,8 @@ def sentence_query_view(request):
 @timeit
 def group_query(iiii, dd, cids, ref):
     # iiii: [[1],[2], ...]
-    # dd: [((dt, i1, i2), ...] delete *
-    real_dd = dd   
-    iiii,dd=refine_ii_dd(iiii,real_dd)
+    # dd: [((dt, i1, i2), ...] delete *   
+    iiii,dd=refine_ii_dd(iiii,dd)
     isolated = find_isolated_tokens(iiii, dd)
     gr = []
     for ii in product(*expanded_deps(iiii, dd, cids)): 

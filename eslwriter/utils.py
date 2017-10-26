@@ -108,10 +108,8 @@ def refine_ii_dd(ii,dd):
                         i1-=1
                         i2-=1
             d.append(tuple([dd[0][0],i1,i2]))
-
         else:
-            iiii = [i for i in ii if i[0]]
-
+            iiii = [i for i in ii if i and 0 not in i]
     return iiii,d
 
 def format_ii(ii,model):
