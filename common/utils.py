@@ -12,8 +12,9 @@ def timeit(func):
         start = time.time()
         result = func(*args, **kwags)  #recevie the native function call result
         span = time.time() - start
-        if settings.DEBUG or span > 5.0:
-            logging.warning('timeit: %s %d ms', func.__name__, span * 1000)
+        args_strs = [repr(arg) for arg in args] + [k + '=' + repr(w) for k, w in kwags.iteritems()]
+        if (settings.DEBUG and span > 0.1) or span > 5.0:
+            logging.warning('timeit: %s %d ms\n(%s)', func.__name__, span * 1000, ','.join(args_strs))
         return result        #return to caller
     return __decorator
 
