@@ -148,25 +148,26 @@ def sentence_query_view(request):
 @timeit
 def group_query(iiii, dd, cids, ref):
     # iiii: [[1],[2], ...]
-    # dd: [((dt, i1, i2), ...] delete *   
+    # dd: [((dt, i1, i2), ...] delete *
+    gr = []
     iiii,dd=refine_ii_dd(iiii,dd)
     isolated = find_isolated_tokens(iiii, dd)
-    gr = []
-    for ii in product(*expanded_deps(iiii, dd, cids)): 
-        isolated_ll = [ii[i] for i in isolated]
-        qdd = [(dt, ii[i1], ii[i2]) for dt, i1, i2 in dd]
-        q = format_query(isolated_ll, qdd)
-        c = group_count_query(q, cids)
-        if c or ii[0] == iiii[0][0]:  # show results of user query even empty
-            gr.append((ii, dd, c))  #[... for ii, dd, c in gr]
-    if len(gr) == 1 and gr[0][2] == 0:
-        gr=[]
-    elif gr:
-        if gr[0][0][0] == iiii[0][0]:
-            gr = [gr[0]] + sorted(gr[1:], key=itemgetter(2), reverse=True)[:settings.MAX_GROUP_COUNT] # TODO: tf-idf sorting
-        else:
-            gr = sorted(gr[1:], key=itemgetter(2), reverse=True)[:settings.MAX_GROUP_COUNT] # TODO: tf-idf sorting
-        gr = [{'s': ' ... '.join(ii2tt(ii)), 'c': c, 'qs': json.dumps({'gc': c, 'ii': format_ii(ii,ref), 'dd': dd, 'cids': cids, 'ref': ref})} for ii, dd, c in gr]
+    if iiii:
+        for ii in product(*expanded_deps(iiii, dd, cids)):
+            isolated_ll = [ii[i] for i in isolated]
+            qdd = [(dt, ii[i1], ii[i2]) for dt, i1, i2 in dd]
+            q = format_query(isolated_ll, qdd)
+            c = group_count_query(q, cids)       
+            if c or ii[0] == iiii[0][0]:  # show results of user query even empty
+                gr.append((ii, dd, c))  #[... for ii, dd, c in gr]
+        if len(gr) == 1 and gr[0][2] == 0:
+            gr=[]
+        elif gr:
+            if gr[0][0][0] == iiii[0][0]:
+                gr = [gr[0]] + sorted(gr[1:], key=itemgetter(2), reverse=True)[:settings.MAX_GROUP_COUNT] # TODO: tf-idf sorting
+            else:
+                gr = sorted(gr[1:], key=itemgetter(2), reverse=True)[:settings.MAX_GROUP_COUNT] # TODO: tf-idf sorting
+            gr = [{'s': ' ... '.join(ii2tt(ii)), 'c': c, 'qs': json.dumps({'gc': c, 'ii': format_ii(ii,ref), 'dd': dd, 'cids': cids, 'ref': ref})} for ii, dd, c in gr]
     # TODO: unified cids and ref for whole gr
     # TODO: switch the order of product and cids
     return gr
