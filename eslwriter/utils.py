@@ -61,14 +61,14 @@ else:
     i2t = dict([(t['_id'], t['t']) for t in tokens])
     del tokens
 
-
+@timeit
 def tt2ii(tt, ignore=True):  # * -> 0
     if ignore:
         ii = [t2i.get(t, -1) if t != '*' else 0 for t in tt]
         return [i for i in ii if i != -1]
     return [t2i.get(t, t) if t != '*' else 0 for t in tt]
 
-
+@timeit
 def ii2tt(ii):
     return [i2t.get(i, i) if i2t.get(i, i) else '*' for i in ii]
 

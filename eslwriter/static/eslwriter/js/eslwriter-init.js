@@ -95,6 +95,20 @@ $(document).ready(function() {
         $('#NavSearchInput').focus();
     }
 
+    function scrollToTop(duration, callback) {
+        var x = 0, initialY = scrollY, ease = function(n) {
+            return n * (2 - n);
+        };
+        const interval = setInterval(function () {
+            x += 20 / duration;
+            scrollTo(scrollX, x > 1 ? 0 : (1 - ease(x)) * initialY);
+            if (x > 1) {
+                clearInterval(interval);
+                callback && callback();
+            }
+        }, 20);
+    }
+
     function fillWithExample(text) {
         // scroll to top
         // clear and fill in text
@@ -106,8 +120,9 @@ $(document).ready(function() {
         ANIMATION_ON = true;
         var showAutocomplete = (text.indexOf('*') >= 0 || text.indexOf('(') >= 0);
         var q = text.replace(/\*/g, '').replace(/\(.*?\)/g, '').trim();
-        $('body').animate({ scrollTop: 0 }, 'fast', 'swing', function() {
-            // TODO: bind animation to one element
+        // $('html,body').animate({ scrollTop: 0 }, 'fast', 'swing', function() {
+        // for campatibility with Chrome:
+        scrollToTop(300, function () {
             $('#SearchInput').val('');
             (function addChar() {
                 if (q) {
