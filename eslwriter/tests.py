@@ -58,6 +58,16 @@ class eslTestCase(TestCase):
                                u'greek', u'obscure']
         self.assertEqual(case1_syn, case1_expected_res)
 
+        case2_word = "with"
+        case2_syn = synonyms(word=case2_word)
+        case2_expected_res = ['with', u'among', u'via', u'past', u'into', u'within', u'near', u'down', u'as', u'anti', u'at', u'in', u'beyond', u'before', u'considering', u'from', u'for', u'since', u'excepting', u'except', u'per', u'than', u'beside', u'to', u'behind', u'above', u'between', u'save', u'across', u'outside', u'versus', u'over', u'towards', u'around', u'opposite', u'concerning', u'after', u'upon', u'regarding', u'but', u'underneath', u'unlike', u'under', u'besides', u'despite', u'during', u'along', u'by', u'on', u'about', u'off', u'like', u'excluding', u'amid', u'inside', u'up', u'against', u'until', u'below', u'without', u'plus', u'aboard', u'of', u'following', u'through', u'beneath', u'toward', u'onto', u'round']
+        self.assertEqual(case2_syn, case2_expected_res)
+
+        case3_word = "save"
+        case3_syn = synonyms(word=case3_word)
+        case3_expected_res = ['save', u'shield', u'manage', u'maintain', u'recover', u'conserve', u'sustain', u'store', u'preserve', u'deliver', u'free', u'spare', u'salvage', u'keep', u'collect', u'amass', u'cache', u'spring', u'extricate', u'squirrel', u'ransom', u'safeguard', u'defend', u'treasure', u'scrimp', u'hoard', u'unchain', u'skimp', u'retrench', u'screen', u'redeem', u'hold', u'emancipate', u'gather', u'stash', u'stockpile', u'deposit', u'liberate', u'reserve', u'unshackle']
+        self.assertEqual(case3_syn, case3_expected_res)
+
     def test_thesaurus_antonyms(self):
         case1_word = "inexplicable"
         case1_ant = antonyms(word=case1_word)
