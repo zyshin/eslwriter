@@ -24,7 +24,7 @@ class eslTestCase(TestCase):
         case1_ii = [38, 700]
         case1_dd = [[1, 0, 1]]
         case1_cids = [u'acm_trans_comput_hum_interact_tochi_', u'user_model_user_adapt_interact_umuai_', u'int_j_hum_comput_stud_ijmms_', u'mobile_hci', u'ecscw', u'uist', u'chi', u'its', u'iui', u'hci', u'ubicomp', u'cscw']
-        case1_ref = [700]
+        case1_ref = [0, 700]
         case1_start = 0
         case1_count = 100
         case1_sr = sentence_query(ii=case1_ii, dd=case1_dd, cids=case1_cids, ref=case1_ref, start=case1_start, count=case1_count)
@@ -38,10 +38,10 @@ class eslTestCase(TestCase):
         # Case 1: search '* (n+v) impact'
         case1_t = [{u'i': 0, u'w': 3209236, u'l': 96, u'pt': 28}, {u'i': 1, u'w': 2, u'l': 2, u'pt': 4}, {u'i': 2, u'w': 11, u'l': 11, u'pt': 14}, {u'i': 3, u'w': 1, u'l': 1, u'pt': 11}, {u'i': 4, u'w': 407, u'l': 407, u'pt': 15}, {u'i': 5, u'w': 413, u'l': 413, u'pt': 20}, {u'i': 6, u'w': 2, u'l': 2, u'pt': 4}, {u'i': 7, u'w': 1, u'l': 1, u'pt': 11}, {u'i': 8, u'w': 459, u'l': 459, u'pt': 20}, {u'i': 9, u'w': 38, u'l': 38, u'pt': 20}, {u'i': 10, u'w': 5, u'l': 5, u'pt': 14}, {u'i': 11, u'w': 87, u'l': 87, u'pt': 11}, {u'i': 12, u'w': 845, u'l': 845, u'pt': 20}, {u'i': 13, u'w': 3116610, u'l': 46, u'pt': 40}, {u'i': 14, u'w': 23, u'l': 23, u'pt': 28}, {u'i': 15, u'w': 700, u'l': 700, u'pt': 35}, {u'i': 16, u'w': 1, u'l': 1, u'pt': 11}, {u'i': 17, u'w': 886, u'l': 886, u'pt': 15}, {u'i': 18, u'w': 532, u'l': 532, u'pt': 20}, {u'i': 19, u'w': 38, u'l': 38, u'pt': 20}, {u'i': 20, u'w': 3, u'l': 3, u'pt': 7}]
         case1_m = (9, 15)
-        case1_ref = [700]
+        case1_ref = [0, 700]
         case1_tt = [0]
         case1_mc = match_cost(T=case1_t, m=case1_m, ref=case1_ref, tt=case1_tt)
-        self.assertEqual(case1_mc, 9223372036854775807)
+        self.assertEqual(case1_mc, 17)
 
     def test_utils_parse_query_str(self):
         case1_q = "open (v+n) door"
