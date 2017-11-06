@@ -28,9 +28,13 @@ def home_view(request):
         return render(request, 'eslwriter/index.html', {'error': error})
 
     qtt, qdd = parse_query_str(q)
+    qmii = 0
     ll = [t if is_cn(t) else lemmatize(t) for t in qtt]  #lemmatize with '?'
     llll = [expanded_token(l) for l in ll]  #translate Chinese keywords & synonym expansion
-    iiii = [tt2ii(tt) for tt in llll]  #lemma id
+    iiii = [tt2ii(tt) for tt in llll]  #lemma id   
+    for ll in llll:
+        if type(ll) is list and len(ll) >= 1:
+            qmii = tt2ii([ll[0]])[0] 
     ref_wwii = tt2ii([t.strip('?') for t in qtt])   #for sorting
 
     # query groups
@@ -45,8 +49,8 @@ def home_view(request):
         l = UserCorpus.objects.filter(pk=pri_cids[0])
         if l.count():
             profile['pri_corpus'] = l[0]
-    pub_gr = group_query(iiii, qdd, pub_cids, ref_wwii)
-    pri_gr = group_query(iiii, qdd, pri_cids, ref_wwii) if pri_cids else []
+    pub_gr = group_query(iiii, qdd, pub_cids, ref_wwii, qmii)
+    pri_gr = group_query(iiii, qdd, pri_cids, ref_wwii, qmii) if pri_cids else []
 
     info = {
         'q': q,
@@ -146,7 +150,7 @@ def sentence_query_view(request):
     return render(request, 'eslwriter/sentence_result.html', {'gc': gc, 'sr': sr, 'page_nums_list': page_nums_list})
 
 @timeit
-def group_query(iiii, dd, cids, ref):
+def group_query(iiii, dd, cids, ref, qmii):
     # iiii: [[1],[2], ...]
     # dd: [((dt, i1, i2), ...] delete *
     gr = []
@@ -158,12 +162,12 @@ def group_query(iiii, dd, cids, ref):
             qdd = [(dt, ii[i1], ii[i2]) for dt, i1, i2 in dd]
             q = format_query(isolated_ll, qdd)
             c = group_count_query(q, cids)       
-            if c or ii[0] == iiii[0][0]:  # show results of user query even empty
+            if c or ii[0] == qmii:  # show results of user query even empty
                 gr.append((ii, dd, c))  #[... for ii, dd, c in gr]
         if len(gr) == 1 and gr[0][2] == 0:
             gr=[]
         elif gr:
-            if gr[0][0][0] == iiii[0][0]:
+            if gr[0][0][0] == qmii:
                 gr = [gr[0]] + sorted(gr[1:], key=itemgetter(2), reverse=True)[:settings.MAX_GROUP_COUNT] # TODO: tf-idf sorting
             else:
                 gr = sorted(gr[1:], key=itemgetter(2), reverse=True)[:settings.MAX_GROUP_COUNT] # TODO: tf-idf sorting
