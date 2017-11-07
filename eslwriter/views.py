@@ -167,7 +167,7 @@ def group_query(iiii, dd, cids, ref, qmii):
         if len(gr) == 1 and gr[0][2] == 0:
             gr=[]
         elif gr:
-            if gr[0][0][0] == qmii:
+            if qmii in gr[0][0]:
                 gr = [gr[0]] + sorted(gr[1:], key=itemgetter(2), reverse=True)[:settings.MAX_GROUP_COUNT] # TODO: tf-idf sorting
             else:
                 gr = sorted(gr, key=itemgetter(2), reverse=True)[:settings.MAX_GROUP_COUNT] # TODO: tf-idf sorting
