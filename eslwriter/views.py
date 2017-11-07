@@ -28,7 +28,7 @@ def home_view(request):
         return render(request, 'eslwriter/index.html', {'error': error})
 
     qtt, qdd = parse_query_str(q)
-    qmii = 0
+    qmii = 0 # the word id end with ?
     ll = [t if is_cn(t) else lemmatize(t) for t in qtt]  #lemmatize with '?'
     llll = [expanded_token(l) for l in ll]  #translate Chinese keywords & synonym expansion
     iiii = [tt2ii(tt) for tt in llll]  #lemma id   
@@ -170,7 +170,7 @@ def group_query(iiii, dd, cids, ref, qmii):
             if gr[0][0][0] == qmii:
                 gr = [gr[0]] + sorted(gr[1:], key=itemgetter(2), reverse=True)[:settings.MAX_GROUP_COUNT] # TODO: tf-idf sorting
             else:
-                gr = sorted(gr[1:], key=itemgetter(2), reverse=True)[:settings.MAX_GROUP_COUNT] # TODO: tf-idf sorting
+                gr = sorted(gr, key=itemgetter(2), reverse=True)[:settings.MAX_GROUP_COUNT] # TODO: tf-idf sorting
             gr = [{'s': ' ... '.join(ii2tt(ii)), 'c': c, 'qs': json.dumps({'gc': c, 'ii': format_ii(ii,ref), 'dd': dd, 'cids': cids, 'ref': ref})} for ii, dd, c in gr]
     # TODO: unified cids and ref for whole gr
     # TODO: switch the order of product and cids
