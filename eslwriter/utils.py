@@ -212,7 +212,7 @@ def expanded_token(t):
     if is_cn(t):
         return translate(t.strip('?')) # tuple of string
     elif t.endswith('?'):
-        return synonyms(t.strip('?'))# list
+        return synonyms(t.strip('?')) # list
     else:
         return (t,)
 

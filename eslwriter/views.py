@@ -28,13 +28,13 @@ def home_view(request):
         return render(request, 'eslwriter/index.html', {'error': error})
 
     qtt, qdd = parse_query_str(q)
-    qmii = 0 # the word id end with ?
+    qmii = [] # the list of word end with ?
     ll = [t if is_cn(t) else lemmatize(t) for t in qtt]  #lemmatize with '?'
-    llll = [expanded_token(l) for l in ll]  #translate Chinese keywords & synonym expansion
-    iiii = [tt2ii(tt) for tt in llll]  #lemma id   
+    llll = [expanded_token(l) for l in ll]  # translate Chinese keywords & synonym expansion
+    iiii = [tt2ii(tt) for tt in llll]  # lemma id
     for ll in llll:
         if type(ll) is list and len(ll) >= 1:
-            qmii = tt2ii([ll[0]])[0] 
+            qmii.append(tt2ii([ll[0]])[0])
     ref_wwii = tt2ii([t.strip('?') for t in qtt])   #for sorting
 
     # query groups
@@ -153,6 +153,7 @@ def sentence_query_view(request):
 def group_query(iiii, dd, cids, ref, qmii):
     # iiii: [[1],[2], ...]
     # dd: [((dt, i1, i2), ...] delete *
+    # qmii: [i1,i2，……], the words id that end with ?
     gr = []
     iiii,dd=refine_ii_dd(iiii,dd)
     isolated = find_isolated_tokens(iiii, dd)
@@ -161,16 +162,15 @@ def group_query(iiii, dd, cids, ref, qmii):
             isolated_ll = [ii[i] for i in isolated]
             qdd = [(dt, ii[i1], ii[i2]) for dt, i1, i2 in dd]
             q = format_query(isolated_ll, qdd)
-            c = group_count_query(q, cids)       
-            if c or ii[0] == qmii:  # show results of user query even empty
+            c = group_count_query(q, cids)
+            if c or set(ii)^set(qmii) == set([]):  # show results of user query even empty
                 gr.append((ii, dd, c))  #[... for ii, dd, c in gr]
         if len(gr) == 1 and gr[0][2] == 0:
             gr=[]
         elif gr:
-            if qmii in gr[0][0]:
-                gr = [gr[0]] + sorted(gr[1:], key=itemgetter(2), reverse=True)[:settings.MAX_GROUP_COUNT] # TODO: tf-idf sorting
-            else:
-                gr = sorted(gr, key=itemgetter(2), reverse=True)[:settings.MAX_GROUP_COUNT] # TODO: tf-idf sorting
+            gr = sorted(gr, key=itemgetter(2), reverse=True)[:settings.MAX_GROUP_COUNT] # TODO: tf-idf sorting
+            if gr[-1][2] == 0 :  
+                gr = [gr[-1]] + gr[:-1]
             gr = [{'s': ' ... '.join(ii2tt(ii)), 'c': c, 'qs': json.dumps({'gc': c, 'ii': format_ii(ii,ref), 'dd': dd, 'cids': cids, 'ref': ref})} for ii, dd, c in gr]
     # TODO: unified cids and ref for whole gr
     # TODO: switch the order of product and cids
