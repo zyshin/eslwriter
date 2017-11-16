@@ -10,6 +10,11 @@ class eslTestCase(TestCase):
         pass
 
     def test_views_group_query(self):
+        for line in open("eslwriter/cases.txt"):
+            case_iiii, case_dd, case_cids, case_ref, case_expected_gr = line.split('$')
+            case_gr = group_query(iiii=case_iiii, dd=case_dd, cids=case_cids, ref=case_ref)
+            self.assertEqual(case_gr, case_expected_gr)
+
         # Case 1: search '* (n+v) impact'
         case1_iiii = [[0], [700]]
         case1_dd = [(1, 0, 1)]
