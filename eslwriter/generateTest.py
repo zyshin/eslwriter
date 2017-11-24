@@ -48,17 +48,22 @@ def generate_group_query():
     for case in cases:
         case = case.strip()
         qtt, qdd = parse_query_str(case)
+        qmii = []
         ll = [t if is_cn(t) else lemmatize(t) for t in qtt]
         llll = [expanded_token(l) for l in ll]
         iiii = [tt2ii(tt) for tt in llll]
+        for ll in llll:
+            if type(ll) is list and len(ll) >= 1:
+                qmii = tt2ii([ll[0]])[0]
         ref_wwii = tt2ii([t.strip('?') for t in qtt])
 
         profile = {'field': settings.DEFAULT_FID, 'pub_corpora': settings.DEFAULT_CIDS}
         profile.update(mongo_get_object(UserProfile, pk=None) or {})
         profile['field'] = mongo_get_object(Field, pk=profile['field'])['name']
         pub_cids = _get_cids(profile)
-        pub_gr = group_query(iiii, qdd, pub_cids, ref_wwii)
-        file_object.write(str(iiii) + '$' + str(qdd) + '$' + str(pub_cids[1]) + '$' + str(ref_wwii) + '$' + str(pub_gr) + '\n')
+        pub_gr = group_query(iiii, qdd, pub_cids, ref_wwii, qmii)
+        print pub_gr
+        file_object.write(str(iiii) + '$' + str(qdd) + '$' + str(pub_cids[1]) + '$' + str(ref_wwii) + '$' + str(qmii) + '$' + str(pub_gr) + '\n')
 
     file_object.close()
 
