@@ -176,7 +176,6 @@ def match_cost(T, m, ref, tt):
            formCost += 1    # word != lemma penalty, 'writing' -> 'writing' > 'write' > 'writes' > ...
 
     # TODO: paperCost
-
     return posCost + queryCost + formCost
 
 
@@ -211,10 +210,9 @@ def expanded_token(t):
     assert type(t) == type('') or type(t) == type(u''), 't is of type %s, not str' % type(t)
     # translate Chinese keywords & synonym expansion according to '?'
     if is_cn(t):
-        return translate(t.strip('?'))
+        return translate(t.strip('?')) # tuple of string
     elif t.endswith('?'):
-        # print synonyms(t.strip('?'))
-        return synonyms(t.strip('?'))
+        return synonyms(t.strip('?')) # list
     else:
         return (t,)
 
