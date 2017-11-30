@@ -870,3 +870,15 @@ input[type="checkbox"].input-validation-error {
   font-size: 132px;
   color: #F15A24;
 }
+
+/*monitor database*/
+.update-time {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.table-annotation {
+  font-size: 15px;
+  margin-top: 30px;
+}
