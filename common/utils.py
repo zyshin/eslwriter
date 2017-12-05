@@ -14,7 +14,7 @@ def timeit(func):
         span = time.time() - start
         args_strs = [repr(arg) for arg in args] + [k + '=' + repr(w) for k, w in kwags.iteritems()]
         if (settings.DEBUG and span > 0.1) or span > 5.0:
-            logging.warning('timeit: %s %d ms\n(%s)', func.__name__, span * 1000, ','.join(args_strs))
+            logging.warning('timeit: %s %d ms\n(%s)', func.__name__, span * 1000, ', '.join(args_strs))
         return result        #return to caller
     return __decorator
 
@@ -119,10 +119,7 @@ def init_dbc(remote=False):
     from pymongo import MongoClient
     from getpass import getpass
     global dbc
-    if remote:
-        dbc = MongoClient('www.eslwriter.org')
-    else:
-        dbc = MongoClient('166.111.139.42')
+    dbc = MongoClient(raw_input('Database host: '))
     print 'using', dbc
     try:
         dbc.database_names()
