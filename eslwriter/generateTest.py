@@ -1,14 +1,17 @@
 # -*- coding:utf-8 -*-
 import os, django
+import sys
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'eslwebsite.settings_debug'
 django.setup()
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 from eslwriter.utils import *
 from eslwriter.lemmatizer import lemmatize
 from common.utils import mongo_get_object
 from common.models import UserProfile, Field
-from eslwriter.views import _get_cids, group_query
+from eslwriter.views import _get_cids, group_query, sentence_query, dep_query
 
 
 def generate_group_query(cases):
@@ -33,14 +36,62 @@ def generate_group_query(cases):
         profile['field'] = mongo_get_object(Field, pk=profile['field'])['name']
         pri_cids, pub_cids = _get_cids(profile)
         pub_gr = group_query(iiii, qdd, pub_cids, ref_wwii, qmii)
+        generate_sentence_query(pub_gr)
         file_object.write(str(iiii) + '$' + str(qdd) + '$' + str(pub_cids) + '$'
                           + str(ref_wwii) + '$' + str(qmii) + '$' + str(pub_gr) + '\n')
 
     file_object.close()
 
 
+def generate_sentence_query(gr):
+    file_object = open('sentence_query.txt', 'w')
+
+    if gr:
+        gr = eval(gr[0]['qs'])
+        ii = gr['ii']
+        dd = gr['dd']
+        ref = gr['ref']
+        cids = gr['cids']
+        sr = sentence_query(ii, dd, cids, ref)
+        file_object.write(str(ii) + '$' + str(dd) + '$' + str(ref) + '$' + str(cids) + '$' + str(sr) + '\n')
+
+    file_object.close()
+    
+
+def generate_dep_query(cases):
+    file_object = open('dep_query.txt', 'w')
+    file_object.truncate()
+
+    for case in cases:
+        print case
+        case = case.strip()
+        qtt, _ = parse_query_str(case)
+        qlen = len(qtt)
+
+        profile = mongo_get_object(UserProfile, pk=None)
+        pri_cids, pub_cids = _get_cids(profile)
+        cids = pub_cids + pri_cids
+
+        if (qlen == 1 or qlen == 2) and cids:
+            tt = [t.strip('?') for t in qtt[:2]]
+            tt = [translate(t)[0] if is_cn(t) else t for t in tt]
+            tt = [lemmatize(t) for t in tt]
+            llii = tt2ii(tt, ignore=False)
+
+            l1 = llii[0]
+            if qlen == 1:
+                qtt.append('*')
+                l2 = 0
+            else:
+                l2 = llii[1]
+            gr = dep_query(l1, l2, cids)
+            file_object.write(str(l1) + '$' + str(l2) + '$' + str(cids) + '$' + str(gr) + '\n')
+
+    file_object.close()
+
+
 def main():
-    cases = {"extend * to", "for *", "length of 调和restriction", "*impact", "value is not the max", "开始programe",
+    cases = {"extend * to", "for *", "length of 调和restriction", "*impact", "value is not the max", "开始programe"
              "extend *", "phasese", "Ma et al.s", "use？", "KDB’s performance", "nanopore", "howbeit",
              "a large number of", "is used for", "real bit", "communication link", "* (主谓) and * (主谓)", "open program",
              "bubble  cursor (修饰)", "analysis for source code", "dimensional", "supress", " supressed", "ordinarily",
@@ -83,9 +134,9 @@ def main():
              "specular?", "mostly?", "attain ? (动宾)", "become? (动宾) ", "corpora?", "spectecular", "extend (??) to *",
              "curiosity?", "effect? (动宾) *", "lower? (动宾) *", "conditioned (???����?) on", "essentially?", "ulterior?",
              "It is reasonable?", "exercise?", "open?  program", "build? model?", "* (modifies) impact", "a set? of",
-             "* (v+n) approach", "the set? of","conduct? (动宾) study?"}
-             # "bear (???\xa8\xa8\xa1\xe3?) *", "conditioned (???\xa8\xa8\xa1\xa5?) on"
-    generate_group_query(cases)
+             "* (v+n) approach", "the set? of", "conduct? (动宾) study?"}
 
+    generate_group_query(cases)
+    generate_dep_query(cases)
 
 main()

@@ -23,19 +23,28 @@ class eslTestCase(TestCase):
             self.assertEqual(case_gr, case_expected_gr)
 
     def test_views_sentence_query(self):
-        # Case 1: search '* (n+v) impact'
-        case1_ii = [38, 700]
-        case1_dd = [[1, 0, 1]]
-        case1_cids = [u'acm_trans_comput_hum_interact_tochi_', u'user_model_user_adapt_interact_umuai_', u'int_j_hum_comput_stud_ijmms_', u'mobile_hci', u'ecscw', u'uist', u'chi', u'its', u'iui', u'hci', u'ubicomp', u'cscw']
-        case1_ref = [0, 700]
-        case1_start = 0
-        case1_count = 100
-        case1_sr = sentence_query(ii=case1_ii, dd=case1_dd, cids=case1_cids, ref=case1_ref, start=case1_start, count=case1_count)
-        case1_expected_sr = [({'url': u'http://www.dblp.org/rec/bibtex/conf/uist/RetelnyRTLPRDVB14', 'source': u"UIST'14. D. Retelny et. al. Expert crowdsourcing with flash teams. "}, u'If a task finishes early, Foundry recalculates the starting <strong>times</strong> for all downstream tasks and emails all <strong>impacted</strong> workers with a new estimated start time for their next task.'), ({'url': u'http://www.dblp.org/rec/bibtex/conf/chi/HsiehC09', 'source': u"CHI'09. G. Hsieh et. al. mimir: a market-based real-time question and answer service. "}, u"Since it is possible that the <strong>time</strong> when a best answer is selected would <strong>impact</strong> the users' answering behavior, we selected the best answers in the two systems at the same time."), ({'url': u'http://www.dblp.org/rec/bibtex/conf/chi/BaumerST08', 'source': u"CHI'08. E. Baumer et. al. Exploring the role of the reader in the activity of blogging. "}, u'Non-chronous - While readers experience blog posts in temporal order, the exact <strong>times</strong> of the posts does not significantly <strong>impact</strong> the reading activity.'), ({'url': u'http://www.dblp.org/rec/bibtex/conf/cscw/JunuzovicD12', 'source': u"CSCW'12. S. Junuzovic et. al. Towards self-optimizing collaborative systems. "}, u'Think <strong>times</strong> can <strong>impact</strong> response times because when think times of commands are low, slower computers may fall behind the faster computers in processing the commands.'), ({'url': u'http://www.dblp.org/rec/bibtex/conf/cscw/JunuzovicD12', 'source': u"CSCW'12. S. Junuzovic et. al. Towards self-optimizing collaborative systems. "}, u'The additional processing <strong>time</strong> <strong>impacted</strong> the critical computer time when it was the source.'), ({'url': u'http://www.dblp.org/rec/bibtex/conf/cscw/JunuzovicD12', 'source': u"CSCW'12. S. Junuzovic et. al. Towards self-optimizing collaborative systems. "}, u'However, for the parallel policy, the processing <strong>time</strong> of any kind does not <strong>impact</strong> the critical computer time.')]
-        self.assertEqual(case1_sr, case1_expected_sr)
+        for line in open("eslwriter/sentence_query.txt"):
+            case_ii, case_dd, case_ref, case_cids, case_expected_sr = line.split('$')
+            case_ii = eval(case_ii)
+            case_dd = eval(case_dd)
+            # case_ref = eval(case_ref)
+            case_cids = eval(case_cids)
+            case_ref = eval(case_ref)
+            case_expected_sr = case_expected_sr[:-1]
+            case_expected_sr = eval(case_expected_sr)
+            case_sr = sentence_query(ii=case_ii, dd=case_dd, cids=case_cids, ref=case_ref, start=0, count=100)
+            self.assertEqual(case_sr, case_expected_sr)
 
     def test_views_dep_query(self):
-        pass
+        for line in open("eslwriter/dep_query.txt"):
+            case_l1, case_l2, case_cids, case_expected_gr = line.split('$')
+            case_l1 = eval(case_l1)
+            case_l2 = eval(case_l2)
+            case_cids = eval(case_cids)
+            case_expected_gr = case_expected_gr[:-1]
+            case_expected_gr = eval(case_expected_gr)
+            case_gr = dep_query(l1=case_l1, l2=case_l2, cids=case_cids)
+            self.assertEqual(case_gr, case_expected_gr)
 
     def test_utils_match_cost(self):
         # Case 1: search '* (n+v) impact'
