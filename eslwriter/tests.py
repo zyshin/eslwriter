@@ -1,6 +1,6 @@
 from django.test import TestCase
 from eslwriter.views import group_query, sentence_query, dep_query
-from eslwriter.utils import match_cost, parse_query_str
+from eslwriter.utils import match_cost, parse_query_str, find_best_match, refine_ii_dd
 from eslwriter.thesaurus import synonyms, antonyms
 from eslwriter.lemmatizer import lemmatize
 
@@ -46,14 +46,44 @@ class eslTestCase(TestCase):
             case_gr = dep_query(l1=case_l1, l2=case_l2, cids=case_cids)
             self.assertEqual(case_gr, case_expected_gr)
 
+    def test_utils_find_best_match(self):
+        for line in open("eslwriter/find_best_match.txt"):
+            case_r, case_ii, case_dd, case_ref, case_tt, case_expected_r1, case_expected_r2 = line.split('$')
+            case_r = eval(case_r)
+            case_ii = eval(case_ii)
+            case_dd = eval(case_dd)
+            case_ref = eval(case_ref)
+            case_tt = eval(case_tt)
+            case_expected_r1 = eval(case_expected_r1)
+            case_expected_r2 = case_expected_r2[:-1]
+            case_expected_r2 = eval(case_expected_r2)
+            case_r1, case_r2 = find_best_match(case_r, case_ii, case_dd, case_ref, case_tt)
+            self.assertEqual(case_r1, case_expected_r1)
+            self.assertEqual(case_r2, case_expected_r2)
+
     def test_utils_match_cost(self):
-        # Case 1: search '* (n+v) impact'
-        case1_t = [{u'i': 0, u'w': 3209236, u'l': 96, u'pt': 28}, {u'i': 1, u'w': 2, u'l': 2, u'pt': 4}, {u'i': 2, u'w': 11, u'l': 11, u'pt': 14}, {u'i': 3, u'w': 1, u'l': 1, u'pt': 11}, {u'i': 4, u'w': 407, u'l': 407, u'pt': 15}, {u'i': 5, u'w': 413, u'l': 413, u'pt': 20}, {u'i': 6, u'w': 2, u'l': 2, u'pt': 4}, {u'i': 7, u'w': 1, u'l': 1, u'pt': 11}, {u'i': 8, u'w': 459, u'l': 459, u'pt': 20}, {u'i': 9, u'w': 38, u'l': 38, u'pt': 20}, {u'i': 10, u'w': 5, u'l': 5, u'pt': 14}, {u'i': 11, u'w': 87, u'l': 87, u'pt': 11}, {u'i': 12, u'w': 845, u'l': 845, u'pt': 20}, {u'i': 13, u'w': 3116610, u'l': 46, u'pt': 40}, {u'i': 14, u'w': 23, u'l': 23, u'pt': 28}, {u'i': 15, u'w': 700, u'l': 700, u'pt': 35}, {u'i': 16, u'w': 1, u'l': 1, u'pt': 11}, {u'i': 17, u'w': 886, u'l': 886, u'pt': 15}, {u'i': 18, u'w': 532, u'l': 532, u'pt': 20}, {u'i': 19, u'w': 38, u'l': 38, u'pt': 20}, {u'i': 20, u'w': 3, u'l': 3, u'pt': 7}]
-        case1_m = (9, 15)
-        case1_ref = [0, 700]
-        case1_tt = [0]
-        case1_mc = match_cost(T=case1_t, m=case1_m, ref=case1_ref, tt=case1_tt)
-        self.assertEqual(case1_mc, 17)
+        for line in open("eslwriter/match_cost.txt"):
+            case_T, case_m, case_ref, case_tt, case_expected_cost = line.split('$')
+            case_T = eval(case_T)
+            case_m = eval(case_m)
+            case_ref = eval(case_ref)
+            case_tt = eval(case_tt)
+            case_expected_cost = case_expected_cost[:-1]
+            case_expected_cost = eval(case_expected_cost)
+            case_cost = match_cost(case_T, case_m, case_ref, case_tt)
+            self.assertEqual(case_cost, case_expected_cost)
+
+    def test_utils_refine_ii_dd(self):
+        for line in open("eslwriter/refine_ii_dd.txt"):
+            case_ii, case_dd, case_expected_iiii, case_expected_qdd = line.split('$')
+            case_ii = eval(case_ii)
+            case_dd = eval(case_dd)
+            case_expected_iiii = eval(case_expected_iiii)
+            case_expected_qdd = case_expected_qdd[:-1]
+            case_expected_qdd = eval(case_expected_qdd)
+            case_iiii, case_qdd = refine_ii_dd(case_ii, case_dd)
+            self.assertEqual(case_iiii, case_expected_iiii)
+            self.assertEqual(case_qdd, case_expected_qdd)
 
     def test_utils_parse_query_str(self):
         case1_q = "open (v+n) door"

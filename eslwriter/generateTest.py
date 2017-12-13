@@ -1,22 +1,18 @@
 # -*- coding:utf-8 -*-
 import os, django
-import sys
-
 os.environ['DJANGO_SETTINGS_MODULE'] = 'eslwebsite.settings_debug'
 django.setup()
-reload(sys)
-sys.setdefaultencoding('utf-8')
 
 from eslwriter.utils import *
 from eslwriter.lemmatizer import lemmatize
 from common.utils import mongo_get_object
 from common.models import UserProfile, Field
 from eslwriter.views import _get_cids, group_query, sentence_query, dep_query
+from eslwriter.utils import refine_ii_dd, find_best_match, match_cost
 
 
 def generate_group_query(cases):
     file_object = open('group_query.txt', 'w')
-    file_object.truncate()  # clear file
 
     for case in cases:
         print case
@@ -36,6 +32,7 @@ def generate_group_query(cases):
         profile['field'] = mongo_get_object(Field, pk=profile['field'])['name']
         pri_cids, pub_cids = _get_cids(profile)
         pub_gr = group_query(iiii, qdd, pub_cids, ref_wwii, qmii)
+        generate_refine_ii_dd(iiii, qdd)
         generate_sentence_query(pub_gr)
         file_object.write(str(iiii) + '$' + str(qdd) + '$' + str(pub_cids) + '$'
                           + str(ref_wwii) + '$' + str(qmii) + '$' + str(pub_gr) + '\n')
@@ -44,7 +41,7 @@ def generate_group_query(cases):
 
 
 def generate_sentence_query(gr):
-    file_object = open('sentence_query.txt', 'w')
+    file_object = open('sentence_query.txt', 'a')
 
     if gr:
         gr = eval(gr[0]['qs'])
@@ -53,14 +50,14 @@ def generate_sentence_query(gr):
         ref = gr['ref']
         cids = gr['cids']
         sr = sentence_query(ii, dd, cids, ref)
+        generate_find_best_match(ii, dd, cids, ref)
         file_object.write(str(ii) + '$' + str(dd) + '$' + str(ref) + '$' + str(cids) + '$' + str(sr) + '\n')
 
     file_object.close()
-    
+
 
 def generate_dep_query(cases):
     file_object = open('dep_query.txt', 'w')
-    file_object.truncate()
 
     for case in cases:
         print case
@@ -85,13 +82,78 @@ def generate_dep_query(cases):
             else:
                 l2 = llii[1]
             gr = dep_query(l1, l2, cids)
-            file_object.write(str(l1) + '$' + str(l2) + '$' + str(cids) + '$' + str(gr) + '\n')
+            if type(l1) == int:
+                file_object.write(str(l1) + '$' + str(l2) + '$' + str(cids) + '$' + str(gr) + '\n')
+            else:
+                file_object.write(l1.encode('utf-8') + '$' + str(l2) + '$' + str(cids) + '$' + str(gr) + '\n')
+
+    file_object.close()
+
+
+def generate_refine_ii_dd(ii, dd):
+    file_object = open('refine_ii_dd.txt', 'a')
+
+    iiii, qdd = refine_ii_dd(ii, dd)
+    file_object.write(str(ii) + '$' + str(dd) + '$' + str(iiii) + '$' + str(qdd) + '\n')
+
+    file_object.close()
+
+
+def generate_find_best_match(ii, dd, cids, ref):
+    file_object = open('find_best_match.txt', 'a')
+
+    tmp = 0
+    tt = []
+    for i in xrange(len(ii) - 1):
+        if ii[i + 1]:
+            tt.append(tmp)
+            tmp = 0
+        else:
+            tmp += 1
+    if tt and tt[0] == 0:
+        tt = tt[1:]
+    ii = [i for i in ii if i]
+    ref = [r for r in ref if r]
+    isolated_ll = [ii[i] for i in find_isolated_tokens(ii, dd)]
+    qdd = [(dt, ii[i1], ii[i2]) for dt, i1, i2 in dd]
+    q = format_query(isolated_ll, qdd)
+    sr = []
+    if not q:
+        return sr
+    dbc = settings.DBC
+    for cid in cids:
+        _sr = list(dbc.sentences[str(cid)].find(q, {'_id': 0, 't.p': 0}, limit=settings.MAX_RESULT_LENGTH))
+        for r in _sr:
+            r['m'], r['c'] = find_best_match(r, ii, dd, ref, tt)
+            generate_match_cost(r, ii, dd, ref, tt)
+            file_object.write(str(r) + '$' + str(ii) + '$' + str(dd) + '$' + str(ref) + '$' + str(tt) + '$'
+                              + str(r['m']) + '$' + str(r['c']) + '\n')
+
+    file_object.close()
+
+
+def generate_match_cost(S, ii, dd, ref, tt):
+    file_object = open('match_cost.txt', 'a')
+
+    qlen = len(ii)
+    positions = [None] * qlen
+    for d in dd:
+        dt, i1, i2 = d
+        qd = {'dt': dt, 'l1': ii[i1], 'l2': ii[i2]}
+        di, dr = find_elem_match(S['d'], qd)
+        positions[i1], positions[i2] = (dr['i1'],), (dr['i2'],)
+    for i in xrange(qlen):
+        if not positions[i]:
+            positions[i] = find_all_tokens(S['t'], ii[i])
+    for m in product(*positions):
+        cost = match_cost(S['t'], m, ref, tt)
+        file_object.write(str(S['t']) + '$' + str(m) + '$' + str(ref) + '$' + str(tt) + '$' + str(cost) + '\n')
 
     file_object.close()
 
 
 def main():
-    cases = {"extend * to", "for *", "length of 调和restriction", "*impact", "value is not the max", "开始programe"
+    cases = {"extend * to", "for *", "length of 调和restriction", "*impact", "value is not the max", "开始programe",
              "extend *", "phasese", "Ma et al.s", "use？", "KDB’s performance", "nanopore", "howbeit",
              "a large number of", "is used for", "real bit", "communication link", "* (主谓) and * (主谓)", "open program",
              "bubble  cursor (修饰)", "analysis for source code", "dimensional", "supress", " supressed", "ordinarily",
@@ -138,5 +200,6 @@ def main():
 
     generate_group_query(cases)
     generate_dep_query(cases)
+
 
 main()
