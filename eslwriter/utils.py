@@ -104,7 +104,7 @@ def refine_ii_dd(ii,dd):
             i1=dd[0][1]
             i2=dd[0][2]
             for i in xrange(len(ii)):
-                if ii[i][0]==0 and i not in dd[0]:
+                if 0 in ii[i][0] and i not in dd[0]:
                     iiii.remove(ii[i])
                     if i < dd[0][1]:
                         i1-=1
