@@ -5,44 +5,44 @@
 {% block title %} Monitor Venues {% endblock %}
 
 {% block resource %}
-    <link href = "{% static 'css/venue.css' %}" rel = "stylesheet">
+    <link href="{% static 'css/venue.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
 <div>
-    <p class = "update-time">数据库的最近更新时间为 {{ update_time }} </p>
-    <div class = 'guide'>
+    <p class="update-time">数据库的最近更新时间为 {{ update_time }} </p>
+    <div class='guide'>
         <p>目前共有如下几个展示内容，点击可跳转</p>
-        <a href = "#table1">dblp库</a>
-        <a href = "#table2">articles库</a>
-        <a href = "#table3">arxiv库</a>
+        <a href="#table1">dblp库</a>
+        <a href="#table2">articles库</a>
+        <a href="#table3">arxiv库</a>
     </div>
-    <div class = "table-responsive">
-        <table id = 'table1' class = "table table-striped table-bordered" border = "1">
+    <div class="table-responsive">
+        <table id='table1' class="table table-striped table-bordered" border="1">
             <thead>
-            <th nowrap = "nowrap">统计信息</th>
-            <th nowrap = "nowrap">会议/期刊数</th>
-            <th nowrap = "nowrap">已下载</th>
-            <th nowrap = "nowrap">总数</th>
-            <th nowrap = "nowrap">下载比例</th>
+            <th nowrap="nowrap">统计信息</th>
+            <th nowrap="nowrap">会议/期刊数</th>
+            <th nowrap="nowrap">已下载</th>
+            <th nowrap="nowrap">总数</th>
+            <th nowrap="nowrap">下载比例</th>
             </thead>
             <tbody>
                 <tr><td>CCF A</td><td>{{ ccfa|length }}</td><td>{{ an }}</td><td>{{ aN }}</td><td>{{ ap|floatformat:2 }} %</td></tr>
                 <tr><td>CCF B</td><td>{{ ccfb|length }}</td><td>{{ bn }}</td><td>{{ bN }}</td><td>{{ bp|floatformat:2 }} %</td></tr>
             </tbody>
         </table>
-        <p class = "table-annotation">点击表头进行排序</p>
-       <table class = "table table-striped table-bordered" border = "1">
+        <p class="table-annotation">点击表头进行排序</p>
+       <table class="table table-striped table-bordered" border="1">
          <thead>
             <tr>
-             <th nowrap = "nowrap">会议名称</th>
-             <th nowrap = "nowrap">类别</th>
-             <th nowrap = "nowrap">领域</th>
-             <th nowrap = "nowrap">影响因子</th>
-             <th nowrap = "nowrap">已下载</th>
-             <th nowrap = "nowrap">总数</th>
-             <th nowrap = "nowrap">下载比例</th>
-             <th nowrap = "nowrap">句子数</th>
+             <th nowrap="nowrap">会议名称</th>
+             <th nowrap="nowrap">类别</th>
+             <th nowrap="nowrap">领域</th>
+             <th nowrap="nowrap">影响因子</th>
+             <th nowrap="nowrap">已下载</th>
+             <th nowrap="nowrap">总数</th>
+             <th nowrap="nowrap">下载比例</th>
+             <th nowrap="nowrap">句子数</th>
            </tr>
          </thead>
          <tbody>
@@ -54,12 +54,12 @@
         {% endfor %}
          </tbody>
        </table>
-        <p  id = 'table2' class = "table-annotation">articles中共有不同期刊数{{ articles_journal_count }}。 其中，前20个为</p>
-       <table class = "table table-striped table-bordered" border = "1">
+        <p  id='table2' class="table-annotation">articles中共有不同期刊数{{ articles_journal_count }}。 其中，前20个为</p>
+       <table class="table table-striped table-bordered" border="1">
          <thead>
             <tr>
-             <th nowrap = "nowrap">期刊名称</th>
-             <th nowrap = "nowrap">数量</th>
+             <th nowrap="nowrap">期刊名称</th>
+             <th nowrap="nowrap">数量</th>
            </tr>
          </thead>
          <tbody>
@@ -68,12 +68,12 @@
         {% endfor %}
          </tbody>
        </table>
-        <p class = "table-annotation">articles领域及数量</p>
-       <table class = "table table-striped table-bordered" border = "1">
+        <p class="table-annotation">articles领域及数量</p>
+       <table class="table table-striped table-bordered" border="1">
          <thead>
             <tr>
-             <th nowrap = "nowrap">领域</th>
-             <th nowrap = "nowrap">总量</th>
+             <th nowrap="nowrap">领域</th>
+             <th nowrap="nowrap">总量</th>
            </tr>
          </thead>
          <tbody>
@@ -82,12 +82,12 @@
          {% endfor %}
          </tbody>
        </table>
-        <p id = 'table3' class = "table-annotation">arxiv领域及数量</p>
-       <table class = "table table-striped table-bordered" border = "1">
+        <p id='table3' class="table-annotation">arxiv领域及数量</p>
+       <table class="table table-striped table-bordered" border="1">
          <thead>
             <tr>
-             <th nowrap = "nowrap">领域</th>
-             <th nowrap = "nowrap">总量</th>
+             <th nowrap="nowrap">领域</th>
+             <th nowrap="nowrap">总量</th>
            </tr>
          </thead>
          <tbody>
@@ -101,6 +101,6 @@
 {% endblock %}
 
 {% block script %}
-<script src = "{% static 'js/table-sort.js' %}"></script>
-<script src = "{% static 'js/table-jump.js' %}"></script>
+<script src="{% static 'js/table-sort.js' %}"></script>
+<script src="{% static 'js/table-jump.js' %}"></script>
 {% endblock %}
