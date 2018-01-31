@@ -36,24 +36,56 @@ del deps, poss
 
 
 if True:
-    class MongoDict:
-        def __init__(self, get_func):
-            self.get = get_func
+    class MongoDictT2I:
+        def __init__(self):
+            self.cache = {}
 
-    def t2i_get(t, default=None):
-        o = dbc.common.tokens.find_one({'t': t}, {'_id': 1})
-        if o:
-            return o['_id']
-        return default
+        def get(self, t, default=None):
+            if t in self.cache:
+                return self.cache[t]
+            o = dbc.common.tokens.find_one({'t': t}, {'_id': 1})
+            if o:
+                self.cache[t] = o['_id']
+                return o['_id']
+            return default
 
-    def i2t_get(i, default=None):
-        o = dbc.common.tokens.find_one({'_id': i}, {'_id': 0, 't': 1})
-        if o:
-            return o['t']
-        return default
+        @timeit
+        def get_many(self, tt, ignore=True):  # * -> 0
+            to_fetch = set([t for t in tt if t not in self.cache])
+            for o in dbc.common.tokens.find({'t': {'$in': list(to_fetch)}}, {'t': 1}):
+                self.cache[o['t']] = o['_id']
+            if ignore:
+                ii = [self.cache.get(t, -1) if t != '*' else 0 for t in tt]
+                ii = [i for i in ii if i != -1]
+            else:
+                ii = [self.cache.get(t, t) if t != '*' else 0 for t in tt]
+            return ii
 
-    t2i = MongoDict(t2i_get)
-    i2t = MongoDict(i2t_get)  
+    class MongoDictI2T:
+        def __init__(self):
+            self.cache = {}
+
+        def get(self, i, default=None):
+            if i in self.cache:
+                return self.cache[i]
+            o = dbc.common.tokens.find_one({'_id': i}, {'_id': 0, 't': 1})
+            if o:
+                self.cache[i] = o['t']
+                return o['t']
+            return default
+
+        @timeit
+        def get_many(self, ii):
+            to_fetch = set([i for i in ii if i not in self.cache])
+            for o in dbc.common.tokens.find({'_id': {'$in': list(to_fetch)}}, {'t': 1}):
+                self.cache[o['_id']] = o['t']
+            tt = [self.cache.get(i, i) if i else '*' for i in ii]
+            return tt
+
+    t2i = MongoDictT2I()
+    tt2ii = t2i.get_many
+    i2t = MongoDictI2T()
+    ii2tt = i2t.get_many
 else:
     print 'loading tokens'
     tokens = list(dbc.common.tokens.find())
@@ -61,16 +93,16 @@ else:
     i2t = dict([(t['_id'], t['t']) for t in tokens])
     del tokens
 
-@timeit
-def tt2ii(tt, ignore=True):  # * -> 0
-    if ignore:
-        ii = [t2i.get(t, -1) if t != '*' else 0 for t in tt]
-        return [i for i in ii if i != -1]
-    return [t2i.get(t, t) if t != '*' else 0 for t in tt]
+    @timeit
+    def tt2ii(tt, ignore=True):  # * -> 0
+        if ignore:
+            ii = [t2i.get(t, -1) if t != '*' else 0 for t in tt]
+            return [i for i in ii if i != -1]
+        return [t2i.get(t, t) if t != '*' else 0 for t in tt]
 
-@timeit
-def ii2tt(ii):
-    return [i2t.get(i, i) if i2t.get(i, i) else '*' for i in ii]
+    @timeit
+    def ii2tt(ii):
+        return [i2t.get(i, i) if i else '*' for i in ii]
 
 
 # query processing
@@ -314,9 +346,11 @@ def cleaned_sentence(tokens, highlights):
     r = r.replace('\b ', '')
     r = r.replace(' <strong>\b', '<strong>')
     r = r.replace('\b</strong> ', '</strong>')
+    assert '\b' not in r
     return r
 
 
+@timeit
 def paper_source_str(pid):
     s = {}
     p = mongo_get_object(DblpPaper, pk=pid)

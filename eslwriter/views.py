@@ -149,6 +149,7 @@ def sentence_query_view(request):
 
     return render(request, 'eslwriter/sentence_result.html', {'gc': gc, 'sr': sr, 'page_nums_list': page_nums_list})
 
+
 @timeit
 def group_query(iiii, dd, cids, ref, qmii):
     # iiii: [[1],[2], ...]
@@ -177,6 +178,7 @@ def group_query(iiii, dd, cids, ref, qmii):
     return gr
 
 
+@timeit
 def group_count_query(q, cids):
     count = 0
     if not q:
@@ -185,6 +187,7 @@ def group_count_query(q, cids):
     for cid in cids:
         count += dbc.sentences[str(cid)].count(q, limit=5000)   # limit=9973
     return count
+
 
 @timeit
 def sentence_query(ii, dd, cids, ref, start=0, count=100):
