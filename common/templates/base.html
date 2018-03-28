@@ -37,6 +37,10 @@ var _hmt = _hmt || [];
 </head>
 
 <body><div id="wrapper">
+	<div class="alert alert-warning alert-dismissible fade in text-center" style="margin-bottom: 0px" role="alert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<a class="alert-link" href="http://www.esoda.org/" target="_blank">{% trans "Upgrade now to" %} {% trans "ESODA" %}</a> —— {% trans "Unlock your whole new experience of AI-powered writing." %}
+	</div>
 {% if debug %}
 	<div style="padding-left: 1%; background: cornsilk;">{% trans 'NOTE: You are now visiting an INTERNAL version.' %} <a href="http://www.eslwriter.org/">{% trans 'Switch to the PUBLIC version &gt;' %}</a></div>
 {% endif %}
@@ -52,6 +56,7 @@ var _hmt = _hmt || [];
 					{% block function_div %}
 					{% endblock %}
 					<ul class="nav navbar-nav navbar-right">
+						<li><a href="http://www.esoda.org/">{% trans 'ESODA' %} <sup style="color: blue"><i>{% trans "New!" %}</i></sup></a></li>
 						<li><a href="{% url 'eslwriter_guide' %}">{% trans 'Guide' %}</a></li>
 						{% if not user.is_authenticated %}
 						<li><a href="{% url 'auth_login' %}">{% trans 'Sign in' %}</a></li>
