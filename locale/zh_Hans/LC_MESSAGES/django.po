@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-18 10:46+0800\n"
+"POT-Creation-Date: 2018-03-28 16:03+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,15 +45,15 @@ msgstr ""
 msgid "New password confirmation"
 msgstr ""
 
-#: .\common\forms.py:70 .\legacy\forms.py:15
+#: .\common\forms.py:70
 msgid "Name of your corpus."
 msgstr ""
 
-#: .\common\forms.py:71 .\legacy\forms.py:16
+#: .\common\forms.py:71
 msgid "Description of your corpus."
 msgstr ""
 
-#: .\common\forms.py:75 .\legacy\forms.py:20
+#: .\common\forms.py:75
 msgid "This corpus name is too long."
 msgstr ""
 
@@ -117,43 +117,45 @@ msgid ""
 "soon."
 msgstr ""
 
-#: .\common\templates\base.html:41
+#: .\common\templates\base.html:42
 msgid "NOTE: You are now visiting an INTERNAL version."
 msgstr ""
 
-#: .\common\templates\base.html:41
+#: .\common\templates\base.html:42
 msgid "Switch to the PUBLIC version &gt;"
 msgstr ""
 
-#: .\common\templates\base.html:55
+#: .\common\templates\base.html:56
 msgid "Guide"
-msgstr ""
-
-#: .\common\templates\base.html:57
-#: .\common\templates\registration\login.html:30
-msgid "Sign in"
-msgstr ""
+msgstr "使用说明"
 
 #: .\common\templates\base.html:58
+#: .\common\templates\registration\login.html:30
+#: .\eslwriter\templates\eslwriter\result.html:174
+#: .\eslwriter\templates\eslwriter\result.html:242
+msgid "Sign in"
+msgstr "登录"
+
+#: .\common\templates\base.html:59
 #: .\common\templates\registration\registration_form.html:53
 msgid "Sign up"
-msgstr ""
+msgstr "注册"
 
-#: .\common\templates\base.html:63 .\common\templates\profile_base.html:9
+#: .\common\templates\base.html:64 .\common\templates\profile_base.html:9
 msgid "Settings"
-msgstr ""
+msgstr "个人设置"
 
-#: .\common\templates\base.html:65
+#: .\common\templates\base.html:66
 msgid "Sign out"
-msgstr ""
-
-#: .\common\templates\base.html:81
-msgid "Contact&nbsp;Us"
-msgstr ""
+msgstr "登出"
 
 #: .\common\templates\base.html:82
+msgid "Contact&nbsp;Us"
+msgstr "联系我们"
+
+#: .\common\templates\base.html:83
 msgid "About&nbsp;Us"
-msgstr ""
+msgstr "关于团队"
 
 #: .\common\templates\maintenance.html:11
 msgid "Sorry! We are down for maintenance."
@@ -170,7 +172,7 @@ msgstr ""
 #: .\common\templates\profile\corpus.html:122
 #: .\common\templates\registration\registration_steps.html:6
 msgid "Activate"
-msgstr ""
+msgstr "激活邮箱"
 
 #: .\common\templates\profile\corpus.html:125
 #: .\common\templates\profile\corpus_update.html:10
@@ -192,7 +194,6 @@ msgstr ""
 
 #: .\common\templates\profile\corpus_update.html:8
 #: .\common\templates\profile\corpus_update.html:11
-#: .\eslwriter\templates\eslwriter\result.html:178
 msgid "Create Corpus"
 msgstr ""
 
@@ -382,7 +383,6 @@ msgid ""
 msgstr ""
 
 #: .\common\templates\registration\login.html:11
-#: .\eslwriter\templates\eslwriter\result.html:174
 msgid "Sign In"
 msgstr ""
 
@@ -475,11 +475,11 @@ msgstr ""
 msgid "Choose corpus in domain"
 msgstr ""
 
-#: .\eslwebsite\settings.py:149 .\eslwebsite\settings_debug.py:150
+#: .\eslwebsite\settings_debug.py:148
 msgid "English"
 msgstr ""
 
-#: .\eslwebsite\settings.py:150 .\eslwebsite\settings_debug.py:151
+#: .\eslwebsite\settings_debug.py:149
 msgid "Simplified Chinese"
 msgstr ""
 
@@ -518,24 +518,24 @@ msgid ""
 msgstr ""
 
 #: .\eslwriter\templates\eslwriter\guide.html:36
-#: .\eslwriter\templates\eslwriter\index.html:59
+#: .\eslwriter\templates\eslwriter\index.html:71
 msgid "(n+v)"
 msgstr "(主谓)"
 
 #: .\eslwriter\templates\eslwriter\guide.html:36
-#: .\eslwriter\templates\eslwriter\index.html:59
-#: .\eslwriter\templates\eslwriter\index.html:77
+#: .\eslwriter\templates\eslwriter\index.html:71
+#: .\eslwriter\templates\eslwriter\index.html:89
 msgid "(v+n)"
 msgstr "(动宾)"
 
 #: .\eslwriter\templates\eslwriter\guide.html:36
-#: .\eslwriter\templates\eslwriter\index.html:59
+#: .\eslwriter\templates\eslwriter\index.html:71
 msgid "(prep)"
 msgstr "(介词)"
 
 #: .\eslwriter\templates\eslwriter\guide.html:36
-#: .\eslwriter\templates\eslwriter\index.html:51
-#: .\eslwriter\templates\eslwriter\index.html:59
+#: .\eslwriter\templates\eslwriter\index.html:63
+#: .\eslwriter\templates\eslwriter\index.html:71
 msgid "(modifies)"
 msgstr "(修饰)"
 
@@ -583,86 +583,107 @@ msgstr ""
 
 #: .\eslwriter\templates\eslwriter\guide.html:59
 msgid "&gt; Enjoy ESLWriter Now!"
+msgstr "&gt; 开启ESLWriter之旅!"
+
+#: .\eslwriter\templates\eslwriter\index.html:11
+msgid "Upgrade now to"
+msgstr "点击升级到"
+
+#: .\eslwriter\templates\eslwriter\index.html:11
+#: .\eslwriter\templates\eslwriter\index.html:16
+msgid "ESODA"
+msgstr "易搜搭"
+
+#: .\eslwriter\templates\eslwriter\index.html:11
+msgid "Unlock your whole new experience of AI-powered writing."
+msgstr "全新写作体验，更方便，更智能"
+
+#: .\eslwriter\templates\eslwriter\index.html:16
+msgid "New!"
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:33
+#: .\eslwriter\templates\eslwriter\index.html:45
 msgid "Enter&nbsp;English&nbsp;search&nbsp;terms ..."
-msgstr ""
+msgstr "查询英文用法"
 
-#: .\eslwriter\templates\eslwriter\index.html:37
+#: .\eslwriter\templates\eslwriter\index.html:49
 msgid "Search"
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:43
+#: .\eslwriter\templates\eslwriter\index.html:55
 msgid "Usage"
-msgstr ""
+msgstr "用法示例"
 
-#: .\eslwriter\templates\eslwriter\index.html:49
+#: .\eslwriter\templates\eslwriter\index.html:61
 msgid ""
 "Use the operators below in your search to make your results more precise."
-msgstr ""
+msgstr "多种搜索功能精确直达例句"
 
-#: .\eslwriter\templates\eslwriter\index.html:51
+#: .\eslwriter\templates\eslwriter\index.html:63
 msgid "collocation"
 msgstr "搜搭配"
 
-#: .\eslwriter\templates\eslwriter\index.html:59
+#: .\eslwriter\templates\eslwriter\index.html:71
 msgid ""
 "Tips: When you enter one or two terms in the search bar, ESLWriter will "
 "automatically show suggested collocation types"
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:59
+#: .\eslwriter\templates\eslwriter\index.html:71
 msgid "Wildcard"
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:59
+#: .\eslwriter\templates\eslwriter\index.html:71
 msgid "can be used as a placeholder for one of the two collocated words. "
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:64
+#: .\eslwriter\templates\eslwriter\index.html:76
 msgid "include synonyms"
 msgstr "搜同义"
 
-#: .\eslwriter\templates\eslwriter\index.html:72
+#: .\eslwriter\templates\eslwriter\index.html:84
 msgid "Tips: "
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:72
+#: .\eslwriter\templates\eslwriter\index.html:84
 msgid "&lt;word&gt;?"
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:72
+#: .\eslwriter\templates\eslwriter\index.html:84
 msgid "includes synonyms of &lt;word&gt; in the search results."
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:77
-#: .\eslwriter\templates\eslwriter\index.html:85
+#: .\eslwriter\templates\eslwriter\index.html:89
+#: .\eslwriter\templates\eslwriter\index.html:97
 msgid "mixed use"
 msgstr "混合搜"
 
-#: .\eslwriter\templates\eslwriter\index.html:85
+#: .\eslwriter\templates\eslwriter\index.html:97
 msgid "Tips: ESLWriter supports "
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:85
+#: .\eslwriter\templates\eslwriter\index.html:97
 msgid "of both features above."
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:90
+#: .\eslwriter\templates\eslwriter\index.html:102
 msgid "basic search"
 msgstr "搜短语"
 
-#: .\eslwriter\templates\eslwriter\index.html:98
+#: .\eslwriter\templates\eslwriter\index.html:110
 msgid "Tips: Enter"
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:98
+#: .\eslwriter\templates\eslwriter\index.html:110
 msgid "a keyword or phrase"
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:98
+#: .\eslwriter\templates\eslwriter\index.html:110
 msgid "to find usage examples from the target corpus."
+msgstr ""
+
+#: .\eslwriter\templates\eslwriter\result.html:178
+msgid "Create corpus"
 msgstr ""
 
 #: .\eslwriter\templates\eslwriter\result.html:183
@@ -683,19 +704,19 @@ msgid "Sorry, no results found for"
 msgstr ""
 
 #: .\eslwriter\templates\eslwriter\result.html:242
-msgid "Please check your keywords, or "
-msgstr ""
-
-#: .\eslwriter\templates\eslwriter\result.html:242
-msgid "sign in "
+msgid "Please check your keywords, or"
 msgstr ""
 
 #: .\eslwriter\templates\eslwriter\result.html:242
 msgid "to choose a target corpus that matches your domain."
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\sentence_result.html:4
+#: .\eslwriter\templates\eslwriter\sentence_result.html:5
 msgid "of"
+msgstr ""
+
+#: .\eslwriter\templates\eslwriter\sentence_result.html:7
+msgid "Only found similar results on left."
 msgstr ""
 
 #: .\eslwriter\templates\eslwriter_base.html:7
@@ -734,26 +755,10 @@ msgstr ""
 
 #: .\fine_uploader\templates\fine_uploader\upload.html:78
 #: .\fine_uploader\templates\fine_uploader\upload.html:82
-#: .\legacy\templates\update_paper.html:14
 msgid "Upload Papers"
 msgstr ""
 
-#: .\legacy\forms.py:33 .\legacy\templates\update_paper.html:22
-msgid "Actual title of this paper."
-msgstr ""
-
-#: .\legacy\forms.py:39
-msgid "This title is too long."
-msgstr ""
-
-#: .\legacy\templates\update_paper.html:10
-msgid "Modify Paper"
-msgstr ""
-
-#: .\legacy\templates\update_paper.html:12
-msgid "All Avialable Corpora"
-msgstr ""
-
-#: .\legacy\templates\update_paper.html:20
-msgid "Title"
-msgstr ""
+#, fuzzy
+#~| msgid "Sign in"
+#~ msgid "sign in"
+#~ msgstr "登录"

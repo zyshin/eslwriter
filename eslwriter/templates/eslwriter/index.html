@@ -4,6 +4,17 @@
 
 {% block title %}ESLWriter{% endblock %}
 
+{% block esoda_header %}
+<div class="alert alert-warning alert-dismissible fade in text-center" style="margin-bottom: 0px" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<a class="alert-link" href="http://www.esoda.org/" target="_blank">&gt; {% trans "Upgrade now to" %} {% trans "ESODA" %}</a> —— {% trans "Unlock your whole new experience of AI-powered writing." %}
+</div>
+{% endblock %}
+
+{% block esoda_li %}
+<li><a href="http://www.esoda.org/">{% trans 'ESODA' %} <sup style="color: blue"><i>{% trans "New!" %}</i></sup></a></li>
+{% endblock %}
+
 {% block content %}
 <div class='main'>
 	<div class='container'>
