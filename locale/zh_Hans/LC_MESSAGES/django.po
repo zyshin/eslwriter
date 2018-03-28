@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-28 16:03+0800\n"
+"POT-Creation-Date: 2018-03-28 16:09+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -518,24 +518,24 @@ msgid ""
 msgstr ""
 
 #: .\eslwriter\templates\eslwriter\guide.html:36
-#: .\eslwriter\templates\eslwriter\index.html:71
+#: .\eslwriter\templates\eslwriter\index.html:70
 msgid "(n+v)"
 msgstr "(主谓)"
 
 #: .\eslwriter\templates\eslwriter\guide.html:36
-#: .\eslwriter\templates\eslwriter\index.html:71
-#: .\eslwriter\templates\eslwriter\index.html:89
+#: .\eslwriter\templates\eslwriter\index.html:70
+#: .\eslwriter\templates\eslwriter\index.html:88
 msgid "(v+n)"
 msgstr "(动宾)"
 
 #: .\eslwriter\templates\eslwriter\guide.html:36
-#: .\eslwriter\templates\eslwriter\index.html:71
+#: .\eslwriter\templates\eslwriter\index.html:70
 msgid "(prep)"
 msgstr "(介词)"
 
 #: .\eslwriter\templates\eslwriter\guide.html:36
-#: .\eslwriter\templates\eslwriter\index.html:63
-#: .\eslwriter\templates\eslwriter\index.html:71
+#: .\eslwriter\templates\eslwriter\index.html:62
+#: .\eslwriter\templates\eslwriter\index.html:70
 msgid "(modifies)"
 msgstr "(修饰)"
 
@@ -585,100 +585,100 @@ msgstr ""
 msgid "&gt; Enjoy ESLWriter Now!"
 msgstr "&gt; 开启ESLWriter之旅!"
 
-#: .\eslwriter\templates\eslwriter\index.html:11
+#: .\eslwriter\templates\eslwriter\index.html:10
 msgid "Upgrade now to"
 msgstr "点击升级到"
 
-#: .\eslwriter\templates\eslwriter\index.html:11
-#: .\eslwriter\templates\eslwriter\index.html:16
+#: .\eslwriter\templates\eslwriter\index.html:10
+#: .\eslwriter\templates\eslwriter\index.html:15
 msgid "ESODA"
 msgstr "易搜搭"
 
-#: .\eslwriter\templates\eslwriter\index.html:11
+#: .\eslwriter\templates\eslwriter\index.html:10
 msgid "Unlock your whole new experience of AI-powered writing."
 msgstr "全新写作体验，更方便，更智能"
 
-#: .\eslwriter\templates\eslwriter\index.html:16
+#: .\eslwriter\templates\eslwriter\index.html:15
 msgid "New!"
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:45
+#: .\eslwriter\templates\eslwriter\index.html:44
 msgid "Enter&nbsp;English&nbsp;search&nbsp;terms ..."
 msgstr "查询英文用法"
 
-#: .\eslwriter\templates\eslwriter\index.html:49
+#: .\eslwriter\templates\eslwriter\index.html:48
 msgid "Search"
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:55
+#: .\eslwriter\templates\eslwriter\index.html:54
 msgid "Usage"
 msgstr "用法示例"
 
-#: .\eslwriter\templates\eslwriter\index.html:61
+#: .\eslwriter\templates\eslwriter\index.html:60
 msgid ""
 "Use the operators below in your search to make your results more precise."
 msgstr "多种搜索功能精确直达例句"
 
-#: .\eslwriter\templates\eslwriter\index.html:63
+#: .\eslwriter\templates\eslwriter\index.html:62
 msgid "collocation"
 msgstr "搜搭配"
 
-#: .\eslwriter\templates\eslwriter\index.html:71
+#: .\eslwriter\templates\eslwriter\index.html:70
 msgid ""
 "Tips: When you enter one or two terms in the search bar, ESLWriter will "
 "automatically show suggested collocation types"
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:71
+#: .\eslwriter\templates\eslwriter\index.html:70
 msgid "Wildcard"
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:71
+#: .\eslwriter\templates\eslwriter\index.html:70
 msgid "can be used as a placeholder for one of the two collocated words. "
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:76
+#: .\eslwriter\templates\eslwriter\index.html:75
 msgid "include synonyms"
 msgstr "搜同义"
 
-#: .\eslwriter\templates\eslwriter\index.html:84
+#: .\eslwriter\templates\eslwriter\index.html:83
 msgid "Tips: "
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:84
+#: .\eslwriter\templates\eslwriter\index.html:83
 msgid "&lt;word&gt;?"
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:84
+#: .\eslwriter\templates\eslwriter\index.html:83
 msgid "includes synonyms of &lt;word&gt; in the search results."
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:89
-#: .\eslwriter\templates\eslwriter\index.html:97
+#: .\eslwriter\templates\eslwriter\index.html:88
+#: .\eslwriter\templates\eslwriter\index.html:96
 msgid "mixed use"
 msgstr "混合搜"
 
-#: .\eslwriter\templates\eslwriter\index.html:97
+#: .\eslwriter\templates\eslwriter\index.html:96
 msgid "Tips: ESLWriter supports "
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:97
+#: .\eslwriter\templates\eslwriter\index.html:96
 msgid "of both features above."
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:102
+#: .\eslwriter\templates\eslwriter\index.html:101
 msgid "basic search"
 msgstr "搜短语"
 
-#: .\eslwriter\templates\eslwriter\index.html:110
+#: .\eslwriter\templates\eslwriter\index.html:109
 msgid "Tips: Enter"
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:110
+#: .\eslwriter\templates\eslwriter\index.html:109
 msgid "a keyword or phrase"
 msgstr ""
 
-#: .\eslwriter\templates\eslwriter\index.html:110
+#: .\eslwriter\templates\eslwriter\index.html:109
 msgid "to find usage examples from the target corpus."
 msgstr ""
 
