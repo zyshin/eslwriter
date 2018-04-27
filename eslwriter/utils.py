@@ -346,7 +346,8 @@ def cleaned_sentence(tokens, highlights):
     r = r.replace('\b ', '')
     r = r.replace(' <strong>\b', '<strong>')
     r = r.replace('\b</strong> ', '</strong>')
-    # assert '\b' not in r  # will fail
+    r = r.replace('\b', ' ')
+    # assert '\b' not in r
     return r
 
 

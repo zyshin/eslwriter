@@ -146,7 +146,7 @@ function update_nav_status(nav_container_tag,pageNums,curPage){
 {% endblock %}
 
 {% block function_div %}
-<form style="position: absolute; left:250px" action="{% url 'eslwriter' %}" method="GET" onsubmit="return true;">
+<form style="margin-left: 225px" action="{% url 'eslwriter' %}" method="GET" onsubmit="return true;">
 	<div class="input-group navbar-form navbar-left">
 		<div style="width: 400px">
 			<!-- <input id="fake_user_name" name="fake_user[name]" style="position:absolute; top:-100px; display:none;" type="text" value="Safari"> -->
@@ -171,11 +171,11 @@ function update_nav_status(nav_container_tag,pageNums,curPage){
 						<div class="panel-body">
 							{% if not user.is_authenticated %}
 								<div style="height:40px; text-align: center"> 
-									<a href="{% url 'auth_login' %}" style="line-height: 40px;" class="btn-link">{% trans 'Sign In' %}</a>
+									<a href="{% url 'auth_login' %}" style="line-height: 40px;" class="btn-link">{% trans 'Sign in' %}</a>
 								</div>
 							{% elif not profile.pri_corpus %}
 								<div style="height:40px; text-align: center">
-									<a href="{% url 'profile' %}" style="line-height: 40px;" class="btn-link">{% trans 'Create Corpus' %}</a>
+									<a href="{% url 'profile' %}" style="line-height: 40px;" class="btn-link">{% trans 'Create corpus' %}</a>
 								</div>
 							{% else %}
 								<ul id="pri-data-container">
@@ -236,7 +236,7 @@ function update_nav_status(nav_container_tag,pageNums,curPage){
 			<div style="text-align: center; padding-top: 80px; padding-bottom: 200px;">
 				<p class="error-body">{% trans 'Sorry, no results found for' %} "{{ q }}".</p>
 				<br>
-				<h4>{% trans 'Please check your keywords, or ' %}<a href="{% url 'auth_login' %}">{% trans 'sign in ' %}</a>{% trans 'to choose a target corpus that matches your domain.' %}</h4>
+				<h4>{% trans 'Please check your keywords, or' %} <a href="{% url 'auth_login' %}">{% trans 'Sign in' %}</a> {% trans 'to choose a target corpus that matches your domain.' %}</h4>
 				{% comment %}
 				<span>抱歉，在选定语料库中没有找到与您查询的"{{ q }}"相符的内容。</span>
 				<br><br><br>
